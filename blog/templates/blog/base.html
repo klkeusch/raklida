@@ -35,6 +35,23 @@
                     {% if request.user.is_authenticated %}
 
                         <li class="nav-item">
+                           <a href="{% url 'sensorvalues_list' %}" class="nav-link">Messwerte</a>
+
+{% comment %}                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuSensVals"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
+                                    Messwerte
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuSensVals">
+                                    <button class="dropdown-item" type="button">Gemessene Werte</button>
+                                    <button class="dropdown-item" type="button">Another action</button>
+                                    <button class="dropdown-item" type="button">Something else here</button>
+                                </div>
+                            </div>{% endcomment %}
+
+                        </li>
+
+                        <li class="nav-item">
                             <a href="{% url 'profile' request.user.pk %}" class="nav-link">Benutzerprofil</a>
                         </li>
                         <li class="nav-item">
