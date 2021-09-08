@@ -16,4 +16,4 @@ class DataListView(generic.ListView):
 class TableView(tables.SingleTableView):
     table_class = SimpleTable
     queryset = Data.objects.all()
-    template_name = "simple_list.html"
+    template_name = "sensorvalues_list.html"

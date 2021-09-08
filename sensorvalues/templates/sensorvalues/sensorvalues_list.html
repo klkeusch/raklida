@@ -11,22 +11,7 @@
         </div>
     </div>
 
+{% load django_tables2 %}
+{% render_table table %}
 
-
-        <table>
-    <tr>
-        <th>Field 1</th>
-        ...
-        <th>Field N</th>
-    </tr>
-    {% for data in data_list %}
-    <tr>
-        <td>{{ data.timestamp }}</td>
-        ...
-        <td>{{ data.value_string }}</td>
-    </tr>
-    {% endfor %}
-</table>
-
-    </div>
 {% endblock content %}

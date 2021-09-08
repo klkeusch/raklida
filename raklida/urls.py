@@ -24,8 +24,14 @@ from sensorvalues import views as sensorvalues_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", include('blog.urls')),
-    path("sensorvalues/", sensorvalues_views.DataListView.as_view(template_name="sensorvalues/sensorvalues_list.html"), name="sensorvalues_list"),
-    path("sensorvalues-table/", sensorvalues_views.TableView.as_view(template_name="sensorvalues/simple_list.html"), name="sensorvalues_table"),
+    # Sensorvalues below
+    path("sensorvalues/", sensorvalues_views.TableView.as_view(template_name="sensorvalues/sensorvalues_list.html"),
+         name="sensorvalues_list"),
+    #path("sensorvalues/", sensorvalues_views.DataListView.as_view(template_name="sensorvalues/sensorvalues_list.html"),
+    #     name="sensorvalues_list"),
+    path("sensorvalues-table/", sensorvalues_views.TableView.as_view(template_name="sensorvalues/simple_list.html"),
+         name="sensorvalues_table"),
+    # Sensorvalues above
     # User related paths below
     path("register/", profiles_views.register, name="register"),
     path("login/", auth_views.LoginView.as_view(template_name="profiles/login.html"), name="login"),
