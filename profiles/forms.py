@@ -15,7 +15,7 @@ class RegisterForm(UserCreationForm):
 
 
 class UserUpdateForm(forms.ModelForm):
-    email = forms.EmailField(required=True)
+    email = forms.EmailField(required=True, label="E-Mail-Adresse")
     first_name = forms.CharField(max_length=50, required=True, label="Vorname")
     last_name = forms.CharField(max_length=50, required=True, label="Nachname")
 
