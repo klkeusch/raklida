@@ -1,0 +1,32 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+    <div class="landing bg-dark">
+        <div class="container">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-sm-12 col-lg-6 text-center">
+                    <h1 class="text-white font-weight-bold display-3 mb-3">Raum-Klimadaten-System der htw saar</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+        <table>
+    <tr>
+        <th>Field 1</th>
+        ...
+        <th>Field N</th>
+    </tr>
+    {% for data in data_list %}
+    <tr>
+        <td>{{ data.timestamp }}</td>
+        ...
+        <td>{{ data.value_string }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+    </div>
+{% endblock content %}
