@@ -1,0 +1,7 @@
+.LOG
+06:46 08.09.2021
+Anlegen des raklida-Projekt
+Anpassen der Datenbankkonfig auf psql, mit psycopg2
+Nutzung von wetterstation_db_old3 aus Backup: es muss alles in eine Datenbank da cross-database referencing mit django = problem
+Anlegen einer Blog App für FaSi zur Information der Nutzer(?) - Spielerei aber passt
+Grundlage: Django for Beginners, Buleyzuk
