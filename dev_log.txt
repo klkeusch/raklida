@@ -10,3 +10,10 @@ Grundlage: Django for Beginners, Buleyzuk
 Blog-App Basis angelegt, wird nun ausgebaut. 
 Lokalisierung auf Deutsch umgestellt: Sprache + Zeitzone 
 Nächster Schritt: profile App
+
+08:37 08.09.2021
+Für Profiles: paket crispy_form_tags
+Registrierung: nur zugänglich für FaSi - deshalb auch drin gelassen
+	Zugang über Rolle? Oder spezifizieren für nur einen User?
+Lokalisierung der RegisterForm-Felder mit label=""
+
