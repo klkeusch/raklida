@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'profiles',
     'crispy_forms',
     'sensorvalues',
+    'django_tables2',
 ]
 
 MIDDLEWARE = [
