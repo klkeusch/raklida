@@ -8,13 +8,13 @@
                          style="background-image:url({{ blog.author.profile.image.url }})"></div>
                     <span>{{ blog.author.username }}</span>
                 </a>
-                <small class="text-muted">{{ blog.date_published|date:"d/m/Y h:i a" }}</small>
+                <small class="text-muted">{{ blog.date_published|date:"d.m.Y | H:i a" }}</small>
             </div>
             <div class="col-9 question-information pb-1">
                 <h1 class="blog-card-title mb-3 font-weight-bold">{{ blog.title }}</h1>
                 {% if request.user == blog.author %}
-                    <a href="{% url 'blog_update' blog.pk %}" class="btn btn-sm btn-primary"> Update</a>
-                    <a href="{% url 'blog_delete' blog.pk %}" class="btn btn-sm btn-danger"> Delete</a>
+                    <a href="{% url 'blog_update' blog.pk %}" class="btn btn-sm btn-primary">Bearbeiten</a>
+                    <a href="{% url 'blog_delete' blog.pk %}" class="btn btn-sm btn-danger">Löschen</a>
                 {% endif %}
             </div>
         </div>
