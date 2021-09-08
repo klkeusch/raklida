@@ -17,7 +17,6 @@ Registrierung: nur zugänglich für FaSi - deshalb auch drin gelassen
 	Zugang über Rolle? Oder spezifizieren für nur einen User?
 Lokalisierung der RegisterForm-Felder mit label=""
 
-
 16:54 08.09.2021
 Vorlage für weitere Schritte fertig: Blog mit CBVs und Profilmöglichkeit
 Nächste Schritte: Messwerte in Tabellenform anzeigen auf einer Seite (django-tables2?)
@@ -26,3 +25,9 @@ Später filtern über Zuweisung Datenbank Gerät<>Benutzer --> filtern/anzeigen 
 16:59 08.09.2021
 Mit pip freeze > requirements.txt - die benötigten Packets aktuell halten!
 Test mit neuem Branch...
+
+20:57 08.09.2021
+Django_tables2 installiert; eingebunden wie in Beispiel auf Github - ok!; Danach ergänzt in eigenem Layout. Urls angepasst; 
+Menü in base.html erweitert um Messwerte (hier ggf. Dropdown Menü? Auskommentierte Vorlage bereits enthalten)
+--> Anzeige der Daten nur für jeweils angemeldeten Benutzer - siehe 16:54 08.09.2021
+Nächster Schritt wäre das Einbinden der Diagramme
