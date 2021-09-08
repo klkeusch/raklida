@@ -20,17 +20,17 @@ from django.conf.urls.static import static
 from django.urls import path, include
 from profiles import views as profiles_views
 from sensorvalues import views as sensorvalues_views
+from sensorvalues import tables as tables
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", include('blog.urls')),
     # Sensorvalues below
-    path("sensorvalues/", sensorvalues_views.TableView.as_view(template_name="sensorvalues/sensorvalues_list.html"),
-         name="sensorvalues_list"),
+    path("sensorvalues/", sensorvalues_views.data_list, name="sensorvalues_list"),
+    path("sensorvalues/devices", sensorvalues_views.DevicesTableView.as_view(template_name="sensorvalues/devices_list.html.html"),
+         name="devices_list"),
     #path("sensorvalues/", sensorvalues_views.DataListView.as_view(template_name="sensorvalues/sensorvalues_list.html"),
     #     name="sensorvalues_list"),
-    path("sensorvalues-table/", sensorvalues_views.TableView.as_view(template_name="sensorvalues/simple_list.html"),
-         name="sensorvalues_table"),
     # Sensorvalues above
     # User related paths below
     path("register/", profiles_views.register, name="register"),

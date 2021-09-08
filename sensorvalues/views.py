@@ -4,7 +4,8 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
 import django_tables2 as tables
-from .models import Data, SimpleTable
+from .tables import DataTable
+from .models import Data, Devices, DevicesTable
 
 
 class DataListView(generic.ListView):
@@ -13,7 +14,18 @@ class DataListView(generic.ListView):
     paginate_by = 10
 
 
-class TableView(tables.SingleTableView):
-    table_class = SimpleTable
-    queryset = Data.objects.all()
-    template_name = "sensorvalues_list.html"
+# class DataTableView(tables.SingleTableView):
+# table_class = DataTable
+# queryset = Data.objects.all()
+# template_name = "sensorvalues_list.html"
+
+def data_list(request):
+    table = DataTable(Data.objects.all())
+
+    return render(request, "sensorvalues/sensorvalues_list.html", {"table": table})
+
+
+class DevicesTableView(tables.SingleTableView):
+    table_class = DevicesTable
+    queryset = Devices.objects.all()
+    template_name = "devices_list.html"
