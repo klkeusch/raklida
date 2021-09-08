@@ -24,4 +24,5 @@ Nächste Schritte: Messwerte in Tabellenform anzeigen auf einer Seite (django-ta
 Später filtern über Zuweisung Datenbank Gerät<>Benutzer --> filtern/anzeigen nur der Werte der Geräte des aktuell angemeldeten Benutzers.
 
 16:59 08.09.2021
-Mit pip freeze > requirements.txt - die benötigten Packets aktuell halten
+Mit pip freeze > requirements.txt - die benötigten Packets aktuell halten!
+Test mit neuem Branch...
