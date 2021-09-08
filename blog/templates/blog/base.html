@@ -35,19 +35,26 @@
                     {% if request.user.is_authenticated %}
 
                         <li class="nav-item">
-                           <a href="{% url 'sensorvalues_list' %}" class="nav-link">Messwerte</a>
+                            <!--<a href="{% url 'sensorvalues_list' %}" class="nav-link">Messwerte</a>-->
 
-{% comment %}                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuSensVals"
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button"
+                                        id="dropdownMenuSensVals"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
-                                    Messwerte
+                                    Daten
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuSensVals">
-                                    <button class="dropdown-item" type="button">Gemessene Werte</button>
-                                    <button class="dropdown-item" type="button">Another action</button>
-                                    <button class="dropdown-item" type="button">Something else here</button>
+                                    <a href="{% url 'sensorvalues_list' %}">
+                                        <button class="dropdown-item" type="button">Messwerte</button>
+                                    </a>
+                                    <a href="{% url 'devices_list' %}">
+                                        <button class="dropdown-item" type="button">Geräte</button>
+                                    </a>
+                                    <a href="{% url 'sensorvalues_list' %}">
+                                        <button class="dropdown-item" type="button">Datenpunkte</button>
+                                    </a>
                                 </div>
-                            </div>{% endcomment %}
+                            </div>
 
                         </li>
 
