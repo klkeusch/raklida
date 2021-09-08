@@ -38,15 +38,15 @@
                             <a href="{% url 'profile' request.user.pk %}" class="nav-link">Profile</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">Logout</a>
+                            <a href="{% url 'logout' %}" class="nav-link">Logout</a>
                         </li>
                     {% else %}
                         <li class="nav-item">
-                            <a href="#" class="nav-link">Login</a>
+                            <a href="{% url 'login' %}" class="nav-link">Login</a>
                         </li>
-                       <!-- <li class="nav-item">
-                            <a href="#" class="nav-link">Register</a>
-                        </li>-->
+                        <li class="nav-item">
+                            <a href="{% url 'register' %}" class="nav-link">Registrieren</a>
+                        </li>
                     {% endif %}
                     <li class="nav-item">
                         <a href="#" class="nav-link">Browse Questions</a>
