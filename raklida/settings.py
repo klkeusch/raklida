@@ -139,6 +139,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Crispy forms config
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+# Django_tables2 config
+DJANGO_TABLES2_TEMPLATE = "django_tables2/bootstrap4.html"
+
 # Email config
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
