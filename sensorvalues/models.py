@@ -3,13 +3,13 @@ import django_tables2 as tables
 
 
 class Data(models.Model):
-    id = models.BigAutoField(primary_key=True)
-    timestamp = models.DateTimeField()
-    value_double = models.FloatField(blank=True, null=True)
-    value_integer = models.BigIntegerField(blank=True, null=True)
-    value_string = models.CharField(max_length=100, blank=True, null=True)
-    datapoint = models.ForeignKey('Datapoints', models.DO_NOTHING)
-    is_valid = models.BooleanField()
+    id = models.BigAutoField(primary_key=True, verbose_name="ID")
+    timestamp = models.DateTimeField(verbose_name="Zeitstempel")
+    value_double = models.FloatField(blank=True, null=True, verbose_name="Double-Wert")
+    value_integer = models.BigIntegerField(blank=True, null=True, verbose_name="Integer-Wert")
+    value_string = models.CharField(max_length=100, blank=True, null=True, verbose_name="Statuscode")
+    datapoint = models.ForeignKey('Datapoints', models.DO_NOTHING, verbose_name="Datenpunkt")
+    is_valid = models.BooleanField(verbose_name="Gültig?")
 
     class Meta:
         managed = False
@@ -20,17 +20,17 @@ class Data(models.Model):
 
 
 class Datapoints(models.Model):
-    id = models.BigAutoField(primary_key=True)
-    name = models.CharField(max_length=30)
-    unit = models.CharField(max_length=15)
-    display_name = models.CharField(max_length=50)
-    store_historic_data = models.BooleanField()
-    device_sub_id = models.BigIntegerField()
-    device = models.ForeignKey('Devices', models.DO_NOTHING)
-    current_value_double = models.FloatField(blank=True, null=True)
-    current_value_integer = models.BigIntegerField(blank=True, null=True)
-    current_value_string = models.CharField(max_length=30, blank=True, null=True)
-    last_update = models.DateTimeField(blank=True, null=True)
+    id = models.BigAutoField(primary_key=True, verbose_name="ID")
+    name = models.CharField(max_length=30, verbose_name="Name")
+    unit = models.CharField(max_length=15, verbose_name="Einheit")
+    display_name = models.CharField(max_length=50, verbose_name="Anzeigename")
+    store_historic_data = models.BooleanField(verbose_name="Messwertaufzeichnung?")
+    device_sub_id = models.BigIntegerField(verbose_name="Geräte-Sub-ID")
+    device = models.ForeignKey('Devices', models.DO_NOTHING, verbose_name="Gerät")
+    current_value_double = models.FloatField(blank=True, null=True, verbose_name="Aktueller Double-Wert")
+    current_value_integer = models.BigIntegerField(blank=True, null=True, verbose_name="Aktueller Integer-Wert")
+    current_value_string = models.CharField(max_length=30, blank=True, null=True, verbose_name="Aktueller Statuscode")
+    last_update = models.DateTimeField(blank=True, null=True, verbose_name="Letztes Update")
 
     class Meta:
         managed = False
@@ -41,13 +41,13 @@ class Datapoints(models.Model):
 
 
 class Devices(models.Model):
-    id = models.BigAutoField(primary_key=True)
-    location = models.CharField(max_length=30)
-    current_status_code = models.BigIntegerField()
-    last_status_update = models.TimeField()
-    device_type = models.CharField(max_length=30, blank=True, null=True)
-    display_name = models.CharField(max_length=50)
-    platform = models.CharField(max_length=30, blank=True, null=True)
+    id = models.BigAutoField(primary_key=True, verbose_name="ID")
+    location = models.CharField(max_length=30, verbose_name="Standort")
+    current_status_code = models.BigIntegerField(verbose_name="Aktueller Statuscode")
+    last_status_update = models.TimeField(verbose_name="Letzter Statuscode")
+    device_type = models.CharField(max_length=30, blank=True, null=True, verbose_name="Gerätetyp")
+    display_name = models.CharField(max_length=50, verbose_name="Anzeigename")
+    platform = models.CharField(max_length=30, blank=True, null=True, verbose_name="Geräte-Plattform")
 
     class Meta:
         managed = False
@@ -57,6 +57,8 @@ class Devices(models.Model):
         return self.display_name
 
 
-class SimpleTable(tables.Table):
+class DevicesTable(tables.Table):
+    # display_name = tables.Column(accessor='datapoint.display_name')
+
     class Meta:
-        model = Data
+        model = Devices
