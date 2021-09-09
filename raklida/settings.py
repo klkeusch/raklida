@@ -21,7 +21,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 # Login stuff
-LOGIN_REDIRECT_URL = "login"
+LOGIN_REDIRECT_URL = "blog_list"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'blog',
     'profiles',
     'crispy_forms',
+    'sensorvalues',
+    'django_tables2',
 ]
 
 MIDDLEWARE = [
@@ -136,6 +138,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Crispy forms config
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# Django_tables2 config
+DJANGO_TABLES2_TEMPLATE = "django_tables2/bootstrap4.html"
 
 # Email config
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
