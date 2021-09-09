@@ -35,6 +35,30 @@
                     {% if request.user.is_authenticated %}
 
                         <li class="nav-item">
+                            <!--<a href="{% url 'sensorvalues_list' %}" class="nav-link">Messwerte</a>-->
+
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button"
+                                        id="dropdownMenuSensVals"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
+                                    Daten
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuSensVals">
+                                    <a href="{% url 'sensorvalues_list' %}">
+                                        <button class="dropdown-item" type="button">Messwerte</button>
+                                    </a>
+                                    <a href="{% url 'devices_list' %}">
+                                        <button class="dropdown-item" type="button">Geräte</button>
+                                    </a>
+                                    <a href="{% url 'sensorvalues_list' %}">
+                                        <button class="dropdown-item" type="button">Datenpunkte</button>
+                                    </a>
+                                </div>
+                            </div>
+
+                        </li>
+
+                        <li class="nav-item">
                             <a href="{% url 'profile' request.user.pk %}" class="nav-link">Benutzerprofil</a>
                         </li>
                         <li class="nav-item">
@@ -62,6 +86,103 @@
 
 {% endblock content %}
 
+{% comment %}
+<!-- This is where the footer begins -->
+<footer>
+<div class= "navbar navbar-inverse navbar-static-bottom" role="navigation">
+    <div class="navbar-text pull-left">
+    </div>
+    <div class= "navbar-text pull-right">
+<!-- Add in your social media / github links here -->
+        <a href="https://github.com/clarkdatalabs">
+            <i class="fa fa-github-square fa-2x"></i></a>
+    </div>
+    <!--Below is the copyright information for the site. You can fill in your own here.-->
+    <div class="navbar-text pull-left">
+    &copy; K. Keusch, 2021
+    </div>
+</div>
+</footer>
+{% endcomment %}
+
+<!-- Footer -->
+<footer class="page-footer text-white font-small bg-dark pt-2">
+
+  <!-- Footer Links -->
+  <div class="container-fluid text-center text-md-left">
+
+    <!-- Grid row -->
+    <div class="row">
+
+      <!-- Grid column -->
+      <div class="col-md-6 mt-md-0 mt-3">
+
+        <!-- Content -->
+        <h5 class="text-uppercase text-white">RaKliDa</h5>
+        <p>Komischer Infotext für RaKliDa</p>
+
+      </div>
+      <!-- Grid column -->
+
+      <hr class="clearfix w-100 d-md-none pb-3">
+
+      <!-- Grid column -->
+      <div class="col-md-3 mb-md-0 mb-3">
+
+        <!-- Links -->
+        <h5 class="text-uppercase">Links</h5>
+
+        <ul class="list-unstyled">
+          <li>
+            <a href="https://www.htwsaar.de">htw saar</a>
+          </li>
+          <li>
+            <a href="https://profservice.htwsaar.de">ProfService</a>
+          </li>
+          <li>
+            <a href="https://raumservice.htwsaar.de">RaumService</a>
+          </li>
+        </ul>
+
+      </div>
+      <!-- Grid column -->
+
+      <!-- Grid column -->
+      <div class="col-md-3 mb-md-0 mb-3">
+
+        <!-- Links -->
+        <h5 class="text-uppercase">Info-Links</h5>
+
+        <ul class="list-unstyled">
+          <li>
+            <a href="#!">Wasser = gesund</a>
+          </li>
+          <li>
+            <a href="#!">Studie: Luft = sinnvoll</a>
+          </li>
+          <li>
+            <a href="#!">Forscher finden Heilung für Homeoffice-Langeweile</a>
+          </li>
+
+        </ul>
+
+      </div>
+      <!-- Grid column -->
+
+    </div>
+    <!-- Grid row -->
+
+  </div>
+  <!-- Footer Links -->
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">2021 -
+    <a href="#"> STP|SoSe2021</a>
+  </div>
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
 
 {% if messages %}
     {% for message in messages %}
