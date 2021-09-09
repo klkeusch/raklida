@@ -9,7 +9,7 @@ h1, h2, h3, h4, h5, h6, span, li, a, ul, div, p {
 }
 
 .landing {
-    padding: 70px 0 130px 0;
+    padding: 70px 0 50px 0; <!-- 70px 0 130px 0-->
 }
 
 .blog {
