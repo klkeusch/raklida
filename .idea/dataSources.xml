@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="Django default" uuid="87cfac2c-0f54-447a-9693-eb9dfd879d82">
+      <driver-ref>***REMOVED***ql</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>$PROJECT_DIR$/raklida/settings.py</remarks>
+      <jdbc-driver>org.***REMOVED***ql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:***REMOVED***ql://127.0.0.1:5432/wetterstation_db_old3</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+  </component>
+</project>
