@@ -21,17 +21,24 @@ from django.urls import path, include
 from profiles import views as profiles_views
 from sensorvalues import views as sensorvalues_views
 from sensorvalues import tables as tables
+from sensorvaluesplots import views as sensvalplots
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", include('blog.urls')),
+
     # Sensorvalues below
     path("sensorvalues/", sensorvalues_views.data_list, name="sensorvalues_list"),
-    path("sensorvalues/devices", sensorvalues_views.DevicesTableView.as_view(template_name="sensorvalues/devices_list.html.html"),
+    path("sensorvalues/devices",
+         sensorvalues_views.DevicesTableView.as_view(template_name="sensorvalues/devices_list.html.html"),
          name="devices_list"),
-    #path("sensorvalues/", sensorvalues_views.DataListView.as_view(template_name="sensorvalues/sensorvalues_list.html"),
+    # path("sensorvalues/", sensorvalues_views.DataListView.as_view(template_name="sensorvalues/sensorvalues_list.html"),
     #     name="sensorvalues_list"),
     # Sensorvalues above
+
+    # Sensorvaluesplots below
+    path("sensorvaluesplots/", sensvalplots.index, name="index"),
+    # Sensorvaluesplots below
     # User related paths below
     path("register/", profiles_views.register, name="register"),
     path("login/", auth_views.LoginView.as_view(template_name="profiles/login.html"), name="login"),
@@ -39,6 +46,7 @@ urlpatterns = [
     path("profile/<int:pk>", profiles_views.profile, name="profile"),
     path("profile/update", profiles_views.update, name="update"),
     # User related paths above
+
     # password reset below
     path('password-reset/', auth_views.PasswordResetView.as_view(template_name="profiles/password_reset.html"),
          name="password_reset"),
