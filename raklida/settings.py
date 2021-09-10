@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'sensorvalues',
     'django_tables2',
+    'plotly',
+    'sensorvaluesplots',
 ]
 
 MIDDLEWARE = [
