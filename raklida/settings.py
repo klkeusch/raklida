@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     'sensorvalues',
     'django_tables2',
     'plotly',
+    'plotly.offline',
+    'plotly.graph_objs',
     'sensorvaluesplots',
 ]
 
