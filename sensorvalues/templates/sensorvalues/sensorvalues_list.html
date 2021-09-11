@@ -1,5 +1,4 @@
 {% extends "blog/base.html" %}
-
 {% block content %}
     <div class="landing bg-dark">
         <div class="container">
@@ -11,7 +10,7 @@
         </div>
     </div>
     <div class="container p-2 rounded ">
-            {% load django_tables2 %}
-            {% render_table table %}
+        {% load django_tables2 %}
+        {% render_table table %}
     </div>
 {% endblock content %}
