@@ -35,7 +35,7 @@ def index(request):
                 x=x_data,
                 y=[1, 12, 22, 32, 42, 52],
                 mode='markers+lines+text',
-                name='test3',
+                name='<a href="/admin"> testlink</a>',
                 opacity=1,
                 marker_color='red',
             ),
