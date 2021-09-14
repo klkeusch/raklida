@@ -8,7 +8,7 @@ class Data(models.Model):
     value_double = models.FloatField(blank=True, null=True, verbose_name="Double-Wert")
     value_integer = models.BigIntegerField(blank=True, null=True, verbose_name="Integer-Wert")
     value_string = models.CharField(max_length=100, blank=True, null=True, verbose_name="Statuscode")
-    datapoint = models.ForeignKey('Datapoints', models.DO_NOTHING, verbose_name="Datenpunkt")
+    datapoint = models.ForeignKey('Datapoints', models.CASCADE, verbose_name="Datenpunkt")
     is_valid = models.BooleanField(verbose_name="Gültig?")
 
     class Meta:
@@ -40,6 +40,20 @@ class Datapoints(models.Model):
         return self.display_name
 
 
+class DailyAverages(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    datapoint = models.ForeignKey('Datapoints', models.CASCADE)
+    date = models.DateField()
+    value_night = models.FloatField(blank=True, null=True)
+    value_day = models.FloatField(blank=True, null=True)
+    value_min = models.FloatField(blank=True, null=True)
+    value_max = models.FloatField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'daily_averages'
+
+
 class Devices(models.Model):
     id = models.BigAutoField(primary_key=True, verbose_name="ID")
     location = models.CharField(max_length=30, verbose_name="Standort")
@@ -55,6 +69,33 @@ class Devices(models.Model):
 
     def __str__(self):
         return self.display_name
+
+
+class MqttTreeNodes(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    name = models.CharField(max_length=100)
+    is_leaf = models.BooleanField()
+    parent_id = models.BigIntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'mqtt_tree_nodes'
+
+    def __str__(self):
+        return self.name
+
+
+class TreeDatapointTranslations(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    datapoint = models.ForeignKey(Datapoints, models.CASCADE)
+    mqtt_node = models.ForeignKey(MqttTreeNodes, models.CASCADE)
+
+    class Meta:
+        managed = False
+        db_table = 'tree_datapoint_translations'
+
+    def __str__(self):
+        return self.datapoint
 
 
 class DevicesTable(tables.Table):
