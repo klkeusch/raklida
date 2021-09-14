@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'plotly.offline',
     'plotly.graph_objs',
     'sensorvaluesplots',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
