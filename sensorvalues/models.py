@@ -14,6 +14,8 @@ class Data(models.Model):
     class Meta:
         managed = False
         db_table = 'data'
+        verbose_name = 'Data row'
+        verbose_name_plural = 'Data'
 
     def __str__(self):
         return str(self.datapoint)
@@ -35,6 +37,8 @@ class Datapoints(models.Model):
     class Meta:
         managed = False
         db_table = 'datapoints'
+        verbose_name = 'Datapoint'
+        verbose_name_plural = 'Datapoints'
 
     def __str__(self):
         return self.display_name
@@ -52,6 +56,8 @@ class DailyAverages(models.Model):
     class Meta:
         managed = False
         db_table = 'daily_averages'
+        verbose_name = 'Daily average'
+        verbose_name_plural = 'Daily averages'
 
 
 class Devices(models.Model):
@@ -66,6 +72,8 @@ class Devices(models.Model):
     class Meta:
         managed = False
         db_table = 'devices'
+        verbose_name = 'Device'
+        verbose_name_plural = 'Devices'
 
     def __str__(self):
         return self.display_name
@@ -80,6 +88,8 @@ class MqttTreeNodes(models.Model):
     class Meta:
         managed = False
         db_table = 'mqtt_tree_nodes'
+        verbose_name = 'MQTT Tree Node'
+        verbose_name_plural = 'MQTT Tree Nodes'
 
     def __str__(self):
         return self.name
@@ -93,9 +103,11 @@ class TreeDatapointTranslations(models.Model):
     class Meta:
         managed = False
         db_table = 'tree_datapoint_translations'
+        verbose_name = 'Tree Datapoint Translation'
+        verbose_name_plural = 'Tree Datapoint Translations'
 
     def __str__(self):
-        return self.datapoint
+        return str(self.datapoint)
 
 
 class DevicesTable(tables.Table):
