@@ -93,7 +93,8 @@ WSGI_APPLICATION = 'raklida.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.***REMOVED***ql_psycopg2',
-        'NAME': 'wetterstation_db_old3',
+        #'NAME': 'wetterstation_db_old3',
+        'NAME': '***REMOVED***',
         'USER': '***REMOVED***',
         'PASSWORD': ***REMOVED***,
         'HOST': '127.0.0.1',
