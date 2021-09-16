@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'plotly.graph_objs',
     'sensorvaluesplots',
     'rest_framework',
+    'usernotifications',
 ]
 
 MIDDLEWARE = [
