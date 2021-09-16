@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 import django_tables2 as tables
 
 
@@ -115,3 +116,17 @@ class DevicesTable(tables.Table):
 
     class Meta:
         model = Devices
+
+
+class DeviceUserAssignment(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    device = models.ForeignKey(Devices, models.CASCADE, null=True)
+    user = models.ForeignKey(User, models.CASCADE, null=True)
+
+    def __str__(self):
+        return f'{self.user.username} benutzt: {self.device.display_name}'
+
+    class Meta:
+        db_table = 'device_user_assignment'
+        verbose_name = 'Device-User-Zuordnung'
+        verbose_name_plural = 'Device-User-Zuordnungen'
