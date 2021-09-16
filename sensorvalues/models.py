@@ -9,12 +9,11 @@ class Data(models.Model):
     value_double = models.FloatField(blank=True, null=True, verbose_name="Double-Wert")
     value_integer = models.BigIntegerField(blank=True, null=True, verbose_name="Integer-Wert")
     value_string = models.CharField(max_length=100, blank=True, null=True, verbose_name="Statuscode")
-    datapoint = models.ForeignKey('Datapoints', models.CASCADE, verbose_name="Datenpunkt")
+    datapoint = models.ForeignKey('Datapoints', models.CASCADE, verbose_name="Datenpunkt", blank=True, null=True)
     is_valid = models.BooleanField(verbose_name="Gültig?")
 
     class Meta:
-        managed = False
-        db_table = 'data'
+        managed = True
         verbose_name = 'Data row'
         verbose_name_plural = 'Data'
 
@@ -29,15 +28,13 @@ class Datapoints(models.Model):
     display_name = models.CharField(max_length=50, verbose_name="Anzeigename")
     store_historic_data = models.BooleanField(verbose_name="Messwertaufzeichnung?")
     device_sub_id = models.BigIntegerField(verbose_name="Geräte-Sub-ID")
-    device = models.ForeignKey('Devices', models.DO_NOTHING, verbose_name="Gerät")
+    device = models.ForeignKey('Devices', models.CASCADE, verbose_name="Gerät", null=True, blank=True)
     current_value_double = models.FloatField(blank=True, null=True, verbose_name="Aktueller Double-Wert")
     current_value_integer = models.BigIntegerField(blank=True, null=True, verbose_name="Aktueller Integer-Wert")
     current_value_string = models.CharField(max_length=30, blank=True, null=True, verbose_name="Aktueller Statuscode")
     last_update = models.DateTimeField(blank=True, null=True, verbose_name="Letztes Update")
 
     class Meta:
-        managed = False
-        db_table = 'datapoints'
         verbose_name = 'Datapoint'
         verbose_name_plural = 'Datapoints'
 
@@ -47,7 +44,7 @@ class Datapoints(models.Model):
 
 class DailyAverages(models.Model):
     id = models.BigAutoField(primary_key=True)
-    datapoint = models.ForeignKey('Datapoints', models.CASCADE)
+    datapoint_id = models.ForeignKey('Datapoints', models.CASCADE, null=True, blank=True)
     date = models.DateField()
     value_night = models.FloatField(blank=True, null=True)
     value_day = models.FloatField(blank=True, null=True)
@@ -55,8 +52,6 @@ class DailyAverages(models.Model):
     value_max = models.FloatField(blank=True, null=True)
 
     class Meta:
-        managed = False
-        db_table = 'daily_averages'
         verbose_name = 'Daily average'
         verbose_name_plural = 'Daily averages'
 
@@ -69,10 +64,9 @@ class Devices(models.Model):
     device_type = models.CharField(max_length=30, blank=True, null=True, verbose_name="Gerätetyp")
     display_name = models.CharField(max_length=50, verbose_name="Anzeigename")
     platform = models.CharField(max_length=30, blank=True, null=True, verbose_name="Geräte-Plattform")
+    mac_address = models.CharField(max_length=20, blank=True, null=True)
 
     class Meta:
-        managed = False
-        db_table = 'devices'
         verbose_name = 'Device'
         verbose_name_plural = 'Devices'
 
@@ -87,8 +81,6 @@ class MqttTreeNodes(models.Model):
     parent_id = models.BigIntegerField()
 
     class Meta:
-        managed = False
-        db_table = 'mqtt_tree_nodes'
         verbose_name = 'MQTT Tree Node'
         verbose_name_plural = 'MQTT Tree Nodes'
 
@@ -98,12 +90,10 @@ class MqttTreeNodes(models.Model):
 
 class TreeDatapointTranslations(models.Model):
     id = models.BigAutoField(primary_key=True)
-    datapoint = models.ForeignKey(Datapoints, models.CASCADE)
-    mqtt_node = models.ForeignKey(MqttTreeNodes, models.CASCADE)
+    datapoint = models.ForeignKey(Datapoints, models.CASCADE, blank=True, null=True)
+    mqtt_node = models.ForeignKey(MqttTreeNodes, models.CASCADE, blank=True, null=True)
 
     class Meta:
-        managed = False
-        db_table = 'tree_datapoint_translations'
         verbose_name = 'Tree Datapoint Translation'
         verbose_name_plural = 'Tree Datapoint Translations'
 
@@ -120,13 +110,12 @@ class DevicesTable(tables.Table):
 
 class DeviceUserAssignment(models.Model):
     id = models.BigAutoField(primary_key=True)
-    device = models.ForeignKey(Devices, models.CASCADE, null=True)
-    user = models.ForeignKey(User, models.CASCADE, null=True)
+    #device = models.ForeignKey(Devices, models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey(User, models.CASCADE, null=True, blank=True)
 
-    def __str__(self):
-        return f'{self.user.username} benutzt: {self.device.display_name}'
+    #def __str__(self):
+    #    return f'{self.user.username} benutzt: {self.device.display_name}'
 
     class Meta:
-        db_table = 'device_user_assignment'
         verbose_name = 'Device-User-Zuordnung'
         verbose_name_plural = 'Device-User-Zuordnungen'
