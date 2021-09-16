@@ -41,3 +41,26 @@ Nutzung von anderen Zeilen aus models: accessor="id.name" --> id ist ForeignKey 
 22:55 08.09.2021
 Die Aufteilung wie hier beschrieben: https://django-tables2.readthedocs.io/en/latest/pages/table-data.html bietet die Vorteile der Nutzung von exclude und sequence. Damit lassen
 sich Spalten anordnen und ggf. ausblenden. 
+
+10:19 16.09.2021
+Aus JF 13.09: 
+- Präsentation + Dokumentation erstellen (binden in PhyLab) --> Mitte Oktober Abgabe
+
+- wichtig:
+	- Zuordnung device - Datapoint
+
+	- 1 Gerät <> mehrere Benutzer
+	- 1 Benutzer <> mehrere Geräte
+		--> many-to-many-field (?)
+	- UB: zus. Tabelle deviceUserAssignment dafür
+	
+	- Screenshots:
+		- Sicht von FaSi auf Nutzersituation
+			- Tabelle Messwerte, Diagr. mit Meldung
+		- Dashboard User
+			- Meldeform, Tab., Diag.
+	- Metainfos: Raumzuweisung, Zeitraum (opt)
+	- Meldung in Graph anzeigen (Linie in Diagr./Meldung)
+
+	- Auflösung Gerät in Pfad an Stelle in Django Baum
+

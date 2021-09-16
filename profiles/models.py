@@ -9,10 +9,9 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(default="default.jpg", upload_to="profile_pictures")
     description = models.CharField(max_length=300, blank=True)
-    ass_device = models.ManyToManyField(Devices)
+    # ass_device = models.ManyToManyField(Devices) -- ersetzen mit eigener table in sensorvalues
 
     def __str__(self):
-        # return f'{self.user.username}\'s Profil...'
         return self.user.username
 
 
