@@ -1,3 +1,4 @@
+from django.shortcuts import render, redirect, get_object_or_404
 from django.db import models
 from django.contrib.auth.models import User
 import django_tables2 as tables
@@ -51,6 +52,10 @@ class Datapoints(models.Model):
     current_value_integer = models.BigIntegerField(blank=True, null=True, verbose_name="Aktueller Integer-Wert")
     current_value_string = models.CharField(max_length=30, blank=True, null=True, verbose_name="Aktueller Statuscode")
     last_update = models.DateTimeField(blank=True, null=True, verbose_name="Letztes Update")
+
+    def get_latest_values_for_user(self):
+        #latest_values = Datapoints.objects.latest('timestamp')[:1]
+        return self.objects.latest('timestamp')
 
     class Meta:
         verbose_name = 'Datapoint'
