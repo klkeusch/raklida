@@ -101,21 +101,21 @@ class TreeDatapointTranslations(models.Model):
         return str(self.datapoint)
 
 
+class DeviceUserAssignment(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    device = models.ForeignKey(Devices, models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey(User, models.CASCADE, null=True, blank=True)
+
+    def __str__(self):
+        return f'{self.user.username} benutzt: {self.device.display_name}'
+
+    class Meta:
+        verbose_name = 'Device-User-Zuordnung'
+        verbose_name_plural = 'Device-User-Zuordnungen'
+
+
 class DevicesTable(tables.Table):
     # display_name = tables.Column(accessor='datapoint.display_name')
 
     class Meta:
         model = Devices
-
-
-class DeviceUserAssignment(models.Model):
-    id = models.BigAutoField(primary_key=True)
-    #device = models.ForeignKey(Devices, models.CASCADE, null=True, blank=True)
-    user = models.ForeignKey(User, models.CASCADE, null=True, blank=True)
-
-    #def __str__(self):
-    #    return f'{self.user.username} benutzt: {self.device.display_name}'
-
-    class Meta:
-        verbose_name = 'Device-User-Zuordnung'
-        verbose_name_plural = 'Device-User-Zuordnungen'
