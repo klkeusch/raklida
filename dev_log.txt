@@ -64,3 +64,11 @@ Aus JF 13.09:
 
 	- Auflösung Gerät in Pfad an Stelle in Django Baum
 
+
+08:12 17.09.2021
+superuser
+#superuser$
+
+martina.muster
+max.maximilian
+#superpassword2021$
