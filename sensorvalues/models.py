@@ -21,41 +21,6 @@ class Data(models.Model):
         return str(self.datapoint)
 
 
-class Datapoints(models.Model):
-    id = models.BigAutoField(primary_key=True, verbose_name="ID")
-    name = models.CharField(max_length=30, verbose_name="Name")
-    unit = models.CharField(max_length=15, verbose_name="Einheit")
-    display_name = models.CharField(max_length=50, verbose_name="Anzeigename")
-    store_historic_data = models.BooleanField(verbose_name="Messwertaufzeichnung?")
-    device_sub_id = models.BigIntegerField(verbose_name="Geräte-Sub-ID")
-    device = models.ForeignKey('Devices', models.CASCADE, verbose_name="Gerät", null=True, blank=True)
-    current_value_double = models.FloatField(blank=True, null=True, verbose_name="Aktueller Double-Wert")
-    current_value_integer = models.BigIntegerField(blank=True, null=True, verbose_name="Aktueller Integer-Wert")
-    current_value_string = models.CharField(max_length=30, blank=True, null=True, verbose_name="Aktueller Statuscode")
-    last_update = models.DateTimeField(blank=True, null=True, verbose_name="Letztes Update")
-
-    class Meta:
-        verbose_name = 'Datapoint'
-        verbose_name_plural = 'Datapoints'
-
-    def __str__(self):
-        return self.display_name
-
-
-class DailyAverages(models.Model):
-    id = models.BigAutoField(primary_key=True)
-    datapoint_id = models.ForeignKey('Datapoints', models.CASCADE, null=True, blank=True)
-    date = models.DateField()
-    value_night = models.FloatField(blank=True, null=True)
-    value_day = models.FloatField(blank=True, null=True)
-    value_min = models.FloatField(blank=True, null=True)
-    value_max = models.FloatField(blank=True, null=True)
-
-    class Meta:
-        verbose_name = 'Daily average'
-        verbose_name_plural = 'Daily averages'
-
-
 class Devices(models.Model):
     id = models.BigAutoField(primary_key=True, verbose_name="ID")
     location = models.CharField(max_length=30, verbose_name="Standort")
@@ -72,6 +37,41 @@ class Devices(models.Model):
 
     def __str__(self):
         return self.display_name
+
+
+class Datapoints(models.Model):
+    id = models.BigAutoField(primary_key=True, verbose_name="ID")
+    name = models.CharField(max_length=30, verbose_name="Name")
+    unit = models.CharField(max_length=15, verbose_name="Einheit")
+    display_name = models.CharField(max_length=50, verbose_name="Anzeigename")
+    store_historic_data = models.BooleanField(verbose_name="Messwertaufzeichnung?")
+    device_sub_id = models.BigIntegerField(verbose_name="Geräte-Sub-ID")
+    device = models.ForeignKey(Devices, models.CASCADE, verbose_name="Gerät", null=True, blank=True)
+    current_value_double = models.FloatField(blank=True, null=True, verbose_name="Aktueller Double-Wert")
+    current_value_integer = models.BigIntegerField(blank=True, null=True, verbose_name="Aktueller Integer-Wert")
+    current_value_string = models.CharField(max_length=30, blank=True, null=True, verbose_name="Aktueller Statuscode")
+    last_update = models.DateTimeField(blank=True, null=True, verbose_name="Letztes Update")
+
+    class Meta:
+        verbose_name = 'Datapoint'
+        verbose_name_plural = 'Datapoints'
+
+    def __str__(self):
+        return self.display_name
+
+
+class DailyAverages(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    datapoint_id = models.ForeignKey(Datapoints, models.CASCADE, null=True, blank=True)
+    date = models.DateField()
+    value_night = models.FloatField(blank=True, null=True)
+    value_day = models.FloatField(blank=True, null=True)
+    value_min = models.FloatField(blank=True, null=True)
+    value_max = models.FloatField(blank=True, null=True)
+
+    class Meta:
+        verbose_name = 'Daily average'
+        verbose_name_plural = 'Daily averages'
 
 
 class MqttTreeNodes(models.Model):
