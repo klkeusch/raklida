@@ -22,10 +22,22 @@ from profiles import views as profiles_views
 from sensorvalues import views as sensorvalues_views
 from sensorvalues import tables as tables
 from sensorvaluesplots import views as sensvalplots
+from usernotifications import views as usrnotsvc
+from profiles.views import user_dashboard, staff_dashboard
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", include('blog.urls')),
+    path("", include('usernotifications.urls')),
+
+    path('staff-dashboard/', staff_dashboard, name='staff_dashboard'),
+    path('user-dashboard/', user_dashboard, name='user_dashboard'),
+
+    #path("", include('sensorvalues.urls')),
+
+    # Messaging below
+    path("send-message/", usrnotsvc.sending, name="send-message"),
+    #Messaging above
 
     # Sensorvalues below
     path("sensorvalues/", sensorvalues_views.data_list, name="sensorvalues_list"),
