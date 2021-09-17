@@ -72,3 +72,16 @@ superuser
 martina.muster
 max.maximilian
 #superpassword2021$
+
+Daten kopieren zw. psql Dbs
+In pgAdmin, right click the table you want to move, select "Backup"
+Pick the directory for the output file and set Format to "plain"
+Click the "Dump Options #1" tab, check "Only data" or "only Schema" (depending on what you are doing)
+Under the Queries section, click "Use Column Inserts" and "User Insert Commands".
+Click the "Backup" button. This outputs to a .backup file
+Open this new file using notepad. You will see the insert scripts needed for the table/data. Copy and paste these into the new database sql page in pgAdmin. Run as pgScript - Query->Execute as pgScript F6
+Works well and can do multiple tables at a time.
+
+
+11:09 17.09.2021
+Beim Löschen von migrations-Ordnern später einen neuen Ordner migrations anlegen mit leerer __init__.py
