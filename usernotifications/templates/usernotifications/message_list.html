@@ -1,0 +1,59 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+    <div class="landing bg-dark">
+        <div class="container">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-sm-12 col-lg-6 text-center">
+                    <h1 class="text-white font-weight-bold display-5 mb-3">Nachrichten</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container p-5 rounded ">
+        {% if object_list.count > 0 %}
+            {% for message in object_list %}
+                <div class="row blog mb-5">
+
+                    <div class="col-lg-10 col-sm-12">
+                        <div class="blog-information">
+                            {% if request.user.is_authenticated and request.user == message.recipient %}
+                                <h1 class="font-weight-bold mb-3">{{ message.sender }}</h1>
+
+                                <p>{{ message.content }}</p>
+                                <div class="update-edit">
+
+                                <a class="btn btn-sm btn-info" href="#">Bearbeiten</a>
+                                <a class="btn btn-sm btn-danger" href="#">Löschen</a>
+                            {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            <div class="pagination">
+            <span class="step-links">
+            {% if page_obj.has_previous %}
+                <div class="step-divider">
+                    <a href="?page=1">&laquo; Erste Seite</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">&lsaquo; Vorherige</a>
+                </div>
+            {% endif %}
+                <span class="current">
+                Seite {{ page_obj.number }} von {{ page_obj.paginator.num_pages }}
+            </span>
+                {% if page_obj.has_next %}
+                    <div class="step-divider">
+                    <a href="?page={{ page_obj.next_page_number }}">Nächste &rsaquo;</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">Letzte Seite &raquo;</a>
+                </div>
+                {% endif %}
+            </span>
+            </div>
+        {% else %}
+            <h2 class="text-muted text-center">Hier wurde leider noch keine Nachricht verfasst! ¯\_(ツ)_/¯<br/><br/></h2>
+            <p class="mt-3 h3 text-muted text-center">Möchten Sie eine neue Nachricht verfassen? (ง'̀-'́)ง <a
+                    href="#">Klicken Sie hier!</a></p>
+        {% endif %}
+    </div>
+{% endblock content %}
