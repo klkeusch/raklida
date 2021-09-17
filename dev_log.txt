@@ -85,3 +85,4 @@ Works well and can do multiple tables at a time.
 
 11:09 17.09.2021
 Beim Löschen von migrations-Ordnern später einen neuen Ordner migrations anlegen mit leerer __init__.py
+15:35 17.09.2021

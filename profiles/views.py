@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User
 from .forms import RegisterForm, UserUpdateForm, ProfileUpdateForm
+from sensorvalues.models import Datapoints
 
 
 def register(request):
@@ -42,13 +44,19 @@ def update(request):
     return render(request, 'profiles/update.html', context)
 
 
-@login_required
+# @login_required
 @user_passes_test(lambda u: u.groups.filter(name='Verwaltung').exists())
 def staff_dashboard(request):
     return render(request, 'profiles/staff_dashboard.html')
 
 
-@login_required
+# @login_required
 @user_passes_test(lambda u: u.groups.filter(name='Benutzer').exists())
 def user_dashboard(request):
     return render(request, 'profiles/user_dashboard.html')
+
+
+def get_latest_values_for_user(request, device):
+    latest_values_list = Datapoints.objects.order_by('-timestamp')[:1]
+    return render(request, "profiles/staff_dashboard.html", {'latest_values_list': latest_values_list})
+    # return render(request, "profiles/user_dashboard.html", {'latest_values': latest_values})
