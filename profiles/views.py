@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User
 from .forms import RegisterForm, UserUpdateForm, ProfileUpdateForm
 
@@ -40,3 +40,15 @@ def update(request):
         'profile_form': profile_form,
     }
     return render(request, 'profiles/update.html', context)
+
+
+@login_required
+@user_passes_test(lambda u: u.groups.filter(name='Verwaltung').exists())
+def staff_dashboard(request):
+    return render(request, 'profiles/staff_dashboard.html')
+
+
+@login_required
+@user_passes_test(lambda u: u.groups.filter(name='Benutzer').exists())
+def user_dashboard(request):
+    return render(request, 'profiles/user_dashboard.html')
