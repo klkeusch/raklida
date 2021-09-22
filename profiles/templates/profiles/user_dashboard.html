@@ -1,54 +1,285 @@
 {% extends "blog/base.html" %}
-{% load crispy_forms_tags %}
+{% load static %}
+{% comment %}
+{% load bootstrap4 %}
+{% block extrahead %}
+    {{ form.media }}
+{% endblock %}
+{% load crispy_forms_tags %}{% endcomment %}
 {% block content %}
+
+
+
     <div class="landing bg-dark">
         <div class="container">
             <div class="row align-items-center justify-content-center">
-                <div class="col-sm-12 col-lg-6 text-center">
-                    <h1 class="text-white font-weight-bold display-3 mb-3">Benutzer-Dashboard</h1>
-
+                <div class="col-sm-12 col-lg-8 text-center">
+                    <h1 class="text-white font-weight-bold display-5 mb-3">Benutzer-Dashboard</h1>
                 </div>
 
+                {% comment %}                {% csrf_token %}
+                <div class="col-md-6">
+                    <div class="form-group text-center mt-3">
+                        <label for="inputStatus" class="text-white">Geräteauswahl</label>
+                        <select id="question-subject" class="form-control-sm custom-select">
+                            <option selected disabled>Bitte Gerät auswählen</option>
+                            {% for device in devices %}
+                                <option value="{{ device.id }}">{{ device.display_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>{% endcomment %}
+
+
             </div>
+        </div>
+    </div>
+
+
+
+
+{#    <div id="wrapper"><!-- sidenav wrapper for content-->#}
+{#        <!-- Sidebar -->#}
+{#        <div id="sidebar-wrapper">#}
+{#            <ul class="sidebar-nav bg-light border border-dark rounded">#}
+{#                <li class="border-bottom">#}
+{#                    <a href="{% url 'user_dashboard' %}">#}
+{#                        Benutzer-Dashboard#}
+{#                    </a>#}
+{#                </li>#}
+{##}
+{##}
+{#                <li class="border-bottom">#}
+{##}
+{#                    {% csrf_token %}#}
+{#                    <div class="col-md-12">#}
+{#                        <div class="form-group text-left">#}
+{#                            <label for="inputStatus" class="text-dark">Geräteauswahl</label>#}
+{#                            <select id="question-subject" class="form-control-sm custom-select">#}
+{#                                <option selected disabled>Bitte auswählen...</option>#}
+{#                                {% for device in devices %}#}
+{#                                    <option value="{{ device.id }}">{{ device.display_name }}</option>#}
+{#                                {% endfor %}#}
+{#                            </select>#}
+{#                        </div>#}
+{#                    </div>#}
+{##}
+{#                </li>#}
+{##}
+{##}
+{#                <li class="border-bottom">#}
+{#                    <a href="{% url 'message_create' %}">Neue Meldung verfassen</a>#}
+{#                </li>#}
+{#                <li class="border-bottom">#}
+{#                    <a href="{% url 'messages_list' %}">Meine Meldungen</a>#}
+{#                </li>#}
+{#                <li class="border-bottom">#}
+{#                    <a href="{% url 'profile' user.pk %}">Benutzerprofil</a>#}
+{#                </li>#}
+{#                <li>#}
+{#                    <a href="{% url 'logout' %}">Abmelden</a>#}
+{#                </li>#}
+{#            </ul>#}
+{#        </div>#}
+{#        <!-- /#sidebar-wrapper -->#}
+
+
+        <div class="container bg-light mt-n5 p-5 rounded">
+            <div class="row border-bottom">
+                {#            <div class="col-12 mb-3">#}
+                {#                <h1>Aktuelle Messwerte</h1>#}
+                {#            </div>#}
+                <div class="container text-center">
+                    <div class="row bg-secondary border-bottom align-items-center justify-content-center">
+                        <div class="col border-right">
+                            <p class="text-white font-weight-bold display-8 mb-3 mt-3">Temperatur</p>
+                        </div>
+                        <div class="col border-right">
+                            <p class="text-white font-weight-bold display-8 mb-3 mt-3">Luftfeuchtigkeit</p>
+                        </div>
+                        <div class="col">
+                            <p class="text-white font-weight-bold display-8 mb-3 mt-3">CO2-Wert</p>
+                        </div>
+                    </div>
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col border-right">
+                            <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">24,5 °C</h1>
+                        </div>
+                        <div class="col border-right">
+                            <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">62 %</h1>
+                        </div>
+                        <div class="col">
+                            <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">589 ppm</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row border-bottom">
+                <div class="container text-center">
+                    <div class="row bg-secondary border-bottom align-items-center justify-content-center">
+                        <div class="col border-right">
+                            <p class="text-white font-weight-bold display-8 mb-3 mt-3">Luftdruck</p>
+                        </div>
+                        <div class="col border-right">
+                            <p class="text-white font-weight-bold display-8 mb-3 mt-3">Feinstaubkonzentration</p>
+                        </div>
+                        <div class="col">
+                            <p class="text-white font-weight-bold display-8 mb-3 mt-3">Luftqualität</p>
+                        </div>
+                    </div>
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col border-right">
+                            <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">1100 hPa</h1>
+                        </div>
+                        <div class="col border-right">
+                            <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">62 &#181;g/m<sup>3</sup></h1>
+                        </div>
+                        <div class="col">
+                            <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">gut</h1>
+                            <!-- mit if-Abfrage fuer die Zahlenwerte gut mittel schlecht-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="container bg-light mt-n5 p-5 rounded">
+            <div class="row">
+                <div class="col-12">
+                    <h1>Messwertverlauf</h1>
+                </div>
+                <div class="col-12">
+
+                    {% csrf_token %}
+                    <div class="col-md-12">
+                        <div class="form-group text-left">
+                            <label for="inputStatus" class="text-dark">Messwertauswahl</label>
+                            <select id="question-subject" class="form-control-sm custom-select">
+                                <option selected disabled>Bitte wählen...</option>
+                                {% for message in notifications %}
+                                    <!--<option value="{{ message.id }}">{{ message.sender }}</option>-->
+                                    <option value="{{ message.id }}">Temperatur</option>
+                                    <option value="{{ message.id }}">Luftfeuchtigkeit</option>
+                                    <option value="{{ message.id }}">CO2-Wert</option>
+                                    <option value="{{ message.id }}">Luftdruck</option>
+                                    <option value="{{ message.id }}">Feinstaubkonzentration</option>
+                                    <option value="{{ message.id }}">Luftqualität</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    {% block javascript %}
+                        <canvas id="chart" width="800" height="200"></canvas>
+
+                        <script>
+                            let ctx = document.getElementById("chart").getContext("2d");
+
+                            let chart = new Chart(ctx, {
+                                type: "line",
+                                data: {
+                                    labels: ["00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"],
+                                    datasets: [
+                                        {
+                                            label: "Temperatur",
+                                            backgroundColor: "#79AEC8",
+                                            borderColor: "#417690",
+                                            data: [29, 25, 24, 21, 22, 18, 27, 27, 31, 16, 16, 26, 32, 30, 28, 27, 35, 30, 19, 22, 21, 18, 31, 29]
+                                        },
+                                    ]
+                                },
+                                options: {
+                                    title: {
+                                        text: "Gross Volume in 2020",
+                                        display: true
+                                    }
+                                }
+                            });</script>
+                    {% endblock javascript %}
+
+                </div>
+            </div>
+        </div>
+        <div class="container bg-light mt-n5 p-5 rounded">
+            <div class="row">
+                <div class="col-12 border-bottom mb-3">
+                    <h1>Aktuelle Meldungen</h1>
+                </div>
+                <div class="col-12 mb-3">
+
+                    <p><a class="btn btn-md btn-primary"
+                          href="{% url 'message_create' %}">Neue Meldung verfassen</a></p>
+
+                    {% if notifications.count > 0 %}
+                        {% for message in notifications|dictsortreversed:"sent_at" %}
+                            <div class="row blog mb-5">
+                                <div class="col-lg-2 col-sm-12 text-center">
+                                    Empfänger:<a class="mugshot-container mb-1"
+                                                 href="{% url 'profile' message.recipient.pk %}">
+                                    <div class="mugshot-img mb-2"
+                                         style="background-image:url({{ message.recipient.profile.image.url }})"></div>
+                                    <span>{{ message.recipient.first_name }} {{ message.recipient.last_name }}</span>
+                                </a>
+                                </div>
+                                <div class="col-lg-10 col-sm-12">
+                                    <div class="blog-information">
+                                        <p>{{ message.content }}</p>
+                                        <p class="text-muted">Gesendet am {{ message.sent_at|date:"d.m.Y" }}
+                                            um {{ message.sent_at|date:"H:i" }}</p>
+                                        <div class="update-edit">
+                                            {% if request.user.is_authenticated and request.user == message.sender %}
+                                                <a class="btn btn-sm btn-info"
+                                                   href="{% url 'message_update' message.pk %}">Bearbeiten</a>
+                                                <a class="btn btn-sm btn-danger"
+                                                   href="{% url 'message_delete' message.pk %}">Löschen</a>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        {#                        <a class="btn btn-md btn-primary"#}
+                        {#                           href="{% url 'message_create' %}">Neue Meldung verfassen</a>#}
+                        </div>
+                        </div>
+                    {% else %}
+                        <h2 class="text-muted text-center">Hier wurde leider noch keine Nachricht verfasst!
+                            ¯\_(ツ)_/¯<br/><br/></h2>
+                        <p class="mt-3 h3 text-muted text-center">Möchten Sie eine Nachricht verfassen? (ง'̀-'́)ง <a
+                                href="{% url 'message_create' %}">Klicken Sie hier!</a></p>
+                    {% endif %}
 
         </div>
-    </div>
-    <div class="container bg-light mt-n5 p-5 rounded ">
-        <div class="row">
-            <div class="col-12">
-                <h1>Aktuelle Messwerte</h1>
-            </div>
-            <div class="col-12">
-                <p>Temp, Luftfeuchte, CO2 aus datapoints current_xxx</p>
-                <p>{{ latest_values.current_value_double }}</p>
-                <p>{{ latest_values.current_value_integer }}</p>
-                <p>{{ latest_values.current_value_string }}</p>
-                {{ latest_values_list }}
-                                {{ latest_values_list.current_value_double }}
-                                {{ latest_values_list }}
-            </div>
-        </div>
-    </div>
-    <div class="container bg-light mt-n5 p-5 rounded ">
-        <div class="row">
-            <div class="col-12">
-                <h1>Messwertverlauf</h1>
-            </div>
-            <div class="col-12">
-                <p>Hier erscheint der Graph</p>
-            </div>
-        </div>
-    </div>
-    <div class="container bg-light mt-n5 p-5 rounded ">
-        <div class="row">
-            <div class="col-12">
-                <h1>Meldeverlauf</h1>
-            </div>
-            <div class="col-12">
-                <p>Hier erscheinen die geschriebenen Meldungen</p>
-            </div>
-        </div>
-    </div>
+
+
+        {% comment %}         {% block javascript %}
+             <script src="https://code.jquery.com/jquery-3.5.1.js"
+                     integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+             <script>
+                 $("#question-subject").change(function () {
+                     const subjectId = $(this).val();  // get the selected subject ID from the HTML dropdown list
+                     $.ajax({                       // initialize an AJAX request
+                         type: "POST",
+                         url: '{% url "get_devices_ajax" %}',
+                         data: {
+                             'device.id': device_id,       // add the country id to the POST parameters
+                             'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                         },
+                         success: function (data) {   // `data` is from `get_topics_ajax` view function
+                             let html_data = '<option value="">---------</option>';
+                             data.forEach(function (data) {
+                                 html_data += `<option value="${data.id}">${data.title}</option>`
+                             });
+                             $("#question-subject").html(html_data); // replace the contents of the topic input with the data that came from the server
+                         }
+                     });
+                 });
+             </script>
+         {% endblock javascript %}{% endcomment %}
+
+
+
 
 
 {% endblock content %}

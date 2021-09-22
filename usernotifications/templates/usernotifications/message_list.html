@@ -11,20 +11,20 @@
         </div>
     </div>
     <div class="container p-5 rounded ">
-        {% if object_list.count > 0 %}
-            {% for message in object_list %}
+        {% if message_list.count > 0 %}
+            {% for message in message_list %}
                 <div class="row blog mb-5">
 
                     <div class="col-lg-10 col-sm-12">
                         <div class="blog-information">
-                            {% if request.user.is_authenticated and request.user == message.recipient %}
+                            {% if request.user.is_authenticated and request.user == message.sender %}
                                 <h1 class="font-weight-bold mb-3">{{ message.sender }}</h1>
 
                                 <p>{{ message.content }}</p>
                                 <div class="update-edit">
 
-                                <a class="btn btn-sm btn-info" href="#">Bearbeiten</a>
-                                <a class="btn btn-sm btn-danger" href="#">Löschen</a>
+                                <a class="btn btn-sm btn-info" href="{% url 'message_update' message.pk %}">Bearbeiten</a>
+                                <a class="btn btn-sm btn-danger" href="{% url 'message_delete' message.pk %}">Löschen</a>
                             {% endif %}
                             </div>
                         </div>
@@ -53,7 +53,7 @@
         {% else %}
             <h2 class="text-muted text-center">Hier wurde leider noch keine Nachricht verfasst! ¯\_(ツ)_/¯<br/><br/></h2>
             <p class="mt-3 h3 text-muted text-center">Möchten Sie eine neue Nachricht verfassen? (ง'̀-'́)ง <a
-                    href="#">Klicken Sie hier!</a></p>
+                    href="{% url 'message_create' %}">Klicken Sie hier!</a></p>
         {% endif %}
     </div>
 {% endblock content %}

@@ -1,0 +1,18 @@
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="container bg-light p-5 mt-5 rounded ">
+        <div class="row">
+            <div class="col-12">
+                <h2>Wollen Sie die folgende Nachricht wirklich löschen?<br />"<strong>{{ message.content }}</strong>"<br /><br /></h2>
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <button class="btn btn-danger">Ja</button>
+                        <a class="btn btn-info" href="{% url 'messages_list' id=message.pk %}">Nein</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

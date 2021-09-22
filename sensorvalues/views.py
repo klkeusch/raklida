@@ -29,3 +29,18 @@ class DevicesTableView(tables.SingleTableView):
     table_class = DevicesTable
     queryset = Devices.objects.all()
     template_name = "devices_list.html"
+
+
+from django.http import JsonResponse
+
+
+def get_devices_ajax(request):
+    if request.method == "POST":
+        device_id = request.POST['device_id']
+        try:
+            device = Devices.objects.filter(id=id).first()
+            device_name = Devices.objects.filter(display_name=device_id)
+        except Exception:
+            data['error_message'] = 'error'
+            return JsonResponse(data)
+        return JsonResponse(list(device.values('id', 'title')), safe=False)
