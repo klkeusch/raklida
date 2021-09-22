@@ -19,12 +19,12 @@ from django.contrib.auth.models import User
 
 class MessageListView(generic.ListView):
     model = Message
-    # ordering = ['-sent_at']
-    # paginate_by = 3
-    #
-    # def get_queryset(self, *args, **kwargs):
-    #     # return Message.objects.filter(sender=self.kwargs['User.id': User.id])
-    #     return Message.objects.all()
+    #ordering = ['-sent_at']
+    #paginate_by = 3
+
+    def get_queryset(self, *args, **kwargs):
+        # return Message.objects.filter(sender=self.kwargs['pk'])
+        return Message.objects.filter(sender=self.request.user)
 
 
 class MessageCreateView(generic.CreateView):
