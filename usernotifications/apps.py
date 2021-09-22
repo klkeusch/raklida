@@ -10,6 +10,7 @@ if DJANGO_VERSION >= (1, 7):
     class UsernotificationsConfig(AppConfig):
         name = 'usernotifications'
         label = 'usernotifications'
+        verbose_name="Benutzermeldungen"
 
         def ready(self):
             # For convenience

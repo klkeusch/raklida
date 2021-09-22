@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.admin import SimpleListFilter
 import django_tables2 as tables
+from profiles.models import Profile
 
 
 class Data(models.Model):
@@ -15,8 +17,8 @@ class Data(models.Model):
 
     class Meta:
         managed = True
-        verbose_name = 'Data row'
-        verbose_name_plural = 'Data'
+        verbose_name = 'Messdaten-Eintrag'
+        verbose_name_plural = 'Messdaten-Einträge'
 
     def __str__(self):
         return str(self.datapoint)
@@ -31,10 +33,12 @@ class Devices(models.Model):
     display_name = models.CharField(max_length=50, verbose_name="Anzeigename")
     platform = models.CharField(max_length=30, blank=True, null=True, verbose_name="Geräte-Plattform")
     mac_address = models.CharField(max_length=20, blank=True, null=True)
+    assigned_to_user = models.ManyToManyField(User, related_name="User", db_table='DeviceUserAssignment', blank=True)
+    in_rooms = models.ForeignKey(Profile, on_delete=models.CASCADE, blank=True, null=True, verbose_name="Bei Benutzer")
 
     class Meta:
-        verbose_name = 'Device'
-        verbose_name_plural = 'Devices'
+        verbose_name = 'Gerät'
+        verbose_name_plural = 'Geräte'
 
     def __str__(self):
         return self.display_name
@@ -53,13 +57,9 @@ class Datapoints(models.Model):
     current_value_string = models.CharField(max_length=30, blank=True, null=True, verbose_name="Aktueller Statuscode")
     last_update = models.DateTimeField(blank=True, null=True, verbose_name="Letztes Update")
 
-    def get_latest_values_for_user(self):
-        #latest_values = Datapoints.objects.latest('timestamp')[:1]
-        return self.objects.latest('timestamp')
-
     class Meta:
-        verbose_name = 'Datapoint'
-        verbose_name_plural = 'Datapoints'
+        verbose_name = 'Datenpunkt'
+        verbose_name_plural = 'Datenpunkte'
 
     def __str__(self):
         return self.display_name
@@ -75,19 +75,19 @@ class DailyAverages(models.Model):
     value_max = models.FloatField(blank=True, null=True)
 
     class Meta:
-        verbose_name = 'Daily average'
-        verbose_name_plural = 'Daily averages'
+        verbose_name = 'Tagesdurchschnitt'
+        verbose_name_plural = 'Tagesdurchschnitte'
 
 
 class MqttTreeNodes(models.Model):
     id = models.BigAutoField(primary_key=True)
-    name = models.CharField(max_length=100)
-    is_leaf = models.BooleanField()
-    parent_id = models.BigIntegerField()
+    name = models.CharField(max_length=100, verbose_name="Name")
+    is_leaf = models.BooleanField(verbose_name="Ist Blatt?")
+    parent_id = models.BigIntegerField(verbose_name="Eltern-ID")
 
     class Meta:
-        verbose_name = 'MQTT Tree Node'
-        verbose_name_plural = 'MQTT Tree Nodes'
+        verbose_name = 'MQTT-Tree-Node'
+        verbose_name_plural = 'MQTT-Tree-Nodes'
 
     def __str__(self):
         return self.name
@@ -95,12 +95,12 @@ class MqttTreeNodes(models.Model):
 
 class TreeDatapointTranslations(models.Model):
     id = models.BigAutoField(primary_key=True)
-    datapoint = models.ForeignKey(Datapoints, models.CASCADE, blank=True, null=True)
-    mqtt_node = models.ForeignKey(MqttTreeNodes, models.CASCADE, blank=True, null=True)
+    datapoint = models.ForeignKey(Datapoints, models.CASCADE, blank=True, null=True, verbose_name="Datenpunkt")
+    mqtt_node = models.ForeignKey(MqttTreeNodes, models.CASCADE, blank=True, null=True, verbose_name="MQTT-Node")
 
     class Meta:
-        verbose_name = 'Tree Datapoint Translation'
-        verbose_name_plural = 'Tree Datapoint Translations'
+        verbose_name = 'MQTT-Tree-Datapoint-Verknüpfung'
+        verbose_name_plural = 'MQTT-Tree-Datapoint-Verknüpfungen'
 
     def __str__(self):
         return str(self.datapoint)
@@ -108,15 +108,18 @@ class TreeDatapointTranslations(models.Model):
 
 class DeviceUserAssignment(models.Model):
     id = models.BigAutoField(primary_key=True)
-    device = models.ForeignKey(Devices, models.CASCADE, null=True, blank=True)
-    user = models.ForeignKey(User, models.CASCADE, null=True, blank=True)
+    device = models.ForeignKey(Devices, models.CASCADE, null=True, blank=True, verbose_name="Gerät")
+    # device = models.ManyToManyField('Devices')
+    user = models.ForeignKey(User, models.CASCADE, null=True, blank=True, verbose_name="Benutzer")
+
+    # user = models.ManyToManyField('User')
 
     def __str__(self):
         return f'{self.user.username} benutzt: {self.device.display_name}'
 
     class Meta:
-        verbose_name = 'Device-User-Zuordnung'
-        verbose_name_plural = 'Device-User-Zuordnungen'
+        verbose_name = 'Benutzer-Gerät-Zuordnung'
+        verbose_name_plural = 'Benutzer-Gerät-Zuordnungen'
 
 
 class DevicesTable(tables.Table):

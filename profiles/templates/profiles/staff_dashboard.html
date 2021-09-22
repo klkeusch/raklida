@@ -50,11 +50,171 @@
       </div>
     </nav>
 {#  end of sidenavbar    #}
+
+
+
+
+
+
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Dashboard</h1>
+
+
+
+
+
+
+
+    <div class="landing bg-dark">
+        <div class="container">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-sm-12 col-lg-8 text-center">
+                    <h1 class="text-white font-weight-bold display-5 mb-3">Benutzer-Dashboard</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container bg-light mt-n5 p-5 rounded">
+        <div class="row border-bottom">
+            {#            <div class="col-12 mb-3">#}
+            {#                <h1>Aktuelle Messwerte</h1>#}
+            {#            </div>#}
+            <div class="container text-center">
+                <div class="row bg-secondary border-bottom align-items-center justify-content-center">
+                    <div class="col border-right">
+                        <p class="text-white font-weight-bold display-8 mb-3 mt-3">Temperatur</p>
+                    </div>
+                    <div class="col border-right">
+                        <p class="text-white font-weight-bold display-8 mb-3 mt-3">Luftfeuchtigkeit</p>
+                    </div>
+                    <div class="col">
+                        <p class="text-white font-weight-bold display-8 mb-3 mt-3">CO2-Wert</p>
+                    </div>
+                </div>
+                <div class="row align-items-center justify-content-center">
+                    <div class="col border-right">
+                        <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">24,5 °C</h1>
+                    </div>
+                    <div class="col border-right">
+                        <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">62 %</h1>
+                    </div>
+                    <div class="col">
+                        <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">589 ppm</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="row border-bottom">
+            <div class="container text-center">
+                <div class="row bg-secondary border-bottom align-items-center justify-content-center">
+                    <div class="col border-right">
+                        <p class="text-white font-weight-bold display-8 mb-3 mt-3">Luftdruck</p>
+                    </div>
+                    <div class="col border-right">
+                        <p class="text-white font-weight-bold display-8 mb-3 mt-3">Feinstaubkonzentration</p>
+                    </div>
+                    <div class="col">
+                        <p class="text-white font-weight-bold display-8 mb-3 mt-3" >Luftqualität</p>
+                    </div>
+                </div>
+                <div class="row align-items-center justify-content-center">
+                    <div class="col border-right">
+                        <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">1100 hPa</h1>
+                    </div>
+                    <div class="col border-right">
+                        <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">62 &#181;g/m<sup>3</sup></h1>
+                    </div>
+                    <div class="col">
+                        <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">gut/schlecht (if)</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container bg-light mt-n5 p-5 rounded">
+        <div class="row">
+            <div class="col-12">
+                <h1>Messwertverlauf</h1>
+            </div>
+            <div class="col-12">
+                <p>Hier erscheint der Graph</p>
+            </div>
+        </div>
+    </div>
+    <div class="container bg-light mt-n5 p-5 rounded">
+        <div class="row border-bottom">
+            <div class="col-12 border-bottom mb-3">
+                <h1>Meldeverlauf</h1>
+            </div>
+            <div class="col-12 mb-3">
+
+                <p><a class="btn btn-md btn-primary"
+                      href="{% url 'message_create' %}">Neue Meldung verfassen</a></p>
+
+                {% if notifications.count > 0 %}
+                    {% for message in notifications %}
+                        <div class="row blog mb-5">
+                            <div class="col-lg-2 col-sm-12 text-center">
+                                Empfänger:<a class="mugshot-container mb-1"
+                                             href="{% url 'profile' message.recipient.pk %}">
+                                <div class="mugshot-img mb-2"
+                                     style="background-image:url({{ message.recipient.profile.image.url }})"></div>
+                                <span>{{ message.recipient.first_name }} {{ message.recipient.last_name }}</span>
+                            </a>
+                            </div>
+                            <div class="col-lg-10 col-sm-12">
+                                <div class="blog-information">
+                                    <p>{{ message.content }}</p>
+                                    <p class="text-muted">Gesendet am {{ message.sent_at|date:"d.m.Y" }}
+                                        um {{ message.sent_at|date:"H:i" }}</p>
+                                    <div class="update-edit">
+                                        {% if request.user.is_authenticated and request.user == message.sender %}
+                                            <a class="btn btn-sm btn-info" href="{% url 'message_update' message.pk %}">Bearbeiten</a>
+                                            <a class="btn btn-sm btn-danger"
+                                               href="{% url 'message_delete' message.pk %}">Löschen</a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <a class="btn btn-md btn-primary"
+                       href="{% url 'message_create' %}">Neue Meldung verfassen</a>
+                    </div>
+                    </div>
+                {% else %}
+                    <h2 class="text-muted text-center">Hier wurde leider noch keine Nachricht verfasst!
+                        ¯\_(ツ)_/¯<br/><br/></h2>
+                    <p class="mt-3 h3 text-muted text-center">Möchten Sie eine Nachricht verfassen? (ง'̀-'́)ง <a
+                            href="{% url 'message_create' %}">Klicken Sie hier!</a></p>
+                {% endif %}
+
+    </div>
       </div>
     </main>
   </div>
 </div>
-{% endblock %}
+
+    <select name="movie">
+    {% for message in notifications %}
+        {% ifequal movie.id selected_movie.id %}
+            <option value="{{movie.key}}" selected="selected">Movie {{movie.id}}: {{movie.name}}</option>
+        {% else %}
+            <option value="{{movie.key}}">Movie {{movie.id}}: {{movie.name}}</option>
+        {% endifequal %}
+    {% endfor %}
+</select>
+
+
+{% endblock content %}
+
+
+
+
+
+
+
+

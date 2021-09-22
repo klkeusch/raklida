@@ -4,7 +4,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User
 from .forms import RegisterForm, UserUpdateForm, ProfileUpdateForm
-from sensorvalues.models import Datapoints
+from sensorvalues.models import Datapoints, DeviceUserAssignment, Devices
+from usernotifications.models import Message
 
 
 def register(request):
@@ -56,7 +57,34 @@ def user_dashboard(request):
     return render(request, 'profiles/user_dashboard.html')
 
 
-def get_latest_values_for_user(request, device):
-    latest_values_list = Datapoints.objects.order_by('-timestamp')[:1]
-    return render(request, "profiles/staff_dashboard.html", {'latest_values_list': latest_values_list})
-    # return render(request, "profiles/user_dashboard.html", {'latest_values': latest_values})
+# def get_latest_values_for_user(request, device):
+#     latest_values_list = Datapoints.objects.order_by('-timestamp')[:1]
+#     return render(request, "profiles/staff_dashboard.html", {'latest_values_list': latest_values_list})
+#     # return render(request, "profiles/user_dashboard.html", {'latest_values': latest_values})
+#
+#
+# def get_latest_values_for_user(self):
+#     # latest_values = Datapoints.objects.latest('timestamp')[:1]
+#     return self.objects.latest('timestamp')
+
+
+# def get_users_devices(request, pk):
+#     if request.user:
+#         assigned_device = "Gerät"
+#     else:
+#         assigned_device = "Kein Gerät"
+#     return render(request, "profiles/profile.html", {'assigned_device': assigned_device})
+
+@user_passes_test(lambda u: u.groups.filter(name='Benutzer').exists())
+def user_logged_in(request):
+    #devices = DeviceUserAssignment.objects.count(request.user)#filter(request.user.id)
+    #latest_values = Datapoints.objects.latest('timestamp')
+    notifications = Message.objects.filter(sender=request.user)
+    # user_devices = DeviceUserAssignment.objects.all()
+    #notifications = Message.objects.all()
+    context = {
+        #'devices': devices,
+        #'latest_values': latest_values,
+        'notifications': notifications,
+    }
+    return render(request, "profiles/user_dashboard.html", context)
