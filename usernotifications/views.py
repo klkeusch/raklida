@@ -91,7 +91,7 @@ class MessageDeleteView(generic.DeleteView):
             return False
 
     def delete(self, request, *args, **kwargs):
-        messages.success(self.request, self.success_message)
+        # messages.success(self.request, self.success_message)
         return super(MessageDeleteView, self).delete(request, *args, **kwargs)
 
 # @login_required
