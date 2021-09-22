@@ -49,12 +49,11 @@ INSTALLED_APPS = [
     'crispy_forms',
     'sensorvalues',
     'django_tables2',
-    'plotly',
-    'plotly.offline',
-    'plotly.graph_objs',
     'sensorvaluesplots',
     'rest_framework',
     'usernotifications',
+    'bootstrap_datepicker_plus',
+    'bootstrap4',
 ]
 
 MIDDLEWARE = [
@@ -157,3 +156,6 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'klkeusch@gmail.com'
 EMAIL_HOST_PASSWORD = 'iepvqoqidlsqlbbh'
+
+# User model ref
+# AUTH_USER_MODEL =
