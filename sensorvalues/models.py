@@ -33,7 +33,7 @@ class Devices(models.Model):
     display_name = models.CharField(max_length=50, verbose_name="Anzeigename")
     platform = models.CharField(max_length=30, blank=True, null=True, verbose_name="Geräte-Plattform")
     mac_address = models.CharField(max_length=20, blank=True, null=True)
-    assigned_to_user = models.ManyToManyField(User, related_name="User", db_table='DeviceUserAssignment', blank=True)
+    assigned_to_user = models.ManyToManyField(User, related_name="User", blank=True)
     in_rooms = models.ForeignKey(Profile, on_delete=models.CASCADE, blank=True, null=True, verbose_name="Bei Benutzer")
 
     class Meta:

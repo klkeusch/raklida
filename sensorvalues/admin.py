@@ -2,6 +2,8 @@ from django.contrib import admin
 from django.contrib.admin import SimpleListFilter
 from .models import Data, Datapoints, Devices, MqttTreeNodes, TreeDatapointTranslations, DevicesTable, DailyAverages, \
     DeviceUserAssignment
+from related_admin import RelatedFieldAdmin, getter_for_related_field
+
 
 # admin.site.register(Datapoints)
 admin.site.register(MqttTreeNodes)
@@ -12,6 +14,11 @@ admin.site.register(DailyAverages)
 class DevicesAdmin(admin.ModelAdmin):
     model = Devices
     list_display = ('id', 'display_name', 'location', 'last_status_update', 'in_rooms')
+
+
+# class DevicesAdmin(RelatedFieldAdmin):
+#     # model = Devices
+#     list_display = ('id', 'display_name', 'location', 'last_status_update', 'in_rooms', 'assigned_to_user')
 
 
 class DevicesUserAssignmentAdmin(admin.ModelAdmin):

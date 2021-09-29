@@ -14,6 +14,16 @@ class DataListView(generic.ListView):
     paginate_by = 10
 
 
+class DevicesListView(generic.ListView):
+    model = Devices
+
+
+def devices_list(request):
+    devices = Devices.objects.all()
+
+    return render(request, "sensorvalues/devices_list.html", {"devices": devices})
+
+
 # class DataTableView(tables.SingleTableView):
 # table_class = DataTable
 # queryset = Data.objects.all()

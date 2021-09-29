@@ -11,7 +11,14 @@
         </div>
     </div>
     <div class="container p-2 rounded ">
-            {% load django_tables2 %}
-            {% render_table table %}
+        {% load django_tables2 %}
+        {% render_table table %}
+
+
+
+        {% for device in devices %}
+            <p>{{ device.id }}
+        {% endfor %}
+
     </div>
 {% endblock content %}
