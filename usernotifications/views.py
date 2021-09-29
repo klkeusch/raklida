@@ -19,8 +19,9 @@ from django.contrib.auth.models import User
 
 class MessageListView(generic.ListView):
     model = Message
-    #ordering = ['-sent_at']
-    #paginate_by = 3
+
+    # ordering = ['-sent_at']
+    # paginate_by = 3
 
     def get_queryset(self, *args, **kwargs):
         # return Message.objects.filter(sender=self.kwargs['pk'])
@@ -80,8 +81,8 @@ class MessageUpdateView(generic.UpdateView):
 
 class MessageDeleteView(generic.DeleteView):
     model = Message
-    # success_message = "Nachricht erfolgreich gelöscht!"
-    success_url = "/user_dashboard"
+    success_message = "Nachricht erfolgreich gelöscht!"
+    success_url = "/user-dashboard/"
 
     def test_func(self):
         message = self.get_object()
@@ -91,20 +92,5 @@ class MessageDeleteView(generic.DeleteView):
             return False
 
     def delete(self, request, *args, **kwargs):
-        # messages.success(self.request, self.success_message)
+        messages.success(self.request, self.success_message)
         return super(MessageDeleteView, self).delete(request, *args, **kwargs)
-
-# @login_required
-# def update(request):
-#     if request.POST:
-#         message_form = MessageUpdateForm(request.POST, instance=request.message.sender)
-#         if message_form:
-#             message_form.save()
-#             messages.success(request, "Profil erfolgreich aktualisiert!")
-#             return redirect('message_detail', request.message.pk)
-#     else:
-#         profile_form = MessageUpdateForm(instance=request.message.pk)
-#     context = {
-#         'message_form': message_form,
-#     }
-#     return render(request, 'profiles/update.html', context)
