@@ -18,10 +18,15 @@ class DevicesListView(generic.ListView):
     model = Devices
 
 
-def devices_list(request):
-    devices = Devices.objects.all()
-
-    return render(request, "sensorvalues/devices_list.html", {"devices": devices})
+# def devices_list(request): not working
+#     devices = Devices.objects.all()
+#
+#     return render(request, "sensorvalues/devices_list.html", {"devices": devices})
+#
+#
+# def chartjstest(request): not working
+#     devices = Devices.objects.all()
+#     return render(request, "sensorvalues/chartjs-test.html", {"devices": devices})
 
 
 # class DataTableView(tables.SingleTableView):

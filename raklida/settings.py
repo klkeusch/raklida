@@ -39,7 +39,8 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'related_admin',
-    'django.contrib.admin',
+    'raklida.apps.CustomAdminConfig',
+    # 'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',

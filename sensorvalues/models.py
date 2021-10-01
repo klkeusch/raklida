@@ -32,8 +32,8 @@ class Devices(models.Model):
     device_type = models.CharField(max_length=30, blank=True, null=True, verbose_name="Gerätetyp")
     display_name = models.CharField(max_length=50, verbose_name="Anzeigename")
     platform = models.CharField(max_length=30, blank=True, null=True, verbose_name="Geräte-Plattform")
-    mac_address = models.CharField(max_length=20, blank=True, null=True)
-    assigned_to_user = models.ManyToManyField(User, related_name="User", blank=True)
+    mac_address = models.CharField(max_length=20, blank=True, null=True, verbose_name="MAC-Adresse")
+    # assigned_to_user = models.ManyToManyField(User, related_name="User", blank=True)
     in_rooms = models.ForeignKey(Profile, on_delete=models.CASCADE, blank=True, null=True, verbose_name="Bei Benutzer")
 
     class Meta:
@@ -106,20 +106,20 @@ class TreeDatapointTranslations(models.Model):
         return str(self.datapoint)
 
 
-class DeviceUserAssignment(models.Model):
-    id = models.BigAutoField(primary_key=True)
-    device = models.ForeignKey(Devices, models.CASCADE, null=True, blank=True, verbose_name="Gerät")
-    # device = models.ManyToManyField('Devices')
-    user = models.ForeignKey(User, models.CASCADE, null=True, blank=True, verbose_name="Benutzer")
-
-    # user = models.ManyToManyField('User')
-
-    def __str__(self):
-        return f'{self.user.username} benutzt: {self.device.display_name}'
-
-    class Meta:
-        verbose_name = 'Benutzer-Gerät-Zuordnung'
-        verbose_name_plural = 'Benutzer-Gerät-Zuordnungen'
+# class DeviceUserAssignment(models.Model):
+#     id = models.BigAutoField(primary_key=True)
+#     device = models.ForeignKey(Devices, models.CASCADE, null=True, blank=True, verbose_name="Gerät")
+#     # device = models.ManyToManyField('Devices')
+#     user = models.ForeignKey(User, models.CASCADE, null=True, blank=True, verbose_name="Benutzer")
+#
+#     # user = models.ManyToManyField('User')
+#
+#     def __str__(self):
+#         return f'{self.user.username} benutzt: {self.device.display_name}'
+#
+#     class Meta:
+#         verbose_name = 'Benutzer-Gerät-Zuordnung'
+#         verbose_name_plural = 'Benutzer-Gerät-Zuordnungen'
 
 
 class DevicesTable(tables.Table):
