@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User
 from .forms import RegisterForm, UserUpdateForm, ProfileUpdateForm
-from sensorvalues.models import Datapoints, DeviceUserAssignment, Devices
+from sensorvalues.models import Datapoints, Devices#, DeviceUserAssignment,
 from usernotifications.models import Message
 
 

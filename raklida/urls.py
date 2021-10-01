@@ -24,10 +24,11 @@ from sensorvalues import tables as tables
 from sensorvaluesplots import views as sensvalplots
 from usernotifications import views as usrnotsvc
 from profiles.views import user_dashboard, staff_dashboard, user_logged_in
+from .admin import admin_device_sensorvalues_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-
+    path('device-sensorvalues/', admin_device_sensorvalues_view, name='admin-device-sensorvalues'),
     path("", include('blog.urls')),
     path("", include('usernotifications.urls')),
 

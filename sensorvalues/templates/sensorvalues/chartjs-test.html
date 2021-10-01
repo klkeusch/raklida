@@ -1,29 +1,7 @@
 {% extends "blog/base.html" %}
-
 {% block content %}
-    <div class="landing bg-dark">
-        <div class="container">
-            <div class="row align-items-center justify-content-center">
-                <div class="col-sm-12 col-lg-6 text-center">
-                    <h1 class="text-white font-weight-bold display-5 mb-3">Aktuelle Messwerte</h1>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container p-2 rounded ">
-        {% load django_tables2 %}
-        {% render_table table %}
 
-
-
-        {% for device in devices %}
-            <p>{{ device.id }}
-        {% endfor %}
-
-    </div>
-
-<div class="container p-2 rounded">
-    <canvas id="chart" width="300" height="100"></canvas>
+    <canvas id="chart" width="500" height="500"></canvas>
     <script>
         let ctx = document.getElementById("chart").getContext("2d");
 
@@ -48,10 +26,6 @@
             }
         });
     </script>
-</div>
-
-
-
 
 
 {% endblock content %}
