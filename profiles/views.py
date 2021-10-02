@@ -1,10 +1,12 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User
+
+from .models import *
 from .forms import RegisterForm, UserUpdateForm, ProfileUpdateForm
-from sensorvalues.models import Datapoints, Devices#, DeviceUserAssignment,
+from sensorvalues.models import Datapoints, Devices  # , DeviceUserAssignment,
 from usernotifications.models import Message
 
 
@@ -22,7 +24,20 @@ def register(request):
 
 def profile(request, pk):
     user = get_object_or_404(User, pk=pk)
-    return render(request, "profiles/profile.html", {'user': user})
+    assigned_profile = get_object_or_404(Profile, pk=pk)
+
+    # if request.user.is_authenticated:
+    # d = Profile.get_assigned_devices(self=pk)
+    # assigned_devices = get_list_or_404(d)
+    # else:
+    #     assigned_devices = "Kein Gerät"
+
+    context = {
+        'user': user,
+        'assigned_profile': assigned_profile,
+        # 'assigned_devices': assigned_devices,
+    }
+    return render(request, "profiles/profile.html", context)
 
 
 @login_required
@@ -70,21 +85,22 @@ def user_dashboard(request):
 
 # def get_users_devices(request, pk):
 #     if request.user:
-#         assigned_device = "Gerät"
+#         assigned_devices = get_list_or_404(profiles.models.Profile)
 #     else:
-#         assigned_device = "Kein Gerät"
-#     return render(request, "profiles/profile.html", {'assigned_device': assigned_device})
+#         assigned_devices = "Kein Gerät"
+#     return render(request, "profiles/profile.html", {'assigned_devices': assigned_devices})
+
 
 @user_passes_test(lambda u: u.groups.filter(name='Benutzer').exists())
 def user_logged_in(request):
-    #devices = DeviceUserAssignment.objects.count(request.user)#filter(request.user.id)
-    #latest_values = Datapoints.objects.latest('timestamp')
+    # devices = DeviceUserAssignment.objects.count(request.user)#filter(request.user.id)
+    # latest_values = Datapoints.objects.latest('timestamp')
     notifications = Message.objects.filter(sender=request.user)
     # user_devices = DeviceUserAssignment.objects.all()
-    #notifications = Message.objects.all()
+    # notifications = Message.objects.all()
     context = {
-        #'devices': devices,
-        #'latest_values': latest_values,
+        # 'devices': devices,
+        # 'latest_values': latest_values,
         'notifications': notifications,
     }
     return render(request, "profiles/user_dashboard.html", context)

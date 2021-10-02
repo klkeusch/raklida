@@ -43,6 +43,14 @@
                         <td>{{ user.groups.all.0 }}</td>
                     </tr>
                     <tr>
+                        <td>Zugewiesene Geräte</td>
+                        <td>{{ assigned_profile.assigned_devices.all|join:", " }}</td>
+                    </tr>
+                    <tr>
+                        <td>Räume</td>
+                        <td>{{ assigned_profile.user_rooms }}</td>
+                    </tr>
+                    <tr>
                         <td>Zusätzliche Informationen</td>
                         <td>{{ user.profile.description }}</td>
                     </tr>

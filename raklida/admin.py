@@ -5,8 +5,10 @@ from django.urls import path
 
 
 @staff_member_required
-def admin_device_sensorvalues_view(request):
-    return render(request, 'admin/device_sensorvalues.html', {'title': 'Messwerteverlauf - Geräte'})
+def admin_statistics_view(request):
+    return render(request, 'sensorvalues/admin/statistics.html', {
+        'title': 'Statistics'
+    })
 
 
 class CustomAdminSite(admin.AdminSite):
@@ -14,13 +16,13 @@ class CustomAdminSite(admin.AdminSite):
         app_list = super().get_app_list(request)
         app_list += [
             {
-                'name': 'Diagramme',
-                'app_label': 'sensorvalues_diagrams',
+                'name': 'My Custom App',
+                'app_label': 'my_custom_app',
                 'models': [
                     {
-                        'name': 'Messwerteverlauf - Geräte',
-                        'object_name': 'device-sensorvalues',
-                        'admin_url': 'device-sensorvalues',
+                        'name': 'Statistics',
+                        'object_name': 'statistics',
+                        'admin_url': 'sensorvalues/statistics',
                         'view_only': True,
                     }
                 ],
@@ -28,9 +30,9 @@ class CustomAdminSite(admin.AdminSite):
         ]
         return app_list
 
-    # def get_urls(self):
-    #     urls = super().get_urls()
-    #     urls += [
-    #         path('device-sensorvalues/', admin_device_sensorvalues_view, name='admin-device-sensorvalues'),
-    #     ]
-    #     return urls
+    def get_urls(self):
+        urls = super().get_urls()
+        urls += [
+            path('sensorvalues/statistics/', admin_statistics_view, name='admin-statistics'),
+        ]
+        return urls

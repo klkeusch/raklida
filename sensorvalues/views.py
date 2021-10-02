@@ -3,6 +3,7 @@ from django.views import generic
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.admin.views.decorators import staff_member_required
 import django_tables2 as tables
 from .tables import DataTable
 from .models import Data, Devices, DevicesTable
