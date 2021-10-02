@@ -3,7 +3,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.admin import SimpleListFilter
 import django_tables2 as tables
-from profiles.models import Profile
+# from profiles.models import Profile
 
 
 class Data(models.Model):
@@ -33,8 +33,9 @@ class Devices(models.Model):
     display_name = models.CharField(max_length=50, verbose_name="Anzeigename")
     platform = models.CharField(max_length=30, blank=True, null=True, verbose_name="Geräte-Plattform")
     mac_address = models.CharField(max_length=20, blank=True, null=True, verbose_name="MAC-Adresse")
+
     # assigned_to_user = models.ManyToManyField(User, related_name="User", blank=True)
-    in_rooms = models.ForeignKey(Profile, on_delete=models.CASCADE, blank=True, null=True, verbose_name="Bei Benutzer")
+    # in_rooms = models.ForeignKey(Profile, on_delete=models.CASCADE, blank=True, null=True, verbose_name="Bei Benutzer")
 
     class Meta:
         verbose_name = 'Gerät'
@@ -42,6 +43,38 @@ class Devices(models.Model):
 
     def __str__(self):
         return self.display_name
+
+
+class DeviceUserAssignment(models.Model):
+    device = models.ForeignKey('sensorvalues.Devices', models.CASCADE, null=True, blank=True, verbose_name="Gerät")
+    assigned_user = models.ForeignKey('profiles.Profile', models.CASCADE, null=True, blank=True, verbose_name="Benutzer")
+    usage_reason = models.CharField(max_length=100, verbose_name="Nutzungsgrund/Details")
+    start_date = models.DateField(verbose_name="Startdatum")
+    end_date = models.DateField(verbose_name="Enddatum")
+
+    def __str__(self):
+        # return f'{self.assigned_user.user.username} benutzt: {self.device.display_name}'
+        return f'{self.device.display_name} (Nutzer: {self.assigned_user.user.username})'
+
+    class Meta:
+        verbose_name = 'Benutzer-Gerät-Zuordnung'
+        verbose_name_plural = 'Benutzer-Gerät-Zuordnungen'
+
+
+# class DeviceUserAssignment(models.Model): alter CODE
+#     id = models.BigAutoField(primary_key=True)
+#     device = models.ForeignKey(Devices, models.CASCADE, null=True, blank=True, verbose_name="Gerät")
+#     # device = models.ManyToManyField('Devices')
+#     user = models.ForeignKey(User, models.CASCADE, null=True, blank=True, verbose_name="Benutzer")
+#
+#     # user = models.ManyToManyField('User')
+#
+#     def __str__(self):
+#         return f'{self.user.username} benutzt: {self.device.display_name}'
+#
+#     class Meta:
+#         verbose_name = 'Benutzer-Gerät-Zuordnung'
+#         verbose_name_plural = 'Benutzer-Gerät-Zuordnungen'
 
 
 class Datapoints(models.Model):
@@ -104,22 +137,6 @@ class TreeDatapointTranslations(models.Model):
 
     def __str__(self):
         return str(self.datapoint)
-
-
-# class DeviceUserAssignment(models.Model):
-#     id = models.BigAutoField(primary_key=True)
-#     device = models.ForeignKey(Devices, models.CASCADE, null=True, blank=True, verbose_name="Gerät")
-#     # device = models.ManyToManyField('Devices')
-#     user = models.ForeignKey(User, models.CASCADE, null=True, blank=True, verbose_name="Benutzer")
-#
-#     # user = models.ManyToManyField('User')
-#
-#     def __str__(self):
-#         return f'{self.user.username} benutzt: {self.device.display_name}'
-#
-#     class Meta:
-#         verbose_name = 'Benutzer-Gerät-Zuordnung'
-#         verbose_name_plural = 'Benutzer-Gerät-Zuordnungen'
 
 
 class DevicesTable(tables.Table):
