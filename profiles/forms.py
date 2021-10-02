@@ -26,8 +26,9 @@ class UserUpdateForm(forms.ModelForm):
 
 class ProfileUpdateForm(forms.ModelForm):
     description = forms.CharField(widget=forms.Textarea, max_length=300, required=False, label="Informationen")
+    user_rooms = forms.CharField(max_length=300, required=False, label="Büro/Räume")
     image = forms.ImageField(label="Profilbild")
 
     class Meta:
         model = Profile
-        fields = ['description', 'image']
+        fields = ['description', 'user_rooms', 'image']
