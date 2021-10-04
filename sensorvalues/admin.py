@@ -6,8 +6,16 @@ from related_admin import RelatedFieldAdmin, getter_for_related_field
 
 # admin.site.register(Datapoints)
 # admin.site.register(MqttTreeNodes)
-admin.site.register(TreeDatapointTranslations)
+# admin.site.register(TreeDatapointTranslations)
 admin.site.register(DailyAverages)
+
+
+class TreeDatapointTranslationsAdmin(admin.ModelAdmin):
+    model = TreeDatapointTranslations
+    sortable_by = ('datapoint', 'mqtt_node',)
+    list_filter = ('datapoint', 'mqtt_node',)
+    list_display = ('id', 'datapoint', 'mqtt_node',)
+    list_display_links = list_display
 
 
 class MqttTreeNodesAdmin(admin.ModelAdmin):
@@ -45,14 +53,16 @@ class DevicesUserAssignmentAdmin(admin.ModelAdmin):
 class DataAdmin(admin.ModelAdmin):
     model = Data
     list_display = ('id', 'timestamp', 'datapoint', 'value_double', 'value_integer', 'value_string', 'is_valid',)
-    list_filter = ['timestamp']
+    list_filter = ['timestamp', 'datapoint',]
 
 
 class DatapointAdmin(admin.ModelAdmin):
     model = Datapoints
+    list_filter = ['device',]
     list_display = (
         'id', 'display_name', 'unit', 'device', 'current_value_double', 'current_value_integer', 'current_value_string',
         'last_update', 'store_historic_data')
+    list_display_links = list_display
 
 
 admin.site.register(Devices, DevicesAdmin)
@@ -60,3 +70,4 @@ admin.site.register(Data, DataAdmin)
 admin.site.register(DeviceUserAssignment, DevicesUserAssignmentAdmin)
 admin.site.register(Datapoints, DatapointAdmin)
 admin.site.register(MqttTreeNodes, MqttTreeNodesAdmin)
+admin.site.register(TreeDatapointTranslations, TreeDatapointTranslationsAdmin)
