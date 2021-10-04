@@ -79,7 +79,7 @@ class DeviceUserAssignment(models.Model):
 
 class Datapoints(models.Model):
     id = models.BigAutoField(primary_key=True, verbose_name="ID")
-    name = models.CharField(max_length=30, verbose_name="Name")
+    name = models.CharField(max_length=50, verbose_name="Name")
     unit = models.CharField(max_length=15, verbose_name="Einheit")
     display_name = models.CharField(max_length=50, verbose_name="Anzeigename")
     store_historic_data = models.BooleanField(verbose_name="Messwertaufzeichnung?")
