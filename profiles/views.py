@@ -5,9 +5,9 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User
 
 from .models import *
-from .forms import RegisterForm, UserUpdateForm, ProfileUpdateForm
-from sensorvalues.models import Datapoints, Devices  # , DeviceUserAssignment,
 from usernotifications.models import Message
+from sensorvalues.models import *
+from .forms import RegisterForm, UserUpdateForm, ProfileUpdateForm, DeviceChoiceField
 
 
 def register(request):
@@ -103,4 +103,49 @@ def user_logged_in(request):
         # 'latest_values': latest_values,
         'notifications': notifications,
     }
+    return render(request, "profiles/user_dashboard.html", context)
+
+
+# def show_user_device(request):
+#     device_list = DeviceChoiceField()
+#
+#     # selected_device = request.GET.get('devices')
+#     # query_results = DeviceUserAssignment.objects.filter(device=selected_device).filter(
+#     #     assigned_user=request.pro)  # .filter(field von model = selected_device)
+#
+#     if request.GET.get('devices'):
+#         selected_device = request.GET.get('devices')
+#         # print(selected_device)
+#         # query_results = Devices.objects.filter(profile__assigned_devices__display_name=selected_device)#(display_name=selected_device)
+#         query_results = DeviceUserAssignment.objects.filter(device__display_name=selected_device)#.filter(assigned_user_id=request.user.pk)  # .filter(field von model = selected_device)
+#     else:
+#         query_results = Devices.objects.none()
+#
+#     context = {
+#         'device_list': device_list,
+#         'query_results': query_results,
+#         'selected_device': selected_device,
+#     }
+#
+#     return render(request, "profiles/user_dashboard.html", context)
+
+
+def show_user_device(request):
+    device_list = DeviceChoiceField(request=request)
+
+    if request.GET.get('devices'):
+        selected_device = request.GET.get('devices')
+        # query_results = Devices.objects.filter(profile__assigned_devices__display_name=selected_device)#(display_name=selected_device)
+        query_results = Devices.objects.filter(
+            display_name=selected_device)  # .filter(assigned_user_id=request.user.pk)  # .filter(field von model = selected_device)
+       #  query_current_values = TreeDatapointTranslations.objects.filter(datapoint__device__display_name=selected_device).latest("datapoint__name")
+    else:
+        query_results = Devices.objects.none()
+
+    context = {
+        'query_results': query_results,
+        'device_list': device_list,
+       # 'query_current_values': query_current_values,
+    }
+
     return render(request, "profiles/user_dashboard.html", context)
