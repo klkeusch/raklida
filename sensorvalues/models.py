@@ -141,8 +141,8 @@ class TreeDatapointTranslations(models.Model):
         return f"{self.datapoint} ({self.datapoint.device})"
     #    return str(self.datapoint)
 
-    def label_from_instance(self, obj):
-        return f"{self.datapoint} ({self.datapoint.device})"
+    # def label_from_instance(self, obj):
+    #     return f"{self.datapoint} ({self.datapoint.device})"
 
 
 class DevicesTable(tables.Table):
