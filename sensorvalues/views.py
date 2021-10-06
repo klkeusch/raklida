@@ -9,14 +9,14 @@ from .tables import DataTable
 from .models import Data, Devices, DevicesTable
 
 
-class DataListView(generic.ListView):
-    model = Data
-    ordering = ['-timestamp']
-    paginate_by = 10
+# class DataListView(generic.ListView):
+#     model = Data
+#     ordering = ['-timestamp']
+#     paginate_by = 10
 
 
-class DevicesListView(generic.ListView):
-    model = Devices
+# class DevicesListView(generic.ListView):
+#     model = Devices
 
 
 # def devices_list(request): not working
