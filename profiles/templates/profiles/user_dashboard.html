@@ -47,6 +47,7 @@
         <div class="container text-center">
             {% if current_device_display_name %}
             <h3>Gerät: {{ current_device_display_name|join:" " }}</h3>
+                <p>Aktualisiert: {{ query_current_last_update }}</p>
             <div class="row bg-secondary border-bottom align-items-center justify-content-center">
                 <div class="col border-right">
                     <p class="text-white font-weight-bold display-8 mb-3 mt-3">Temperatur [°C]</p>
@@ -89,7 +90,7 @@
                     <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">{{ query_current_barometric_pressure|default_if_none:" "|floatformat:2 }}</h1>
                 </div>
                 <div class="col border-right">
-                    <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">{{ query_current_finedust_concentration|default_if_none:" "|floatformat:2 }}</h1>
+                    <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">{{ query_current_finedust_concentration|default_if_none:" " }}</h1>
                 </div>
                 <div class="col">
                     <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">{{ query_current_air_quality|default_if_none:" " }}</h1>
@@ -98,7 +99,6 @@
             </div>
         </div>
     </div>
-{% endif %}
 </div>
 
 
@@ -159,6 +159,7 @@
         </div>
     </div>
 </div>
+            {% endif %}
 <div class="container bg-light mt-n5 p-5 rounded">
     <div class="row">
         <div class="col-12 border-bottom mb-3">
@@ -215,50 +216,51 @@
 </div>
 </div>
 
-<h1>Device details</h1>
-    <table>
-
-{% comment %}
-
-        {% for item in query_results %}
-            {% if request.user.is_authenticated and request.user == query_results.assigned_user %}
-            <tr>
-                <td>{{ item.display_name }}</td>
-                <td>{{ item.mac_address }}</td>
-            </tr>
-            {% endif %}
-        {% endfor %}
-    {% endcomment %}
-        <tr>
-            <th>Datapoint</th>
-            <th>MQTT-Node</th>
-            <th>Device</th>
-            <th>Display name</th>
-            <th>Curr. val. int</th>
-            <th>Curr. val. double</th>
-            <th>Curr. val. string</th>
-            <th>Last update</th>
-            <th>Store historic data</th>
-        </tr>
-        {% for item in query_current_values %}
-
-            <tr>
-                <td>{{ item.datapoint }}</td>
-                <td>{{ item.mqtt_node }}</td>
-                <td>{{ item.datapoint.device }}</td>
-                <td>{{ item.datapoint.display_name }}</td>
-                <td>{{ item.datapoint.current_value_integer }}</td>
-                <td>{{ item.datapoint.current_value_double }}</td>
-                <td>{{ item.datapoint.current_value_string }}</td>
-                <td>{{ item.datapoint.last_update }}</td>
-                <td>{{ item.datapoint.store_historic_data }}</td>
-            </tr>
-        {% endfor %}
-    </table>
-
-    <p>{{ query_current_temperature }}</p>
+{#<h1>Device details</h1>#}
+{#    <table>#}
+{##}
+{#{% comment %}#}
+{##}
+{#        {% for item in query_results %}#}
+{#            {% if request.user.is_authenticated and request.user == query_results.assigned_user %}#}
+{#            <tr>#}
+{#                <td>{{ item.display_name }}</td>#}
+{#                <td>{{ item.mac_address }}</td>#}
+{#            </tr>#}
+{#            {% endif %}#}
+{#        {% endfor %}#}
+{#    {% endcomment %}#}
+{#        <tr>#}
+{#            <th>Datapoint</th>#}
+{#            <th>MQTT-Node</th>#}
+{#            <th>Device</th>#}
+{#            <th>Display name</th>#}
+{#            <th>Curr. val. int</th>#}
+{#            <th>Curr. val. double</th>#}
+{#            <th>Curr. val. string</th>#}
+{#            <th>Last update</th>#}
+{#            <th>Store historic data</th>#}
+{#        </tr>#}
+{#        {% for item in query_current_values %}#}
+{##}
+{#            <tr>#}
+{#                <td>{{ item.datapoint }}</td>#}
+{#                <td>{{ item.mqtt_node }}</td>#}
+{#                <td>{{ item.datapoint.device }}</td>#}
+{#                <td>{{ item.datapoint.display_name }}</td>#}
+{#                <td>{{ item.datapoint.current_value_integer }}</td>#}
+{#                <td>{{ item.datapoint.current_value_double }}</td>#}
+{#                <td>{{ item.datapoint.current_value_string }}</td>#}
+{#                <td>{{ item.datapoint.last_update }}</td>#}
+{#                <td>{{ item.datapoint.store_historic_data }}</td>#}
+{#            </tr>#}
+{#        {% endfor %}#}
+{#    </table>#}
+{##}
+{#    <p>{{ query_current_temperature }}</p>#}
 
 </div>
-
+</div>
+ </div>
 
 {% endblock content %}
