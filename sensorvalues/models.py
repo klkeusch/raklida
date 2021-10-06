@@ -19,6 +19,7 @@ class Data(models.Model):
         managed = True
         verbose_name = 'Messdaten-Eintrag'
         verbose_name_plural = 'Messdaten-Einträge'
+        get_latest_by = ['-timestamp']
 
     def __str__(self):
         return str(self.datapoint)
@@ -93,6 +94,7 @@ class Datapoints(models.Model):
     class Meta:
         verbose_name = 'Datenpunkt'
         verbose_name_plural = 'Datenpunkte'
+        get_latest_by = ['-last_update']
 
     def __str__(self):
         return self.display_name
@@ -136,7 +138,11 @@ class TreeDatapointTranslations(models.Model):
         verbose_name_plural = 'MQTT-Tree-Datapoint-Verknüpfungen'
 
     def __str__(self):
-        return str(self.datapoint)
+        return f"{self.datapoint} ({self.datapoint.device})"
+    #    return str(self.datapoint)
+
+    def label_from_instance(self, obj):
+        return f"{self.datapoint} ({self.datapoint.device})"
 
 
 class DevicesTable(tables.Table):

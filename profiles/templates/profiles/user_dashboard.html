@@ -42,77 +42,31 @@
 </div>
 
 
-{#    <div id="wrapper"><!-- sidenav wrapper for content-->#}
-{#        <!-- Sidebar -->#}
-{#        <div id="sidebar-wrapper">#}
-{#            <ul class="sidebar-nav bg-light border border-dark rounded">#}
-{#                <li class="border-bottom">#}
-{#                    <a href="{% url 'user_dashboard' %}">#}
-{#                        Benutzer-Dashboard#}
-{#                    </a>#}
-{#                </li>#}
-{##}
-{##}
-{#                <li class="border-bottom">#}
-{##}
-{#                    {% csrf_token %}#}
-{#                    <div class="col-md-12">#}
-{#                        <div class="form-group text-left">#}
-{#                            <label for="inputStatus" class="text-dark">Geräteauswahl</label>#}
-{#                            <select id="question-subject" class="form-control-sm custom-select">#}
-{#                                <option selected disabled>Bitte auswählen...</option>#}
-{#                                {% for device in devices %}#}
-{#                                    <option value="{{ device.id }}">{{ device.display_name }}</option>#}
-{#                                {% endfor %}#}
-{#                            </select>#}
-{#                        </div>#}
-{#                    </div>#}
-{##}
-{#                </li>#}
-{##}
-{##}
-{#                <li class="border-bottom">#}
-{#                    <a href="{% url 'message_create' %}">Neue Meldung verfassen</a>#}
-{#                </li>#}
-{#                <li class="border-bottom">#}
-{#                    <a href="{% url 'messages_list' %}">Meine Meldungen</a>#}
-{#                </li>#}
-{#                <li class="border-bottom">#}
-{#                    <a href="{% url 'profile' user.pk %}">Benutzerprofil</a>#}
-{#                </li>#}
-{#                <li>#}
-{#                    <a href="{% url 'logout' %}">Abmelden</a>#}
-{#                </li>#}
-{#            </ul>#}
-{#        </div>#}
-{#        <!-- /#sidebar-wrapper -->#}
-
-
 <div class="container bg-light mt-n5 p-5 rounded">
     <div class="row border-bottom">
         <div class="container text-center">
-            {% for item in query_results %}
-            <h3>Gerät: {{ item.display_name }}</h3>
+            {% if current_device_display_name %}
+            <h3>Gerät: {{ current_device_display_name|join:" " }}</h3>
             <div class="row bg-secondary border-bottom align-items-center justify-content-center">
                 <div class="col border-right">
-                    <p class="text-white font-weight-bold display-8 mb-3 mt-3">Temperatur</p>
+                    <p class="text-white font-weight-bold display-8 mb-3 mt-3">Temperatur [°C]</p>
                 </div>
                 <div class="col border-right">
-                    <p class="text-white font-weight-bold display-8 mb-3 mt-3">Luftfeuchtigkeit</p>
+                    <p class="text-white font-weight-bold display-8 mb-3 mt-3">Luftfeuchtigkeit [%]</p>
                 </div>
                 <div class="col">
-                    <p class="text-white font-weight-bold display-8 mb-3 mt-3">CO2-Wert</p>
+                    <p class="text-white font-weight-bold display-8 mb-3 mt-3">CO2-Wert [ppm]</p>
                 </div>
             </div>
             <div class="row align-items-center justify-content-center">
                 <div class="col border-right">
-                    <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">24,5 °C</h1>
+                    <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">{{ query_current_ambient_temperature|floatformat:2 }}</h1><!--current_ambient_temperature |default_if_none:" "|cut:"["|cut:"]"|floatformat:1 }}</h1>-->
                 </div>
                 <div class="col border-right">
-                    <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">62 %</h1>
+                    <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">{{ query_current_relative_humidity|default_if_none:" "|floatformat:2 }}</h1>
                 </div>
                 <div class="col">
-                    <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">589 ppm</h1>
+                    <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">{{ query_current_co2_concentration|default_if_none:" "|floatformat:2 }}</h1>
                 </div>
             </div>
         </div>
@@ -121,10 +75,10 @@
         <div class="container text-center">
             <div class="row bg-secondary border-bottom align-items-center justify-content-center">
                 <div class="col border-right">
-                    <p class="text-white font-weight-bold display-8 mb-3 mt-3">Luftdruck</p>
+                    <p class="text-white font-weight-bold display-8 mb-3 mt-3">Luftdruck [mbar]</p>
                 </div>
                 <div class="col border-right">
-                    <p class="text-white font-weight-bold display-8 mb-3 mt-3">Feinstaubkonzentration</p>
+                    <p class="text-white font-weight-bold display-8 mb-3 mt-3">Feinstaubkonzentration [&microg/m<sup>3</sup>]</p>
                 </div>
                 <div class="col">
                     <p class="text-white font-weight-bold display-8 mb-3 mt-3">Luftqualität</p>
@@ -132,20 +86,21 @@
             </div>
             <div class="row align-items-center justify-content-center">
                 <div class="col border-right">
-                    <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">1100 hPa</h1>
+                    <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">{{ query_current_barometric_pressure|default_if_none:" "|floatformat:2 }}</h1>
                 </div>
                 <div class="col border-right">
-                    <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">62 &#181;g/m<sup>3</sup></h1>
+                    <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">{{ query_current_finedust_concentration|default_if_none:" "|floatformat:2 }}</h1>
                 </div>
                 <div class="col">
-                    <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">gut</h1>
+                    <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">{{ query_current_air_quality|default_if_none:" " }}</h1>
                     <!-- mit if-Abfrage fuer die Zahlenwerte gut mittel schlecht-->
                 </div>
             </div>
         </div>
     </div>
+{% endif %}
 </div>
-{% endfor %}
+
 
 <div class="container bg-light mt-n5 p-5 rounded">
     <div class="row">
@@ -260,13 +215,11 @@
 </div>
 </div>
 
-<h1>Test Deviceselect</h1>
-
-
-
-
+<h1>Device details</h1>
     <table>
+
 {% comment %}
+
         {% for item in query_results %}
             {% if request.user.is_authenticated and request.user == query_results.assigned_user %}
             <tr>
@@ -276,16 +229,34 @@
             {% endif %}
         {% endfor %}
     {% endcomment %}
-        {% for item in query_results %}
+        <tr>
+            <th>Datapoint</th>
+            <th>MQTT-Node</th>
+            <th>Device</th>
+            <th>Display name</th>
+            <th>Curr. val. int</th>
+            <th>Curr. val. double</th>
+            <th>Curr. val. string</th>
+            <th>Last update</th>
+            <th>Store historic data</th>
+        </tr>
+        {% for item in query_current_values %}
+
             <tr>
-                <td>{{ item.display_name }}</td>
-                <td>{{ item.mac_address }}</td>
+                <td>{{ item.datapoint }}</td>
+                <td>{{ item.mqtt_node }}</td>
+                <td>{{ item.datapoint.device }}</td>
+                <td>{{ item.datapoint.display_name }}</td>
+                <td>{{ item.datapoint.current_value_integer }}</td>
+                <td>{{ item.datapoint.current_value_double }}</td>
+                <td>{{ item.datapoint.current_value_string }}</td>
+                <td>{{ item.datapoint.last_update }}</td>
+                <td>{{ item.datapoint.store_historic_data }}</td>
             </tr>
         {% endfor %}
-
-
-
     </table>
+
+    <p>{{ query_current_temperature }}</p>
 
 </div>
 
