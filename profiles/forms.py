@@ -61,4 +61,9 @@ class DeviceChoiceField(forms.Form):
         super().__init__(*args, **kwargs)
         if request:
             user = request.user
-            self.fields['devices'].queryset = DeviceUserAssignment.objects.values_list("device__profile__assigned_devices__display_name", flat=True).filter(device__profile__user=user).distinct()
+            self.fields['devices'].queryset = DeviceUserAssignment.objects.values_list(
+                "device__profile__assigned_devices__display_name",
+                flat=True
+            ).filter(
+                device__profile__user=user
+            ).distinct()

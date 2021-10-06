@@ -12,15 +12,16 @@ admin.site.register(DailyAverages)
 
 class TreeDatapointTranslationsAdmin(admin.ModelAdmin):
     model = TreeDatapointTranslations
-    sortable_by = ('datapoint', 'mqtt_node',)
-    list_filter = ('datapoint', 'mqtt_node',)
+    sortable_by = ('datapoint', 'mqtt_node', 'id')
+    list_filter = ('datapoint__device', 'mqtt_node__name',)
     list_display = ('id', 'datapoint', 'mqtt_node',)
-    list_display_links = list_display
+    # list_editable = ('datapoint', 'mqtt_node')
+    # list_display_links = list_display
 
 
 class MqttTreeNodesAdmin(admin.ModelAdmin):
     model = MqttTreeNodes
-    sortable_by = ('parent_id', 'is_leaf',)
+    sortable_by = ('parent_id', 'is_leaf', 'name', 'id')
     list_filter = ('name', 'is_leaf', 'parent_id',)
     list_display = ('id', 'name', 'parent_id', 'is_leaf',)
     list_display_links = ('id', 'name',)
@@ -60,8 +61,10 @@ class DatapointAdmin(admin.ModelAdmin):
     model = Datapoints
     list_filter = ['device',]
     list_display = (
-        'id', 'display_name', 'unit', 'device', 'current_value_double', 'current_value_integer', 'current_value_string',
+        'id', 'name', 'display_name', 'unit', 'device', 'current_value_double', 'current_value_integer', 'current_value_string',
         'last_update', 'store_historic_data')
+    # list_editable = ('display_name', 'unit', 'device', 'current_value_double', 'current_value_integer', 'current_value_string',
+    #     'last_update', 'store_historic_data')
     list_display_links = list_display
 
 
