@@ -20,9 +20,16 @@
             <div class="col-md-6">
                 <div class="form-group text-center mt-3">
                 <label for="inputStatus" class="text-white">Geräteauswahl</label>
-                    <form method="get" action="{% url 'show_user_device' %}">
+{#                    {% csrf_token %}#}
+{#                    <form id="deviceform" method="get" action="{% url 'show_user_device' %}">#}
+{#                        {{ device_list }}#}
+{#                        <input type="submit" value="Senden">#}
+{#                    </form>#}
+
+                    <form id="deviceform" action="{% url 'show_user_device' %}" method="GET">
+                        {% csrf_token %}
                         {{ device_list }}
-                        <input type="submit" value="Senden">
+                        <input type="submit" value="Wählen" />
                     </form>
 
 {#                    <label for="inputStatus" class="text-white">Geräteauswahl</label>#}
@@ -45,7 +52,7 @@
     <div class="row border-bottom">
         <div class="container text-center">
             {% if current_device_display_name %}
-            <h3>Gerät: {{ current_device_display_name|join:" " }}</h3>
+            <h3>Gerät: {{ query_current_device_display_name|join:" " }}</h3>
                 <p>Aktualisiert: {{ query_current_last_update }}</p>
             <div class="row bg-secondary border-bottom align-items-center justify-content-center">
                 <div class="col border-right">
@@ -127,75 +134,58 @@
                 </div>
             </div>
 
+        {{ data|json_script:"mydata" }}
+{{ labels|json_script:"mylabels" }}
+
             {% block javascript %}
-{% comment %}                <canvas id="chart" width="800" height="200"></canvas>
-
-                <script>
-                    let ctx = document.getElementById("chart").getContext("2d");
-
-                    let chart = new Chart(ctx, {
-                        type: "line",
-                        data: {
-                            labels: ["00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"],
-                            datasets: [
-                                {
-                                    label: "Temperatur",
-                                    backgroundColor: "#79AEC8",
-                                    borderColor: "#417690",
-                                    //data: [29, 25, 24, 21, 22, 18, 27, 27, 31, 16, 16, 26, 32, 30, 28, 27, 35, 30, 19, 22, 21, 18, 31, 29]
-                                    data:[{{ query_current_ambient_temperature_graph_data }}]
-                                },
-                            ]
-                        },
-                        options: {
-                            title: {
-                                text: "Gross Volume in 2020",
-                                display: true
-                            }
-                        }
-                    });</script>{% endcomment %}
-
                 <canvas id="chart"></canvas>
-                <script>
+                <script  type="text/javascript" id="testl">
                     let ctx = document.getElementById('chart');
+                    let formData = new FormData(document.getElementById('deviceform'));
+                    //var myLabels = "{{ labels|escapejs|safe }}"; //document.getElementById("myLabels").textContent;
+                    //var myData =JSON.parse("{{ data|escapejs }}"); //"{{ data|escapejs|safe }}"; //document.getElementById("myData").textContent;
+                    const mydata = JSON.parse(document.getElementById('mydata').textContent);
+                    const mylabels = JSON.parse(document.getElementById('mylabels').textContent);
+
                     $.ajax({
                         url: '/line_chart/',
-                        success: function(response){
+                        success: function(){ //success: function(formData){
                         new Chart(ctx, {
                         type: 'line',
                         data: { //response.data,
-                            labels: response.labels,
+                            labels: mylabels,//"{{ labels|escapejs }}", //myLabels,//formData.labels,
                                 datasets: [{
-                                    label: 'Temperatur',
+                                    label: 'Temperatur [°C]',
                                     backgroundColor:"white",
                                     borderColor: "red",
                                     fill: false,
                                     lineTension: 0,
                                     radius: 2,
-                                    data: response.data
+                                    data: mydata,//'{{ data|escapejs }}',//formData.data
                                   }]
                                 },
                        options: {
+                            locale: 'de-DE',
                             responsive: true,
                             scales: {
                                 x: {
                                     type: "time",
-                                    distribution: '',
-                                    {#time: {#}
-                                    {#    displayFormats: {#}
-                                    {#        'millisecond': 'DD MMM',#}
-                                    {#        'second': 'DD MMM',#}
-                                    {#        'minute': 'DD MMM',#}
-                                    {#        'hour': 'DD MMM',#}
-                                    {#        'day': 'DD MMM',#}
-                                    {#        'week': 'DD MMM',#}
-                                    {#        'month': 'DD MMM',#}
-                                    {#        'quarter': 'DD MMM',#}
-                                    {#        'year': 'DD MMM',#}
-                                    {#      },#}
+                                    time: {
+                                        tooltipFormat: 'DD.MM.YY, HH:mm',
+                                        displayFormats: {
+                                            'millisecond': 'HH:mm:ss.SSS',
+                                            'second': 'HH:mm:ss',
+                                            'minute': 'HH:mm',
+                                            'hour': 'HH:mm',
+                                            'day': 'D',
+                                            'week': 'DD MMM',
+                                            'month': 'DD MMM',
+                                            'quarter': 'DD MMM',
+                                            'year': 'DD MMM',
+                                        },
                                     {#      unitStepSize: 1,#}
                                     {#      unit: 'day',#}
-                                    {#    },#}
+                                    },
                                     gridLines : {
                                         display: false,
                                     },
