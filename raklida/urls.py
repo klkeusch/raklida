@@ -23,7 +23,8 @@ from sensorvalues import views as sensorvalues_views
 from sensorvalues import tables as tables
 from sensorvaluesplots import views as sensvalplots
 from usernotifications import views as usrnotsvc
-from profiles.views import user_dashboard, staff_dashboard, user_logged_in, show_user_device
+# from profiles.views import user_dashboard, staff_dashboard, user_logged_in, show_user_device
+from profiles.views import *
 from .admin import admin_statistics_view
 
 
@@ -39,6 +40,7 @@ urlpatterns = [
     path('user-dashboard/', user_logged_in, name='user_dashboard'),
     # path("", include('sensorvalues.urls')),
     path('show-user-device/', show_user_device, name='show_user_device'),
+    path('line_chart/', line_chart, name='line_chart'),
 
     # Messaging below
     # does not work: path("send-message/", usrnotsvc.sending, name="send-message"),

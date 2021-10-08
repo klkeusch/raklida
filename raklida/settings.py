@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'usernotifications',
     'bootstrap_datepicker_plus',
     'bootstrap4',
+    'chartjs',
 ]
 
 MIDDLEWARE = [

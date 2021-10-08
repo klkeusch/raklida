@@ -56,14 +56,16 @@ class ProfileUpdateForm(forms.ModelForm):
 class DeviceChoiceField(forms.Form):
     devices = forms.ModelChoiceField(queryset=None, label="", empty_label="Bitte Gerät auswählen...")
 
-    def __init__(self, *args, **kwargs):
-        request = kwargs.pop('request', None)
+    # def __init__(self, *args, **kwargs):
+    def __init__(self, *args, user=None, **kwargs):
+        # request = kwargs.pop('request', None)
         super().__init__(*args, **kwargs)
-        if request:
-            user = request.user
-            self.fields['devices'].queryset = DeviceUserAssignment.objects.values_list(
+        # if request:
+        if user:
+            # user = request.user
+            self.fields['devices'].queryset = DeviceUserAssignment.objects.filter(
+                device__profile__user=user
+            ).values_list(
                 "device__profile__assigned_devices__display_name",
                 flat=True
-            ).filter(
-                device__profile__user=user
             ).distinct()

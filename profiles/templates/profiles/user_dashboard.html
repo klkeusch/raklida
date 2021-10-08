@@ -8,7 +8,6 @@
 {% load crispy_forms_tags %}{% endcomment %}
 {% block content %}
 
-
 <div class="landing bg-dark">
     <div class="container">
         <div class="row align-items-center justify-content-center">
@@ -129,7 +128,7 @@
             </div>
 
             {% block javascript %}
-                <canvas id="chart" width="800" height="200"></canvas>
+{% comment %}                <canvas id="chart" width="800" height="200"></canvas>
 
                 <script>
                     let ctx = document.getElementById("chart").getContext("2d");
@@ -143,7 +142,8 @@
                                     label: "Temperatur",
                                     backgroundColor: "#79AEC8",
                                     borderColor: "#417690",
-                                    data: [29, 25, 24, 21, 22, 18, 27, 27, 31, 16, 16, 26, 32, 30, 28, 27, 35, 30, 19, 22, 21, 18, 31, 29]
+                                    //data: [29, 25, 24, 21, 22, 18, 27, 27, 31, 16, 16, 26, 32, 30, 28, 27, 35, 30, 19, 22, 21, 18, 31, 29]
+                                    data:[{{ query_current_ambient_temperature_graph_data }}]
                                 },
                             ]
                         },
@@ -153,7 +153,71 @@
                                 display: true
                             }
                         }
-                    });</script>
+                    });</script>{% endcomment %}
+
+                <canvas id="chart"></canvas>
+                <script>
+                    let ctx = document.getElementById('chart');
+                    $.ajax({
+                        url: '/line_chart/',
+                        success: function(response){
+                        new Chart(ctx, {
+                        type: 'line',
+                        data: { //response.data,
+                            labels: response.labels,
+                                datasets: [{
+                                    label: 'Temperatur',
+                                    backgroundColor:"white",
+                                    borderColor: "red",
+                                    fill: false,
+                                    lineTension: 0,
+                                    radius: 2,
+                                    data: response.data
+                                  }]
+                                },
+                       options: {
+                            responsive: true,
+                            scales: {
+                                x: {
+                                    type: "time",
+                                    distribution: '',
+                                    {#time: {#}
+                                    {#    displayFormats: {#}
+                                    {#        'millisecond': 'DD MMM',#}
+                                    {#        'second': 'DD MMM',#}
+                                    {#        'minute': 'DD MMM',#}
+                                    {#        'hour': 'DD MMM',#}
+                                    {#        'day': 'DD MMM',#}
+                                    {#        'week': 'DD MMM',#}
+                                    {#        'month': 'DD MMM',#}
+                                    {#        'quarter': 'DD MMM',#}
+                                    {#        'year': 'DD MMM',#}
+                                    {#      },#}
+                                    {#      unitStepSize: 1,#}
+                                    {#      unit: 'day',#}
+                                    {#    },#}
+                                    gridLines : {
+                                        display: false,
+                                    },
+                                    ticks:{
+                                        display: true,
+                                        autoSkip: true,
+                                        maxTicksLimit: 24.1
+                                    },
+                                },
+                                y: {
+
+                                    {#ticks: {#}
+                                    {#    display: true,#}
+                                    {#    autoskip: true,}#}
+
+                                }
+                            },
+                        }
+                              });
+                            }
+                          });
+                </script>
             {% endblock javascript %}
 
         </div>
@@ -216,35 +280,35 @@
 </div>
 </div>
 
-{#<h1>Device details</h1>#}
-{#    <table>#}
-{##}
-{#{% comment %}#}
-{##}
-{#        {% for item in query_results %}#}
-{#            {% if request.user.is_authenticated and request.user == query_results.assigned_user %}#}
-{#            <tr>#}
-{#                <td>{{ item.display_name }}</td>#}
-{#                <td>{{ item.mac_address }}</td>#}
-{#            </tr>#}
-{#            {% endif %}#}
-{#        {% endfor %}#}
-{#    {% endcomment %}#}
-{#        <tr>#}
-{#            <th>Datapoint</th>#}
-{#            <th>MQTT-Node</th>#}
-{#            <th>Device</th>#}
-{#            <th>Display name</th>#}
-{#            <th>Curr. val. int</th>#}
-{#            <th>Curr. val. double</th>#}
-{#            <th>Curr. val. string</th>#}
-{#            <th>Last update</th>#}
-{#            <th>Store historic data</th>#}
-{#        </tr>#}
-{#        {% for item in query_current_values %}#}
-{##}
-{#            <tr>#}
-{#                <td>{{ item.datapoint }}</td>#}
+<h1>Device details</h1>
+    <table>
+
+{% comment %}
+
+        {% for item in query_results %}
+            {% if request.user.is_authenticated and request.user == query_results.assigned_user %}
+            <tr>
+                <td>{{ item.display_name }}</td>
+                <td>{{ item.mac_address }}</td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+    {% endcomment %}
+        <tr>
+            <th>Datapoint</th>
+            <th>MQTT-Node</th>
+            <th>Device</th>
+            <th>Display name</th>
+            <th>Curr. val. int</th>
+            <th>Curr. val. double</th>
+            <th>Curr. val. string</th>
+            <th>Last update</th>
+            <th>Store historic data</th>
+        </tr>
+        {% for item in query_current_ambient_temperature_graph_data %}
+
+            <tr>
+                <td>{{ item }}</td>
 {#                <td>{{ item.mqtt_node }}</td>#}
 {#                <td>{{ item.datapoint.device }}</td>#}
 {#                <td>{{ item.datapoint.display_name }}</td>#}
@@ -253,11 +317,11 @@
 {#                <td>{{ item.datapoint.current_value_string }}</td>#}
 {#                <td>{{ item.datapoint.last_update }}</td>#}
 {#                <td>{{ item.datapoint.store_historic_data }}</td>#}
-{#            </tr>#}
-{#        {% endfor %}#}
-{#    </table>#}
-{##}
-{#    <p>{{ query_current_temperature }}</p>#}
+            </tr>
+        {% endfor %}
+    </table>
+
+    <p>{{ query_current_temperature }}</p>
 
 </div>
 </div>
