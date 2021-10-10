@@ -34,16 +34,9 @@ def profile(request, pk):
     user = get_object_or_404(User, pk=pk)
     assigned_profile = get_object_or_404(Profile, pk=pk)
 
-    # if request.user.is_authenticated:
-    # d = Profile.get_assigned_devices(self=pk)
-    # assigned_devices = get_list_or_404(d)
-    # else:
-    #     assigned_devices = "Kein Gerät"
-
     context = {
         'user': user,
         'assigned_profile': assigned_profile,
-        # 'assigned_devices': assigned_devices,
     }
     return render(request, "profiles/profile.html", context)
 
@@ -68,47 +61,20 @@ def update(request):
     return render(request, 'profiles/update.html', context)
 
 
-# @login_required
 @user_passes_test(lambda u: u.groups.filter(name='Verwaltung').exists())
 def staff_dashboard(request):
     return render(request, 'profiles/staff_dashboard.html')
 
 
-# @login_required
 @user_passes_test(lambda u: u.groups.filter(name='Benutzer').exists())
 def user_dashboard(request):
     return render(request, 'profiles/user_dashboard.html')
 
 
-# def get_latest_values_for_user(request, device):
-#     latest_values_list = Datapoints.objects.order_by('-timestamp')[:1]
-#     return render(request, "profiles/staff_dashboard.html", {'latest_values_list': latest_values_list})
-#     # return render(request, "profiles/user_dashboard.html", {'latest_values': latest_values})
-#
-#
-# def get_latest_values_for_user(self):
-#     # latest_values = Datapoints.objects.latest('timestamp')[:1]
-#     return self.objects.latest('timestamp')
-
-
-# def get_users_devices(request, pk):
-#     if request.user:
-#         assigned_devices = get_list_or_404(profiles.models.Profile)
-#     else:
-#         assigned_devices = "Kein Gerät"
-#     return render(request, "profiles/profile.html", {'assigned_devices': assigned_devices})
-
-
 @user_passes_test(lambda u: u.groups.filter(name='Benutzer').exists())
 def user_logged_in(request):
-    # devices = DeviceUserAssignment.objects.count(request.user)#filter(request.user.id)
-    # latest_values = Datapoints.objects.latest('timestamp')
     notifications = Message.objects.filter(sender=request.user)
-    # user_devices = DeviceUserAssignment.objects.all()
-    # notifications = Message.objects.all()
     context = {
-        # 'devices': devices,
-        # 'latest_values': latest_values,
         'notifications': notifications,
     }
     return render(request, "profiles/user_dashboard.html", context)
@@ -118,7 +84,6 @@ def user_logged_in(request):
 def show_user_device(request):
     notifications = Message.objects.filter(sender=request.user)
 
-    # device_list = DeviceChoiceField(request=request)
     device_list = DeviceChoiceField(user=request.user)
 
     query_current_values = None  # https://stackoverflow.com/questions/43974798/local-variable-might-be-referenced-before-assignment-python/43974931
@@ -138,8 +103,15 @@ def show_user_device(request):
     current_ambient_temperature = None
     current_relative_humidity = None
 
+    """ Below Values for charting """
+    queryset_relative_humidity_double_values = None
+    queryset_ambient_temperature_double_values = None
+    queryset_co2_concentration_double_values = None
     labels = []
-    data = []
+    ambient_temperature_chart_data = []
+    relative_humidity_chart_data = []
+    co2_concentration_chart_data = []
+    """ Above Values for charting """
 
     time_24_hours_ago = timezone.localtime() - timezone.timedelta(days=1)
 
@@ -158,10 +130,12 @@ def show_user_device(request):
             'display_name',
             flat=True
         ).distinct()
+
         current_device_display_name = [item for item in query_current_device_display_name]
 
         query_current_ambient_temperature = TreeDatapointTranslations.objects.filter(
-            datapoint__device__display_name=selected_device).filter(
+            datapoint__device__display_name=selected_device
+        ).filter(
             mqtt_node__name="ambient_temperature"
         ).values_list(
             'mqtt_node__treedatapointtranslations__datapoint__current_value_double',
@@ -171,7 +145,8 @@ def show_user_device(request):
         )
 
         query_current_relative_humidity = TreeDatapointTranslations.objects.filter(
-            datapoint__device__display_name=selected_device).filter(
+            datapoint__device__display_name=selected_device
+        ).filter(
             mqtt_node__name="relative_humidity"
         ).values_list(
             'mqtt_node__treedatapointtranslations__datapoint__current_value_double',
@@ -181,7 +156,8 @@ def show_user_device(request):
         )
 
         query_current_co2_concentration = TreeDatapointTranslations.objects.filter(
-            datapoint__device__display_name=selected_device).filter(
+            datapoint__device__display_name=selected_device
+        ).filter(
             mqtt_node__name="co2_concentration"
         ).values_list(
             'mqtt_node__treedatapointtranslations__datapoint__current_value_double',
@@ -191,7 +167,8 @@ def show_user_device(request):
         )
 
         query_current_barometric_pressure = TreeDatapointTranslations.objects.filter(
-            datapoint__device__display_name=selected_device).filter(
+            datapoint__device__display_name=selected_device
+        ).filter(
             mqtt_node__name="barometric_pressure"
         ).values_list(
             'mqtt_node__treedatapointtranslations__datapoint__current_value_double',
@@ -201,7 +178,8 @@ def show_user_device(request):
         )
 
         query_current_finedust_concentration = TreeDatapointTranslations.objects.filter(
-            datapoint__device__display_name=selected_device).filter(
+            datapoint__device__display_name=selected_device
+        ).filter(
             mqtt_node__name="pm2.5_atm"
         ).values_list(
             'mqtt_node__treedatapointtranslations__datapoint__current_value_integer',
@@ -211,7 +189,8 @@ def show_user_device(request):
         )
 
         query_current_air_quality = TreeDatapointTranslations.objects.filter(
-            datapoint__device__display_name=selected_device).filter(
+            datapoint__device__display_name=selected_device
+        ).filter(
             mqtt_node__name="air_quality"
         ).values_list(
             'mqtt_node__treedatapointtranslations__datapoint__current_value_integer',
@@ -220,28 +199,31 @@ def show_user_device(request):
             'mqtt_node__treedatapointtranslations__datapoint__last_update'
         )
 
-        query_current_last_update = Devices.objects.filter(
-            display_name=selected_device
-        ).values_list(
-            'datapoints__last_update',
-            flat=True
-        ).latest(
-            'last_status_update'
-        )
+        # query_current_last_update = Devices.objects.filter(
+        #     display_name=selected_device
+        #     #datapoint__device__display_name=selected_device
+        # ).values_list(
+        #     #'datapoints__last_update',
+        #     'last_status_update',
+        #     flat=True
+        # ).latest(
+        #     'last_status_update'
+        # )
 
-        query_current_ambient_temperature_graph_data = TreeDatapointTranslations.objects.filter(
+        query_current_last_update = TreeDatapointTranslations.objects.filter(
             datapoint__device__display_name=selected_device
         ).filter(
-            mqtt_node__name="ambient_temperature"
+            #mqtt_node__name="air_quality"
         ).values_list(
-            'datapoint__data__value_double',
+            'mqtt_node__treedatapointtranslations__datapoint__last_update',
             flat=True
-        ).filter(
-            datapoint__data__timestamp__gte=time_24_hours_ago
-        ).distinct()
+        ).latest(
+            'mqtt_node__treedatapointtranslations__datapoint__last_update'
+        )
 
-        queryset_double_values = Data.objects.filter(
-            # datapoint__device__deviceuserassignment__assigned_user=request.user.id,
+        """ Below gathering data for charts"""
+
+        queryset_ambient_temperature_double_values = Data.objects.filter(
             datapoint__device__display_name=selected_device,
             datapoint__name='bme680_ambient_temperature',
             timestamp__gte=time_24_hours_ago
@@ -249,13 +231,41 @@ def show_user_device(request):
             'value_double',
             flat=True
         ).exclude(
-            value_double='-1.0'
+            datapoint__current_value_string="Offline",
+            #value_double='-1.0'
         ).order_by('timestamp').distinct(
 
         )
 
+        queryset_relative_humidity_double_values = Data.objects.filter(
+            datapoint__device__display_name=selected_device,
+            datapoint__name='bme680_relative_humidity',
+            timestamp__gte=time_24_hours_ago
+        ).values_list(
+            'value_double',
+            flat=True
+        ).exclude(
+            datapoint__current_value_string="Offline",
+            #value_double='-1.0'
+        ).order_by(
+            'timestamp'
+        ).distinct()
+
+        queryset_co2_concentration_double_values = Data.objects.filter(
+            datapoint__device__display_name=selected_device,
+            datapoint__name='scd30_co2_concentration',
+            timestamp__gte=time_24_hours_ago
+        ).values_list(
+            'value_double',
+            flat=True
+        ).exclude(
+            datapoint__current_value_string="Offline",
+            #value_double='-1.0'
+        ).order_by(
+            'timestamp'
+        ).distinct()
+
         queryset_timestamps = Data.objects.filter(
-            #datapoint__device__deviceuserassignment__assigned_user=request.user.id,
             datapoint__device__display_name=selected_device,
             datapoint__name='bme680_ambient_temperature',
             timestamp__gte=time_24_hours_ago
@@ -263,12 +273,18 @@ def show_user_device(request):
             'timestamp',
             flat=True
         ).exclude(
-            value_double='-1.0'
-        ).order_by('timestamp').distinct(
+            datapoint__current_value_string="Offline",
+            # value_double='-1.0'
+        ).order_by(
+            'timestamp'
+        ).distinct()
 
-        )
-        data = list(queryset_double_values)
+        relative_humidity_chart_data = list(queryset_relative_humidity_double_values)
+        ambient_temperature_chart_data = list(queryset_ambient_temperature_double_values)
+        co2_concentration_chart_data = list(queryset_co2_concentration_double_values)
         labels = list(queryset_timestamps)
+
+        """ Above gathering data for charts"""
 
     else:
         query_results = Devices.objects.none()
@@ -289,53 +305,15 @@ def show_user_device(request):
         'query_current_finedust_concentration': query_current_finedust_concentration,
         'query_current_last_update': query_current_last_update,
 
-        'query_current_ambient_temperature_graph_data': query_current_ambient_temperature_graph_data,
+        #'query_current_ambient_temperature_graph_data': query_current_ambient_temperature_graph_data,
 
         'current_ambient_temperature': current_ambient_temperature,
         'current_relative_humidity': current_relative_humidity,
 
-        # 'queryset_double_values':queryset_double_values,
-        # 'queryset_timestamps': queryset_timestamps,
-        'labels': labels, # dumps('')?
-        'data': data,
+        'labels': labels,
+        'relative_humidity_chart_data': relative_humidity_chart_data,
+        'ambient_temperature_chart_data': ambient_temperature_chart_data,
+        'co2_concentration_chart_data': co2_concentration_chart_data,
     }
-
     return render(request, "profiles/user_dashboard.html", context)
 
-
-def line_chart(request):
-    time_24_hours_ago = timezone.localtime() - timezone.timedelta(days=1)
-
-    queryset_double_values = Data.objects.filter(
-        datapoint__device__deviceuserassignment__assigned_user=request.user.id,
-        datapoint__name='bme680_ambient_temperature',
-        timestamp__gte=time_24_hours_ago
-    ).values_list(
-        'value_double',
-        flat=True
-    ).exclude(
-        value_double='-1.0'
-    ).order_by('timestamp').distinct(
-
-    )
-
-    queryset_timestamps = Data.objects.filter(
-        datapoint__device__deviceuserassignment__assigned_user=request.user.id,
-        datapoint__name='bme680_ambient_temperature',
-        timestamp__gte=time_24_hours_ago
-    ).values_list(
-        'timestamp',
-        flat=True
-    ).exclude(
-        value_double='-1.0'
-    ).order_by('timestamp').distinct(
-
-    )
-
-    data = list(queryset_double_values)
-    labels = list(queryset_timestamps)
-
-    return JsonResponse(data={
-        'labels': labels,
-        'data': data,
-    },)
