@@ -1,7 +1,7 @@
-from django.shortcuts import render, redirect, get_object_or_404
+# from django.shortcuts import render, redirect, get_object_or_404
 from django.db import models
 from django.contrib.auth.models import User
-from django.contrib.admin import SimpleListFilter
+# from django.contrib.admin import SimpleListFilter
 import django_tables2 as tables
 # from profiles.models import Profile
 

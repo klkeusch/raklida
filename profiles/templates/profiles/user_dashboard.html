@@ -2,6 +2,7 @@
 {% load static %}
 {% comment %}
 {% load bootstrap4 %}
+
 {% block extrahead %}
     {{ form.media }}
 {% endblock %}
@@ -15,38 +16,22 @@
                 <h1 class="text-white font-weight-bold display-5 mt-5">Benutzer-Dashboard</h1>
             </div>
 
-            {% csrf_token %}
+
 
             <div class="col-md-6">
                 <div class="form-group text-center mt-3">
                 <label for="inputStatus" class="text-white">Geräteauswahl</label>
-{#                    {% csrf_token %}#}
-{#                    <form id="deviceform" method="get" action="{% url 'show_user_device' %}">#}
-{#                        {{ device_list }}#}
-{#                        <input type="submit" value="Senden">#}
-{#                    </form>#}
 
-                    <form id="deviceform" action="{% url 'show_user_device' %}" method="GET">
+                    <form id="device_list_form" action="{% url 'show_user_device' %}" method="GET">
                         {% csrf_token %}
                         {{ device_list }}
                         <input type="submit" value="Wählen" />
                     </form>
-
-{#                    <label for="inputStatus" class="text-white">Geräteauswahl</label>#}
-{% comment %}                    <select id="device-display-name" class="form-control-sm custom-select">
-                        <option selected disabled>Bitte Gerät auswählen</option>
-                        {% for item in query_results %}
-                            <option value="{{ item.id }}">{{ item.display_name }}</option>
-                        {% endfor %}
-                    </select>{% endcomment %}
                 </div>
             </div>
-
-
         </div>
     </div>
 </div>
-
 
 <div class="container bg-light mt-n5 p-5 rounded">
     <div class="row border-bottom">
@@ -67,7 +52,7 @@
             </div>
             <div class="row align-items-center justify-content-center">
                 <div class="col border-right">
-                    <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">{{ query_current_ambient_temperature|floatformat:2 }}</h1><!--current_ambient_temperature |default_if_none:" "|cut:"["|cut:"]"|floatformat:1 }}</h1>-->
+                    <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">{{ query_current_ambient_temperature|floatformat:2 }}</h1>
                 </div>
                 <div class="col border-right">
                     <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">{{ query_current_relative_humidity|default_if_none:" "|floatformat:2 }}</h1>
@@ -100,7 +85,6 @@
                 </div>
                 <div class="col">
                     <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">{{ query_current_air_quality|default_if_none:" " }}</h1>
-                    <!-- mit if-Abfrage fuer die Zahlenwerte gut mittel schlecht-->
                 </div>
             </div>
         </div>
@@ -113,8 +97,7 @@
         <div class="col-12">
             <h1>Messwertverlauf</h1>
         </div>
-        <div class="col-12">
-
+{% comment %}        <div class="col-12">
             {% csrf_token %}
             <div class="col-md-12">
                 <div class="form-group text-left">
@@ -132,19 +115,23 @@
                         {% endfor %}
                     </select>
                 </div>
-            </div>
+            </div>{% endcomment %}
 
-        {{ data|json_script:"mydata" }}
-{{ labels|json_script:"mylabels" }}
+
 
             {% block javascript %}
-                <canvas id="chart"></canvas>
+                {{ ambient_temperature_chart_data|json_script:"ambient_temperature_chart_data" }}
+                {{ relative_humidity_chart_data|json_script:"relative_humidity_chart_data" }}
+                {{ co2_concentration_chart_data|json_script:"co2_concentration_chart_data" }}
+                {{ labels|json_script:"mylabels" }}
+                <canvas style="margin-bottom: 30px; width: 60%; height: 50%;" id="chart"></canvas>
+                <!--<canvas id="chart" width="1200" height="500"></canvas>-->
                 <script  type="text/javascript" id="testl">
                     let ctx = document.getElementById('chart');
-                    let formData = new FormData(document.getElementById('deviceform'));
-                    //var myLabels = "{{ labels|escapejs|safe }}"; //document.getElementById("myLabels").textContent;
-                    //var myData =JSON.parse("{{ data|escapejs }}"); //"{{ data|escapejs|safe }}"; //document.getElementById("myData").textContent;
-                    const mydata = JSON.parse(document.getElementById('mydata').textContent);
+                    //let formData = new FormData(document.getElementById('deviceform'));
+                    const ambient_temperature_chart_data = JSON.parse(document.getElementById('ambient_temperature_chart_data').textContent);
+                    const relative_humidity_chart_data = JSON.parse(document.getElementById('relative_humidity_chart_data').textContent);
+                    const co2_concentration_chart_data = JSON.parse(document.getElementById('co2_concentration_chart_data').textContent);
                     const mylabels = JSON.parse(document.getElementById('mylabels').textContent);
 
                     $.ajax({
@@ -153,20 +140,51 @@
                         new Chart(ctx, {
                         type: 'line',
                         data: { //response.data,
-                            labels: mylabels,//"{{ labels|escapejs }}", //myLabels,//formData.labels,
+                            labels: mylabels, //formData.labels,
                                 datasets: [{
                                     label: 'Temperatur [°C]',
-                                    backgroundColor:"white",
+                                    backgroundColor:"red",
                                     borderColor: "red",
                                     fill: false,
                                     lineTension: 0,
                                     radius: 2,
-                                    data: mydata,//'{{ data|escapejs }}',//formData.data
-                                  }]
+                                    data: ambient_temperature_chart_data, //formData.data
+                                    yAxisID: 'y',
+                                  }, {
+                                    label: 'Luftfeuchtigkeit [%]',
+                                    backgroundColor:"blue",
+                                    borderColor: "blue",
+                                    fill: false,
+                                    lineTension: 0,
+                                    radius: 2,
+                                    data: relative_humidity_chart_data, //formData.data
+                                    yAxisID: 'y',
+                                },{
+                                    label: 'CO2-Konzentration [ppm]',
+                                    backgroundColor:"grey",
+                                    borderColor: "grey",
+                                    fill: false,
+                                    lineTension: 0,
+                                    radius: 2,
+                                    data: co2_concentration_chart_data, //formData.data
+                                    yAxisID: 'y1',
+
+                                }]
                                 },
                        options: {
                             locale: 'de-DE',
                             responsive: true,
+                            interaction: {
+                              mode: 'index',
+                              intersect: false,
+                            },
+                            stacked: false,
+                            plugins: {
+                              //title: {
+                              //  display: true,
+                              //    text: 'Messwertverläufe'
+                              //}
+                            },
                             scales: {
                                 x: {
                                     type: "time",
@@ -183,8 +201,6 @@
                                             'quarter': 'DD MMM',
                                             'year': 'DD MMM',
                                         },
-                                    {#      unitStepSize: 1,#}
-                                    {#      unit: 'day',#}
                                     },
                                     gridLines : {
                                         display: false,
@@ -192,24 +208,36 @@
                                     ticks:{
                                         display: true,
                                         autoSkip: true,
-                                        maxTicksLimit: 24.1
+                                        //maxTicksLimit: 24
                                     },
                                 },
                                 y: {
+                                    type: 'linear',
+                                    display: true,
+                                    position: 'left',
+                                    ticks: {
+                                        display: true,
+                                        autoskip: true,
+                                    }
 
-                                    {#ticks: {#}
-                                    {#    display: true,#}
-                                    {#    autoskip: true,}#}
-
+                                },
+                                y1:{
+                                    type: 'linear',
+                                    display: true,
+                                    position: 'right',
+                                    ticks: {
+                                        display: true,
+                                        autoskip: true,
+                                    }
                                 }
+
                             },
                         }
                               });
                             }
                           });
-                </script>
+                  </script>
             {% endblock javascript %}
-
         </div>
     </div>
 </div>
@@ -270,8 +298,8 @@
 </div>
 </div>
 
-<h1>Device details</h1>
-    <table>
+{% comment %}<h1>Device details</h1>
+    <table>{% endcomment %}
 
 {% comment %}
 
@@ -284,7 +312,7 @@
             {% endif %}
         {% endfor %}
     {% endcomment %}
-        <tr>
+{% comment %}        <tr>
             <th>Datapoint</th>
             <th>MQTT-Node</th>
             <th>Device</th>
@@ -311,7 +339,7 @@
         {% endfor %}
     </table>
 
-    <p>{{ query_current_temperature }}</p>
+    <p>{{ query_current_temperature }}</p>{% endcomment %}
 
 </div>
 </div>

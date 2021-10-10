@@ -18,7 +18,7 @@ class Message(models.Model):
     sender = models.ForeignKey(User, related_name='sent_dm', verbose_name=_("Sender"),
                                on_delete=models.CASCADE)
     #recipient = models.ForeignKey(AUTH_USER_MODEL, related_name='received_dm', verbose_name=_("Recipient"), on_delete=models.CASCADE)
-    recipient = models.ForeignKey(User, related_name='received_dm', verbose_name=_("Recipient"), on_delete = models.CASCADE)
+    recipient = models.ForeignKey(User, related_name='received_dm', verbose_name=_("Recipient"), on_delete=models.CASCADE)
     sent_at = models.DateTimeField(null=True, blank=True, verbose_name="Gesendet")
     # sent_at = forms.DateField(initial=datetime.date.today, widget=forms.widgets.DateInput(attrs={'type': 'date'}))    _("sent at") _("read at"),
     read_at = models.DateTimeField( null=True, blank=True, verbose_name="Gelesen")

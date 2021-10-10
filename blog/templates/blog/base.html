@@ -14,8 +14,9 @@
     <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}">
 
     {% load bootstrap4 %}
-    {% bootstrap_css %}
     {% bootstrap_javascript jquery='full' %}
+    {% bootstrap_css %}
+
 
     {% block extrahead %}
         {{ form.media }}
