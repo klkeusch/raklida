@@ -40,7 +40,7 @@ urlpatterns = [
     path('user-dashboard/', user_logged_in, name='user_dashboard'),
     # path("", include('sensorvalues.urls')),
     path('show-user-device/', show_user_device, name='show_user_device'),
-    path('line_chart/', line_chart, name='line_chart'),
+    path('line_chart/', show_user_device, name='line_chart'),
 
     # Messaging below
     # does not work: path("send-message/", usrnotsvc.sending, name="send-message"),
