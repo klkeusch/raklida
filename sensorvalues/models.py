@@ -1,9 +1,6 @@
-# from django.shortcuts import render, redirect, get_object_or_404
 from django.db import models
 from django.contrib.auth.models import User
-# from django.contrib.admin import SimpleListFilter
 import django_tables2 as tables
-# from profiles.models import Profile
 
 
 class Data(models.Model):
@@ -35,9 +32,6 @@ class Devices(models.Model):
     platform = models.CharField(max_length=30, blank=True, null=True, verbose_name="Geräte-Plattform")
     mac_address = models.CharField(max_length=20, blank=True, null=True, verbose_name="MAC-Adresse")
 
-    # assigned_to_user = models.ManyToManyField(User, related_name="User", blank=True)
-    # in_rooms = models.ForeignKey(Profile, on_delete=models.CASCADE, blank=True, null=True, verbose_name="Bei Benutzer")
-
     class Meta:
         verbose_name = 'Gerät'
         verbose_name_plural = 'Geräte'
@@ -54,28 +48,11 @@ class DeviceUserAssignment(models.Model):
     end_date = models.DateField(verbose_name="Enddatum")
 
     def __str__(self):
-        # return f'{self.assigned_user.user.username} benutzt: {self.device.display_name}'
         return f'{self.device.display_name} (Nutzer: {self.assigned_user.user.username})'
 
     class Meta:
         verbose_name = 'Benutzer-Gerät-Zuordnung'
         verbose_name_plural = 'Benutzer-Gerät-Zuordnungen'
-
-
-# class DeviceUserAssignment(models.Model): alter CODE
-#     id = models.BigAutoField(primary_key=True)
-#     device = models.ForeignKey(Devices, models.CASCADE, null=True, blank=True, verbose_name="Gerät")
-#     # device = models.ManyToManyField('Devices')
-#     user = models.ForeignKey(User, models.CASCADE, null=True, blank=True, verbose_name="Benutzer")
-#
-#     # user = models.ManyToManyField('User')
-#
-#     def __str__(self):
-#         return f'{self.user.username} benutzt: {self.device.display_name}'
-#
-#     class Meta:
-#         verbose_name = 'Benutzer-Gerät-Zuordnung'
-#         verbose_name_plural = 'Benutzer-Gerät-Zuordnungen'
 
 
 class Datapoints(models.Model):
@@ -139,10 +116,6 @@ class TreeDatapointTranslations(models.Model):
 
     def __str__(self):
         return f"{self.datapoint} ({self.datapoint.device})"
-    #    return str(self.datapoint)
-
-    # def label_from_instance(self, obj):
-    #     return f"{self.datapoint} ({self.datapoint.device})"
 
 
 class DevicesTable(tables.Table):

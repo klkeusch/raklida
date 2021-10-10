@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
-from django.urls import path, include
+from django.urls import include, path
 from profiles import views as profiles_views
 from sensorvalues import views as sensorvalues_views
 from sensorvalues import tables as tables
@@ -30,6 +30,7 @@ from .admin import admin_statistics_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # path('admin_tools_stats/', include('admin_tools_stats.urls')),
     path("", include('blog.urls')),
     path("", include('usernotifications.urls')),
     # path("", include('sensorvalues.urls')),

@@ -38,6 +38,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # 'admin_tools_stats',  # this must be BEFORE 'admin_tools' and 'django.contrib.admin'
+    # 'django_nvd3',
     'related_admin',
     # 'raklida.apps.CustomAdminConfig',
     'django.contrib.admin',
@@ -57,6 +59,7 @@ INSTALLED_APPS = [
     'bootstrap_datepicker_plus',
     'bootstrap4',
     'chartjs',
+    # 'djangobower',
 ]
 
 MIDDLEWARE = [
@@ -162,3 +165,17 @@ EMAIL_HOST_PASSWORD = '***REMOVED***'
 
 # User model ref
 # AUTH_USER_MODEL =
+
+# # Django Admin Charts
+# # Specifie path to components root (you need to use absolute path)
+# BOWER_COMPONENTS_ROOT = os.path.join(BASE_DIR, 'components')
+#
+#
+# BOWER_INSTALLED_APPS = (
+#     'd3#3.3.13',
+#     'nvd3#1.7.1',
+# )
+#
+# STATICFILES_FINDERS = (
+#     'djangobower.finders.BowerFinder',
+# )
