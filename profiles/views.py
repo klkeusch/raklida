@@ -1,8 +1,21 @@
-from django.shortcuts import render, redirect, get_object_or_404
+import datetime
+from django.utils import timezone
+
+from django.views.generic import TemplateView
+from chartjs.views.lines import BaseLineChartView
+from chartjs import *
+from json import dumps
+
+from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
+from django.http import HttpResponse, JsonResponse
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User
-from .forms import RegisterForm, UserUpdateForm, ProfileUpdateForm
+
+from .models import *
+from usernotifications.models import Message
+from sensorvalues.models import *
+from .forms import RegisterForm, UserUpdateForm, ProfileUpdateForm, DeviceChoiceField
 
 
 def register(request):
@@ -19,7 +32,13 @@ def register(request):
 
 def profile(request, pk):
     user = get_object_or_404(User, pk=pk)
-    return render(request, "profiles/profile.html", {'user': user})
+    assigned_profile = get_object_or_404(Profile, pk=pk)
+
+    context = {
+        'user': user,
+        'assigned_profile': assigned_profile,
+    }
+    return render(request, "profiles/profile.html", context)
 
 
 @login_required
@@ -40,3 +59,615 @@ def update(request):
         'profile_form': profile_form,
     }
     return render(request, 'profiles/update.html', context)
+
+
+@user_passes_test(lambda u: u.groups.filter(name='Verwaltung').exists())
+def staff_dashboard(request):
+    return render(request, 'profiles/staff_dashboard.html')
+
+
+@user_passes_test(lambda u: u.groups.filter(name='Benutzer').exists())
+def user_dashboard(request):
+    return render(request, 'profiles/user_dashboard.html')
+
+
+@user_passes_test(lambda u: u.groups.filter(name='Benutzer').exists())
+def user_logged_in(request):
+    notifications = Message.objects.filter(sender=request.user)
+    context = {
+        'notifications': notifications,
+    }
+    return render(request, "profiles/user_dashboard.html", context)
+
+
+@user_passes_test(lambda u: u.groups.filter(name='Verwaltung').exists())
+def staff_logged_in(request):
+    notifications = Message.objects.all()
+    context = {
+        'notifications': notifications,
+    }
+    return render(request, "profiles/staff_dashboard.html", context)
+
+
+@user_passes_test(lambda u: u.groups.filter(name='Benutzer').exists())
+def show_user_device(request):
+    notifications = Message.objects.filter(sender=request.user)
+
+    device_list = DeviceChoiceField(user=request.user)
+
+    query_current_values = None  # https://stackoverflow.com/questions/43974798/local-variable-might-be-referenced-before-assignment-python/43974931
+
+    query_current_device_display_name = None
+    query_current_ambient_temperature = None
+    query_current_relative_humidity = None
+    query_current_air_quality = None
+    query_current_co2_concentration = None
+    query_current_barometric_pressure = None
+    query_current_finedust_concentration = None
+    query_current_last_update = None
+
+    query_current_ambient_temperature_graph_data = None
+
+    current_device_display_name = None
+    current_ambient_temperature = None
+    current_relative_humidity = None
+
+    """ Below Values for charting """
+    queryset_relative_humidity_double_values = None
+    queryset_ambient_temperature_double_values = None
+    queryset_co2_concentration_double_values = None
+    queryset_pm2_5_atm_double_values = None
+    queryset_air_quality_double_values = None
+    queryset_barometric_pressure_double_values = None
+    labels = []
+    ambient_temperature_chart_data = []
+    relative_humidity_chart_data = []
+    co2_concentration_chart_data = []
+    pm2_5_atm_chart_data = []
+    air_quality_chart_data = []
+    barometric_pressure_chart_data = []
+    """ Above Values for charting """
+
+    time_24_hours_ago = timezone.localtime() - timezone.timedelta(days=1)
+
+    if request.GET.get('devices'):
+        selected_device = request.GET.get('devices')
+
+        query_results = Devices.objects.filter(
+            display_name=selected_device)
+
+        query_current_values = TreeDatapointTranslations.objects.filter(
+            datapoint__device__display_name=selected_device)
+
+        query_current_device_display_name = Devices.objects.filter(
+            display_name=selected_device
+        ).values_list(
+            'display_name',
+            flat=True
+        ).distinct()
+
+        current_device_display_name = [item for item in query_current_device_display_name]
+
+        query_current_ambient_temperature = TreeDatapointTranslations.objects.filter(
+            datapoint__device__display_name=selected_device
+        ).filter(
+            mqtt_node__name="ambient_temperature"
+        ).values_list(
+            'mqtt_node__treedatapointtranslations__datapoint__current_value_double',
+            flat=True
+        ).latest(
+            'mqtt_node__treedatapointtranslations__datapoint__last_update'
+        )
+
+        query_current_relative_humidity = TreeDatapointTranslations.objects.filter(
+            datapoint__device__display_name=selected_device
+        ).filter(
+            mqtt_node__name="relative_humidity"
+        ).values_list(
+            'mqtt_node__treedatapointtranslations__datapoint__current_value_double',
+            flat=True
+        ).latest(
+            'mqtt_node__treedatapointtranslations__datapoint__last_update'
+        )
+
+        query_current_co2_concentration = TreeDatapointTranslations.objects.filter(
+            datapoint__device__display_name=selected_device
+        ).filter(
+            mqtt_node__name="co2_concentration"
+        ).values_list(
+            'mqtt_node__treedatapointtranslations__datapoint__current_value_double',
+            flat=True
+        ).latest(
+            'mqtt_node__treedatapointtranslations__datapoint__last_update'
+        )
+
+        query_current_barometric_pressure = TreeDatapointTranslations.objects.filter(
+            datapoint__device__display_name=selected_device
+        ).filter(
+            mqtt_node__name="barometric_pressure"
+        ).values_list(
+            'mqtt_node__treedatapointtranslations__datapoint__current_value_double',
+            flat=True
+        ).latest(
+            'mqtt_node__treedatapointtranslations__datapoint__last_update'
+        )
+
+        query_current_finedust_concentration = TreeDatapointTranslations.objects.filter(
+            datapoint__device__display_name=selected_device
+        ).filter(
+            mqtt_node__name="pm2_5_atm"
+        ).values_list(
+            'mqtt_node__treedatapointtranslations__datapoint__current_value_integer',
+            flat=True
+        ).latest(
+            'mqtt_node__treedatapointtranslations__datapoint__last_update'
+        )
+
+        query_current_air_quality = TreeDatapointTranslations.objects.filter(
+            datapoint__device__display_name=selected_device
+        ).filter(
+            mqtt_node__name="air_quality"
+        ).values_list(
+            'mqtt_node__treedatapointtranslations__datapoint__current_value_integer',
+            flat=True
+        ).latest(
+            'mqtt_node__treedatapointtranslations__datapoint__last_update'
+        )#.exclude(
+          #  mqtt_node__treedatapointtranslations__datapoint__current_value_string="Offline",
+        #)
+
+        # query_current_last_update = Devices.objects.filter(
+        #     display_name=selected_device
+        #     #datapoint__device__display_name=selected_device
+        # ).values_list(
+        #     #'datapoints__last_update',
+        #     'last_status_update',
+        #     flat=True
+        # ).latest(
+        #     'last_status_update'
+        # )
+
+        query_current_last_update = TreeDatapointTranslations.objects.filter(
+            datapoint__device__display_name=selected_device
+        ).filter(
+            #mqtt_node__name="air_quality"
+        ).values_list(
+            'mqtt_node__treedatapointtranslations__datapoint__last_update',
+            flat=True
+        ).latest(
+            'mqtt_node__treedatapointtranslations__datapoint__last_update'
+        )
+
+        """ Below gathering data for charts"""
+
+        queryset_ambient_temperature_double_values = Data.objects.filter(
+            datapoint__device__display_name=selected_device,
+            datapoint__name='bme680_ambient_temperature',
+            timestamp__gte=time_24_hours_ago
+        ).values_list(
+            'value_double',
+            flat=True
+        ).exclude(
+            datapoint__current_value_string="Offline",
+            #value_double='-1.0'
+        ).order_by('timestamp').distinct(
+
+        )
+
+        queryset_relative_humidity_double_values = Data.objects.filter(
+            datapoint__device__display_name=selected_device,
+            datapoint__name='bme680_relative_humidity',
+            timestamp__gte=time_24_hours_ago
+        ).values_list(
+            'value_double',
+            flat=True
+        ).exclude(
+            datapoint__current_value_string="Offline",
+            #value_double='-1.0'
+        ).order_by(
+            'timestamp'
+        ).distinct()
+
+        queryset_co2_concentration_double_values = Data.objects.filter(
+            datapoint__device__display_name=selected_device,
+            datapoint__name='scd30_co2_concentration',
+            timestamp__gte=time_24_hours_ago
+        ).values_list(
+            'value_double',
+            flat=True
+        ).exclude(
+            datapoint__current_value_string="Offline",
+            #value_double='-1.0'
+        ).order_by(
+            'timestamp'
+        ).distinct()
+
+        queryset_barometric_pressure_double_values = Data.objects.filter(
+            datapoint__device__display_name=selected_device,
+            datapoint__name='bme680_barometric_pressure',
+            timestamp__gte=time_24_hours_ago
+        ).values_list(
+            'value_double',
+            flat=True
+        ).exclude(
+            datapoint__current_value_string="Offline",
+        ).order_by(
+            'timestamp'
+        ).distinct()
+
+        queryset_pm2_5_atm_double_values = Data.objects.filter(
+            datapoint__device__display_name=selected_device,
+            datapoint__name='pms5003_pm2_5_atm',
+            timestamp__gte=time_24_hours_ago
+        ).values_list(
+            'value_integer',
+            flat=True
+        ).exclude(
+            datapoint__current_value_string="Offline",
+        ).order_by(
+            'timestamp'
+        ).distinct()
+
+        queryset_air_quality_double_values = Data.objects.filter(
+            datapoint__device__display_name=selected_device,
+            datapoint__name='mq135_air_quality',
+            timestamp__gte=time_24_hours_ago
+        ).values_list(
+            'value_integer',
+            flat=True
+        ).exclude(
+            datapoint__current_value_string="Offline",
+        ).order_by(
+            'timestamp'
+        ).distinct()
+
+        queryset_timestamps = Data.objects.filter(
+            datapoint__device__display_name=selected_device,
+            datapoint__name='bme680_ambient_temperature',
+            timestamp__gte=time_24_hours_ago
+        ).values_list(
+            'timestamp',
+            flat=True
+        ).exclude(
+            datapoint__current_value_string="Offline",
+            # value_double='-1.0'
+        ).order_by(
+            'timestamp'
+        ).distinct()
+
+        relative_humidity_chart_data = list(queryset_relative_humidity_double_values)
+        ambient_temperature_chart_data = list(queryset_ambient_temperature_double_values)
+        co2_concentration_chart_data = list(queryset_co2_concentration_double_values)
+        pm2_5_atm_chart_data = list(queryset_pm2_5_atm_double_values)
+        air_quality_chart_data = list(queryset_air_quality_double_values)
+        barometric_pressure_chart_data = list(queryset_barometric_pressure_double_values)
+        labels = list(queryset_timestamps)
+
+        """ Above gathering data for charts"""
+
+    else:
+        query_results = Devices.objects.none()
+
+    context = {
+        'notifications': notifications,
+        'query_results': query_results,
+        'query_current_values': query_current_values,
+        'device_list': device_list,
+        'current_device_display_name': current_device_display_name,
+
+        'query_current_device_display_name': query_current_device_display_name,
+        'query_current_ambient_temperature': query_current_ambient_temperature,
+        'query_current_relative_humidity': query_current_relative_humidity,
+        'query_current_co2_concentration': query_current_co2_concentration,
+        'query_current_barometric_pressure': query_current_barometric_pressure,
+        'query_current_air_quality': query_current_air_quality,
+        'query_current_finedust_concentration': query_current_finedust_concentration,
+        'query_current_last_update': query_current_last_update,
+
+        #'query_current_ambient_temperature_graph_data': query_current_ambient_temperature_graph_data,
+
+        'current_ambient_temperature': current_ambient_temperature,
+        'current_relative_humidity': current_relative_humidity,
+
+        'labels': labels,
+        'ambient_temperature_chart_data': ambient_temperature_chart_data,
+        'relative_humidity_chart_data': relative_humidity_chart_data,
+        'co2_concentration_chart_data': co2_concentration_chart_data,
+        'barometric_pressure_chart_data': barometric_pressure_chart_data,
+        'pm2_5_atm_chart_data': pm2_5_atm_chart_data,
+        'air_quality_chart_data': air_quality_chart_data,
+    }
+    return render(request, "profiles/user_dashboard.html", context)
+
+
+@user_passes_test(lambda u: u.groups.filter(name='Verwaltung').exists())
+def show_staff_devices(request):
+    notifications = Message.objects.all()
+
+    devices_list = DeviceChoiceField(user=request.user)
+    query_current_values = None # https://stackoverflow.com/questions/43974798/local-variable-might-be-referenced-before-assignment-python/43974931
+
+    query_current_device_display_name = None
+    query_current_ambient_temperature = None
+    query_current_relative_humidity = None
+    query_current_air_quality = None
+    query_current_co2_concentration = None
+    query_current_barometric_pressure = None
+    query_current_finedust_concentration = None
+    query_current_last_update = None
+
+    current_device_display_name = None
+    current_ambient_temperature = None
+    current_relative_humidity = None
+
+    """ Below Values for charting """
+    labels = []
+    ambient_temperature_chart_data = []
+    relative_humidity_chart_data = []
+    co2_concentration_chart_data = []
+    pm2_5_atm_chart_data = []
+    air_quality_chart_data = []
+    barometric_pressure_chart_data = []
+    """ Above Values for charting """
+
+    time_24_hours_ago = timezone.localtime() - timezone.timedelta(days=14)
+
+    if request.GET.get('devices'):
+        selected_device = request.GET.get('devices')
+
+        query_results = Devices.objects.filter(
+            display_name=selected_device)
+
+        query_current_values = TreeDatapointTranslations.objects.filter(
+            datapoint__device__display_name=selected_device)
+
+        query_current_device_display_name = Devices.objects.filter(
+            display_name=selected_device
+        ).values_list(
+            'display_name',
+            flat=True
+        ).distinct()
+
+        current_device_display_name = [item for item in query_current_device_display_name]
+
+        query_current_ambient_temperature = TreeDatapointTranslations.objects.filter(
+            datapoint__device__display_name=selected_device
+        ).filter(
+            mqtt_node__name="ambient_temperature"
+        ).values_list(
+            'mqtt_node__treedatapointtranslations__datapoint__current_value_double',
+            flat=True
+        ).latest(
+            'mqtt_node__treedatapointtranslations__datapoint__last_update'
+        )
+
+        query_current_relative_humidity = TreeDatapointTranslations.objects.filter(
+            datapoint__device__display_name=selected_device
+        ).filter(
+            mqtt_node__name="relative_humidity"
+        ).values_list(
+            'mqtt_node__treedatapointtranslations__datapoint__current_value_double',
+            flat=True
+        ).latest(
+            'mqtt_node__treedatapointtranslations__datapoint__last_update'
+        )
+
+        query_current_co2_concentration = TreeDatapointTranslations.objects.filter(
+            datapoint__device__display_name=selected_device
+        ).filter(
+            mqtt_node__name="co2_concentration"
+        ).values_list(
+            'mqtt_node__treedatapointtranslations__datapoint__current_value_double',
+            flat=True
+        ).latest(
+            'mqtt_node__treedatapointtranslations__datapoint__last_update'
+        )
+
+        query_current_barometric_pressure = TreeDatapointTranslations.objects.filter(
+            datapoint__device__display_name=selected_device
+        ).filter(
+            mqtt_node__name="barometric_pressure"
+        ).values_list(
+            'mqtt_node__treedatapointtranslations__datapoint__current_value_double',
+            flat=True
+        ).latest(
+            'mqtt_node__treedatapointtranslations__datapoint__last_update'
+        )
+
+        query_current_finedust_concentration = TreeDatapointTranslations.objects.filter(
+            datapoint__device__display_name=selected_device
+        ).filter(
+            mqtt_node__name="pm2_5_atm"
+        ).values_list(
+            'mqtt_node__treedatapointtranslations__datapoint__current_value_integer',
+            flat=True
+        ).latest(
+            'mqtt_node__treedatapointtranslations__datapoint__last_update'
+        )
+
+        query_current_air_quality = TreeDatapointTranslations.objects.filter(
+            datapoint__device__display_name=selected_device
+        ).filter(
+            mqtt_node__name="air_quality"
+        ).values_list(
+            'mqtt_node__treedatapointtranslations__datapoint__current_value_integer',
+            flat=True
+        ).latest(
+            'mqtt_node__treedatapointtranslations__datapoint__last_update'
+        )
+
+        # query_current_last_update = Devices.objects.filter(
+        #     display_name=selected_device
+        #     #datapoint__device__display_name=selected_device
+        # ).values_list(
+        #     #'datapoints__last_update',
+        #     'last_status_update',
+        #     flat=True
+        # ).latest(
+        #     'last_status_update'
+        # )
+
+        query_current_last_update = TreeDatapointTranslations.objects.filter(
+            datapoint__device__display_name=selected_device
+        ).filter(
+            #mqtt_node__name="air_quality"
+        ).values_list(
+            'mqtt_node__treedatapointtranslations__datapoint__last_update',
+            flat=True
+        ).latest(
+            'mqtt_node__treedatapointtranslations__datapoint__last_update'
+        )
+
+        """ Below gathering data for charts"""
+
+        queryset_ambient_temperature_double_values = Data.objects.filter(
+            datapoint__device__display_name=selected_device,
+            datapoint__name='bme680_ambient_temperature',
+            timestamp__gte=time_24_hours_ago
+        ).values_list(
+            'value_double',
+            flat=True
+        ).exclude(
+            datapoint__current_value_string="Offline",
+            #value_double='-1.0'
+        ).order_by('timestamp').distinct(
+
+        )
+
+        queryset_relative_humidity_double_values = Data.objects.filter(
+            datapoint__device__display_name=selected_device,
+            datapoint__name='bme680_relative_humidity',
+            timestamp__gte=time_24_hours_ago
+        ).values_list(
+            'value_double',
+            flat=True
+        ).exclude(
+            datapoint__current_value_string="Offline",
+            #value_double='-1.0'
+        ).order_by(
+            'timestamp'
+        ).distinct()
+
+        queryset_co2_concentration_double_values = Data.objects.filter(
+            datapoint__device__display_name=selected_device,
+            datapoint__name='scd30_co2_concentration',
+            timestamp__gte=time_24_hours_ago
+        ).values_list(
+            'value_double',
+            flat=True
+        ).exclude(
+            datapoint__current_value_string="Offline",
+            #value_double='-1.0'
+        ).order_by(
+            'timestamp'
+        ).distinct()
+
+        queryset_barometric_pressure_double_values = Data.objects.filter(
+            datapoint__device__display_name=selected_device,
+            datapoint__name='bme680_barometric_pressure',
+            timestamp__gte=time_24_hours_ago
+        ).values_list(
+            'value_double',
+            flat=True
+        ).exclude(
+            datapoint__current_value_string="Offline",
+        ).order_by(
+            'timestamp'
+        ).distinct()
+
+        queryset_pm2_5_atm_double_values = Data.objects.filter(
+            datapoint__device__display_name=selected_device,
+            datapoint__name='pms5003_pm2_5_atm',
+            timestamp__gte=time_24_hours_ago
+        ).values_list(
+            'value_integer',
+            flat=True
+        ).exclude(
+            datapoint__current_value_string="Offline",
+        ).order_by(
+            'timestamp'
+        ).distinct()
+
+        queryset_air_quality_double_values = Data.objects.filter(
+            datapoint__device__display_name=selected_device,
+            datapoint__name='mq135_air_quality',
+            timestamp__gte=time_24_hours_ago
+        ).values_list(
+            'value_integer',
+            flat=True
+        ).exclude(
+            datapoint__current_value_string="Offline",
+        ).order_by(
+            'timestamp'
+        ).distinct()
+
+        queryset_timestamps = Data.objects.filter(
+            datapoint__device__display_name=selected_device,
+            datapoint__name='bme680_ambient_temperature',
+            timestamp__gte=time_24_hours_ago
+        ).values_list(
+            'timestamp',
+            flat=True
+        ).exclude(
+            datapoint__current_value_string="Offline",
+            # value_double='-1.0'
+        ).order_by(
+            'timestamp'
+        ).distinct()
+
+        queryset_incident_date_timestamps = DeviceUserAssignment.objects.filter(
+            device__display_name=selected_device,
+            datapoint__name='bme680_ambient_temperature',
+            timestamp__gte=time_24_hours_ago
+        ).values_list(
+            'timestamp',
+            flat=True
+        ).exclude(
+            datapoint__current_value_string="Offline",
+            # value_double='-1.0'
+        ).order_by(
+            'timestamp'
+        ).distinct()
+
+        relative_humidity_chart_data = list(queryset_relative_humidity_double_values)
+        ambient_temperature_chart_data = list(queryset_ambient_temperature_double_values)
+        co2_concentration_chart_data = list(queryset_co2_concentration_double_values)
+        pm2_5_atm_chart_data = list(queryset_pm2_5_atm_double_values)
+        air_quality_chart_data = list(queryset_air_quality_double_values)
+        barometric_pressure_chart_data = list(queryset_barometric_pressure_double_values)
+        labels = list(queryset_timestamps)
+
+        """ Above gathering data for charts"""
+
+    else:
+        query_results = Devices.objects.none()
+
+    context = {
+        'notifications': notifications,
+        'query_results': query_results,
+        'query_current_values': query_current_values,
+        'devices_list': devices_list,
+        'current_device_display_name': current_device_display_name,
+
+        'query_current_device_display_name': query_current_device_display_name,
+        'query_current_ambient_temperature': query_current_ambient_temperature,
+        'query_current_relative_humidity': query_current_relative_humidity,
+        'query_current_co2_concentration': query_current_co2_concentration,
+        'query_current_barometric_pressure': query_current_barometric_pressure,
+        'query_current_air_quality': query_current_air_quality,
+        'query_current_finedust_concentration': query_current_finedust_concentration,
+        'query_current_last_update': query_current_last_update,
+
+        'current_ambient_temperature': current_ambient_temperature,
+        'current_relative_humidity': current_relative_humidity,
+
+        'labels': labels,
+        'ambient_temperature_chart_data': ambient_temperature_chart_data,
+        'relative_humidity_chart_data': relative_humidity_chart_data,
+        'co2_concentration_chart_data': co2_concentration_chart_data,
+        'barometric_pressure_chart_data': barometric_pressure_chart_data,
+        'pm2_5_atm_chart_data': pm2_5_atm_chart_data,
+        'air_quality_chart_data': air_quality_chart_data,
+    }
+    return render(request, "profiles/staff_dashboard.html", context)
+

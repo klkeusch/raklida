@@ -41,3 +41,48 @@ Nutzung von anderen Zeilen aus models: accessor="id.name" --> id ist ForeignKey 
 22:55 08.09.2021
 Die Aufteilung wie hier beschrieben: https://django-tables2.readthedocs.io/en/latest/pages/table-data.html bietet die Vorteile der Nutzung von exclude und sequence. Damit lassen
 sich Spalten anordnen und ggf. ausblenden. 
+
+10:19 16.09.2021
+Aus JF 13.09: 
+- Präsentation + Dokumentation erstellen (binden in PhyLab) --> Mitte Oktober Abgabe
+
+- wichtig:
+	- Zuordnung device - Datapoint
+
+	- 1 Gerät <> mehrere Benutzer
+	- 1 Benutzer <> mehrere Geräte
+		--> many-to-many-field (?)
+	- UB: zus. Tabelle deviceUserAssignment dafür
+	
+	- Screenshots:
+		- Sicht von FaSi auf Nutzersituation
+			- Tabelle Messwerte, Diagr. mit Meldung
+		- Dashboard User
+			- Meldeform, Tab., Diag.
+	- Metainfos: Raumzuweisung, Zeitraum (opt)
+	- Meldung in Graph anzeigen (Linie in Diagr./Meldung)
+
+	- Auflösung Gerät in Pfad an Stelle in Django Baum
+
+
+08:12 17.09.2021
+superuser
+#superuser$
+
+martina.muster
+max.maximilian
+#superpassword2021$
+
+Daten kopieren zw. psql Dbs
+In pgAdmin, right click the table you want to move, select "Backup"
+Pick the directory for the output file and set Format to "plain"
+Click the "Dump Options #1" tab, check "Only data" or "only Schema" (depending on what you are doing)
+Under the Queries section, click "Use Column Inserts" and "User Insert Commands".
+Click the "Backup" button. This outputs to a .backup file
+Open this new file using notepad. You will see the insert scripts needed for the table/data. Copy and paste these into the new database sql page in pgAdmin. Run as pgScript - Query->Execute as pgScript F6
+Works well and can do multiple tables at a time.
+
+
+11:09 17.09.2021
+Beim Löschen von migrations-Ordnern später einen neuen Ordner migrations anlegen mit leerer __init__.py
+15:35 17.09.2021

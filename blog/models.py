@@ -8,10 +8,14 @@ content_validator = MinLengthValidator(limit_value=50, message="Der Bloginhalt s
 
 
 class Blog(models.Model):
-    title = models.CharField(max_length=250)
-    content = models.TextField(validators=[content_validator])
-    date_published = models.DateTimeField(default=timezone.now)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=250, verbose_name="Titel")
+    content = models.TextField(validators=[content_validator], verbose_name="Inhalt")
+    date_published = models.DateTimeField(default=timezone.now, verbose_name="Veröffentlichungsdatum")
+    author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Autor")
+
+    class Meta:
+        verbose_name = 'Blogeintrag'
+        verbose_name_plural = 'Blogeinträge'
 
     def __str__(self):
         return self.title
