@@ -42,8 +42,9 @@ class MessageCreateView(LoginRequiredMixin, UserPassesTestMixin, generic.CreateV
         form.fields['incident_date'].widget = DateTimePickerInput(options={
             "format": "DD.MM.YYYY HH:mm",
             "locale": "de",
-        },)
-        form.fields['recipient'].queryset = User.objects.values_list('username', flat=True).exclude(is_staff=False).exclude(username=self.request.user)
+        }, )
+        form.fields['recipient'].queryset = User.objects.values_list('username', flat=True).exclude(
+            is_staff=False).exclude(username=self.request.user)
         # form.fields['user_devices'].queryset = DeviceUserAssignment.objects.filter(
         #     device__profile__user=self.request.user
         # ).values_list(

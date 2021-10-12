@@ -5,7 +5,7 @@ from sensorvalues.models import DeviceUserAssignment, Devices
 
 
 class MessageCreateForm(forms.ModelForm):
-    recipient = forms.ModelChoiceField(queryset=User.objects.all(), initial=0, label="Empfänger")
+    recipient = forms.ModelChoiceField(initial=0, label="Empfänger")#(queryset=User.objects.all(), initial=0, label="Empfänger")
     content = forms.CharField(widget=forms.Textarea, max_length=500, required=True, label="Ihre Nachricht")
     # sent_at = forms.DateTimeField(label="Datum des Zwischenfalls")
     incident_date = forms.DateTimeField(label="Zwischenfall-Datum")
