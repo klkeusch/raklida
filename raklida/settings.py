@@ -33,14 +33,13 @@ SECRET_KEY = 'django-insecure-!nrrre@@@*&tv#w$j%xi4+dz&34mc1tv53euok#%hyyr9@l*96
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
 INSTALLED_APPS = [
-    # 'admin_tools_stats',  # this must be BEFORE 'admin_tools' and 'django.contrib.admin'
-    # 'django_nvd3',
     'related_admin',
+    'django_admin_listfilter_dropdown',
     # 'raklida.apps.CustomAdminConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -59,6 +58,7 @@ INSTALLED_APPS = [
     'bootstrap_datepicker_plus',
     'bootstrap4',
     'chartjs',
+    'admincharts',
     # 'djangobower',
 ]
 
@@ -163,19 +163,3 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'klkeusch@gmail.com'
 EMAIL_HOST_PASSWORD = 'iepvqoqidlsqlbbh'
 
-# User model ref
-# AUTH_USER_MODEL =
-
-# # Django Admin Charts
-# # Specifie path to components root (you need to use absolute path)
-# BOWER_COMPONENTS_ROOT = os.path.join(BASE_DIR, 'components')
-#
-#
-# BOWER_INSTALLED_APPS = (
-#     'd3#3.3.13',
-#     'nvd3#1.7.1',
-# )
-#
-# STATICFILES_FINDERS = (
-#     'djangobower.finders.BowerFinder',
-# )

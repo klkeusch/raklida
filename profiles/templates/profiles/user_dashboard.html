@@ -9,95 +9,104 @@
 {% load crispy_forms_tags %}{% endcomment %}
 {% block content %}
 
-<div class="landing bg-dark">
-    <div class="container">
-        <div class="row align-items-center justify-content-center">
-            <div class="col-sm-12 col-lg-8 text-center">
-                <h1 class="text-white font-weight-bold display-5 mt-5">Benutzer-Dashboard</h1>
-            </div>
-
-
-
-            <div class="col-md-6">
-                <div class="form-group text-center mt-3">
-                <label for="inputStatus" class="text-white">Geräteauswahl</label>
-
-                    <form id="device_list_form" action="{% url 'show_user_device' %}" method="GET">
-                        {% csrf_token %}
-                        {{ device_list }}
-                        <input type="submit" value="Wählen" />
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="container bg-light mt-n5 p-5 rounded">
-    <div class="row border-bottom">
-        <div class="container text-center">
-            {% if current_device_display_name %}
-            <h3>Gerät: {{ query_current_device_display_name|join:" " }}</h3>
-                <p>Aktualisiert: {{ query_current_last_update }}</p>
-            <div class="row bg-secondary border-bottom align-items-center justify-content-center">
-                <div class="col border-right">
-                    <p class="text-white font-weight-bold display-8 mb-3 mt-3">Temperatur [°C]</p>
-                </div>
-                <div class="col border-right">
-                    <p class="text-white font-weight-bold display-8 mb-3 mt-3">Luftfeuchtigkeit [%]</p>
-                </div>
-                <div class="col">
-                    <p class="text-white font-weight-bold display-8 mb-3 mt-3">CO2-Wert [ppm]</p>
-                </div>
-            </div>
+    <div class="landing bg-dark">
+        <div class="container">
             <div class="row align-items-center justify-content-center">
-                <div class="col border-right">
-                    <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">{{ query_current_ambient_temperature|floatformat:2 }}</h1>
+                <div class="col-sm-12 col-lg-8 text-center">
+                    <h1 class="text-white font-weight-bold display-5 mt-5">Benutzer-Dashboard</h1>
                 </div>
-                <div class="col border-right">
-                    <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">{{ query_current_relative_humidity|default_if_none:" "|floatformat:2 }}</h1>
-                </div>
-                <div class="col">
-                    <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">{{ query_current_co2_concentration|default_if_none:" "|floatformat:2 }}</h1>
+
+
+                <div class="col-md-6">
+                    <div class="form-group text-center mt-3">
+                        <label for="inputStatus" class="text-white">Geräteauswahl</label>
+
+                        <form id="device_list_form" action="{% url 'show_user_device' %}" method="GET">
+                            {% csrf_token %}
+                            {{ device_list }}
+                            <input type="submit" value="Wählen"/>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row border-bottom">
-        <div class="container text-center">
-            <div class="row bg-secondary border-bottom align-items-center justify-content-center">
-                <div class="col border-right">
-                    <p class="text-white font-weight-bold display-8 mb-3 mt-3">Luftdruck [mbar]</p>
-                </div>
-                <div class="col border-right">
-                    <p class="text-white font-weight-bold display-8 mb-3 mt-3">Feinstaubkonzentration [&microg/m<sup>3</sup>]</p>
-                </div>
-                <div class="col">
-                    <p class="text-white font-weight-bold display-8 mb-3 mt-3">Luftqualität</p>
-                </div>
-            </div>
-            <div class="row align-items-center justify-content-center">
-                <div class="col border-right">
-                    <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">{{ query_current_barometric_pressure|default_if_none:" "|floatformat:2 }}</h1>
-                </div>
-                <div class="col border-right">
-                    <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">{{ query_current_finedust_concentration|default_if_none:" " }}</h1>
-                </div>
-                <div class="col">
-                    <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">{{ query_current_air_quality|default_if_none:" " }}</h1>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
+    <div class="container bg-light mt-n5 p-5 rounded">
+        <div class="row border-bottom">
+            <div class="container text-center">
+                {% if current_device_display_name %}
+                    <h3>Aktives Gerät: {{ query_current_device_display_name|join:" " }}</h3>
+                    <p>Aktualisiert: {{ query_current_last_update }}</p>
+
+                    <div class="row bg-secondary border-bottom align-items-center justify-content-center">
+                        <div class="col border-right">
+                            <p class="text-white font-weight-bold display-8 mb-3 mt-3">Temperatur [°C]</p>
+                        </div>
+                        <div class="col border-right">
+                            <p class="text-white font-weight-bold display-8 mb-3 mt-3">Luftfeuchtigkeit [%]</p>
+                        </div>
+
+                        <div class="col">
+                            <p class="text-white font-weight-bold display-8 mb-3 mt-3" data-toggle="tooltip"
+                                       data-placement="right" title="Zusatzmodul | Niedriger Wert: besser!">Feinstaubkonzentration*
+                                [&microg/m<sup>3</sup>]</p>
+                        </div>
+                    </div>
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col border-right">
+                            <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">{{ query_current_ambient_temperature|floatformat:2 }}</h1>
+                        </div>
+                        <div class="col border-right">
+                            <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">{{ query_current_relative_humidity|default_if_none:" "|floatformat:2 }}</h1>
+                        </div>
+
+                        <div class="col">
+                            <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">{{ query_current_finedust_concentration|default_if_none:" - " }}</h1>
+                        </div>
+                    </div>
+                    </div>
+                    </div>
+                    <div class="row border-bottom">
+                        <div class="container text-center">
+                            <div class="row bg-secondary border-bottom align-items-center justify-content-center">
+                                <div class="col border-right">
+                                    <p class="text-white font-weight-bold display-8 mb-3 mt-3">Luftdruck [mbar]</p>
+                                </div>
+                                <div class="col border-right">
+                                    <p class="text-white font-weight-bold display-8 mb-3 mt-3">CO2-Wert [ppm]</p>
+                                </div>
+                                <div class="col">
+                                    <p class="text-white font-weight-bold display-8 mb-3 mt-3" data-toggle="tooltip"
+                                       data-placement="right" title="Zusatzmodul | Niedriger Wert: besser!">Luftqualität*</p>
+                                </div>
+                            </div>
+                            <div class="row align-items-center justify-content-center">
+                                <div class="col border-right">
+                                    <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">{{ query_current_barometric_pressure|default_if_none:" - "|floatformat:2 }}</h1>
+                                </div>
+                                <div class="col border-right">
+                                    <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">{{ query_current_co2_concentration|default_if_none:" "|floatformat:2 }}</h1>
+                                </div>
+                                <div class="col">
+                                    <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">{{ query_current_air_quality|default_if_none:" - " }}</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
 
 
-<div class="container bg-light mt-n5 p-5 rounded">
-    <div class="row">
-        <div class="col-12">
-            <h1>Messwertverlauf</h1>
-        </div>
-{% comment %}        <div class="col-12">
+                    <div class="container bg-light mt-n5 p-5 rounded">
+                        <div class="row">
+                            <div class="col-12">
+                                <h1>Messwertverlauf</h1>
+                                <p class="font-weight-light font-italic">Die einzelnen Messwerte können durch Klicken
+                                    ein- und
+                                    ausgeblendet werden. Verschieben und Zoomen funktioniert mit der Maus bzw. dem
+                                    Mausrad.</p>
+                            </div>
+                            {% comment %}        <div class="col-12">
             {% csrf_token %}
             <div class="col-md-12">
                 <div class="form-group text-left">
@@ -117,191 +126,270 @@
                 </div>
             </div>{% endcomment %}
 
+                            <div class="container-fluid clearfix pt-1">
+                                <button class="btn-sm btn-secondary float-right" onclick="resetZoom()">Reset Zoom
+                                </button>
+                            </div>
+                            {% block javascript %}
+                                {{ ambient_temperature_chart_data|json_script:"ambient_temperature_chart_data" }}
+                                {{ relative_humidity_chart_data|json_script:"relative_humidity_chart_data" }}
+                                {{ co2_concentration_chart_data|json_script:"co2_concentration_chart_data" }}
+                                {{ barometric_pressure_chart_data|json_script:"barometric_pressure_chart_data" }}
+                                {{ pm2_5_atm_chart_data|json_script:"pm2_5_atm_chart_data" }}
+                                {{ air_quality_chart_data|json_script:"air_quality_chart_data" }}
+                                {{ labels|json_script:"mylabels" }}
+                                <div class="chart-container"
+                                     style="position: relative;margin-bottom: 30vh;  height:40vh; width:80vw">
+                                    <!--<canvas style=" width: 1080; height: 120%;" id="chart"></canvas>-->
+                                    <canvas id="chart"></canvas>
+                                </div>
+                                <!--<canvas id="chart" width="1200" height="500"></canvas>-->
+                                <script type="text/javascript" id="testl">
+                                    let ctx = document.getElementById('chart');
+                                    //let formData = new FormData(document.getElementById('deviceform'));
+                                    const ambient_temperature_chart_data = JSON.parse(document.getElementById('ambient_temperature_chart_data').textContent);
+                                    const relative_humidity_chart_data = JSON.parse(document.getElementById('relative_humidity_chart_data').textContent);
+                                    const co2_concentration_chart_data = JSON.parse(document.getElementById('co2_concentration_chart_data').textContent);
+                                    const pm2_5_atm_chart_data = JSON.parse(document.getElementById('pm2_5_atm_chart_data').textContent);
+                                    const barometric_pressure_chart_data = JSON.parse(document.getElementById('barometric_pressure_chart_data').textContent);
+                                    const air_quality_chart_data = JSON.parse(document.getElementById('air_quality_chart_data').textContent);
+                                    const mylabels = JSON.parse(document.getElementById('mylabels').textContent);
 
+                                    $.ajax({
+                                        url: '/line_chart/',
+                                        success: function () { //success: function(formData){
+                                            window.myline = new Chart(ctx, {
+                                                type: 'line',
+                                                //plugins: [ChartDataLabels],
+                                                data: { //response.data,
+                                                    labels: mylabels, //formData.labels,
+                                                    datasets: [{
+                                                        label: 'Temperatur [°C]',
+                                                        backgroundColor: "crimson",
+                                                        borderColor: "crimson",
+                                                        fill: false,
+                                                        lineTension: 0.1,
+                                                        radius: 1,
+                                                        //pointStyle: 'triangle',
+                                                        data: ambient_temperature_chart_data, //formData.data
+                                                        yAxisID: 'y',
+                                                    }, {
+                                                        label: 'Luftfeuchtigkeit [%]',
+                                                        backgroundColor: "mediumslateblue",
+                                                        borderColor: "mediumslateblue",
+                                                        fill: false,
+                                                        lineTension: 0.1,
+                                                        radius: 1,
+                                                        //pointStyle: 'circle',
+                                                        data: relative_humidity_chart_data, //formData.data
+                                                        yAxisID: 'y',
+                                                    }, {
+                                                        label: 'CO2-Konzentration [ppm]',
+                                                        backgroundColor: "dimgrey",
+                                                        borderColor: "dimgrey",
+                                                        fill: false,
+                                                        lineTension: 0.1,
+                                                        radius: 1,
+                                                        //pointStyle: 'star',
+                                                        data: co2_concentration_chart_data, //formData.data
+                                                        yAxisID: 'y1',
+                                                    }, {
+                                                        label: 'Luftdruck [mbar]',
+                                                        backgroundColor: "deepskyblue",
+                                                        borderColor: "deepskyblue",
+                                                        fill: false,
+                                                        lineTension: 0.1,
+                                                        radius: 1,
+                                                        //pointStyle: 'star',
+                                                        data: barometric_pressure_chart_data, //formData.data
+                                                        yAxisID: 'y1',
+                                                    }, {
+                                                        label: 'Feinstaubkonzentration [µg/m3]',
+                                                        backgroundColor: "black",
+                                                        borderColor: "black",
+                                                        fill: false,
+                                                        lineTension: 0.1,
+                                                        radius: 1,
+                                                        //pointStyle: 'circle',
+                                                        data: pm2_5_atm_chart_data, //formData.data
+                                                        yAxisID: 'y',
+                                                    }, {
+                                                        label: 'Luftqualität []',
+                                                        backgroundColor: "ForestGreen",
+                                                        borderColor: "ForestGreen",
+                                                        fill: false,
+                                                        lineTension: 0.1,
+                                                        radius: 1,
+                                                        //pointStyle: 'circle',
+                                                        data: air_quality_chart_data, //formData.data
+                                                        yAxisID: 'y1',
+                                                    },
+                                                    ]
+                                                },
+                                                options: {
+                                                    alignToPixels: true,
+                                                    locale: 'de-DE',
+                                                    responsive: true,
+                                                    interaction: {
+                                                        mode: 'index',
+                                                        intersect: false,
+                                                    },
+                                                    plugins: {
+                                                        zoom: {
+                                                            pan: {
+                                                                enabled: true,
+                                                                mode: 'xy',
+                                                            },
+                                                            zoom: {
+                                                                wheel: {
+                                                                    enabled: true,
+                                                                },
+                                                                pinch: {
+                                                                    enabled: true
+                                                                },
+                                                                mode: 'xy',
+                                                            }
+                                                        },
 
-            {% block javascript %}
-                {{ ambient_temperature_chart_data|json_script:"ambient_temperature_chart_data" }}
-                {{ relative_humidity_chart_data|json_script:"relative_humidity_chart_data" }}
-                {{ co2_concentration_chart_data|json_script:"co2_concentration_chart_data" }}
-                {{ labels|json_script:"mylabels" }}
-                <canvas style="margin-bottom: 30px; width: 60%; height: 50%;" id="chart"></canvas>
-                <!--<canvas id="chart" width="1200" height="500"></canvas>-->
-                <script  type="text/javascript" id="testl">
-                    let ctx = document.getElementById('chart');
-                    //let formData = new FormData(document.getElementById('deviceform'));
-                    const ambient_temperature_chart_data = JSON.parse(document.getElementById('ambient_temperature_chart_data').textContent);
-                    const relative_humidity_chart_data = JSON.parse(document.getElementById('relative_humidity_chart_data').textContent);
-                    const co2_concentration_chart_data = JSON.parse(document.getElementById('co2_concentration_chart_data').textContent);
-                    const mylabels = JSON.parse(document.getElementById('mylabels').textContent);
+                                                        //stacked: false,
+                                                    },
+                                                    scales: {
+                                                        x: {
+                                                            type: "time",
+                                                            display: true,
+                                                            title: {
+                                                                display: true,
+                                                                text: 'Zeit'
+                                                            },
+                                                            time: {
+                                                                tooltipFormat: 'DD.MM.YY, HH:mm',
+                                                                displayFormats: {
+                                                                    'millisecond': 'HH:mm:ss.SSS',
+                                                                    'second': 'HH:mm:ss',
+                                                                    'minute': 'HH:mm',
+                                                                    'hour': 'HH:mm',
+                                                                    'day': 'D',
+                                                                    'week': 'DD MMM',
+                                                                    'month': 'DD MMM',
+                                                                    'quarter': 'DD MMM',
+                                                                    'year': 'DD MMM',
+                                                                },
+                                                            },
+                                                            gridLines: {
+                                                                display: false,
+                                                            },
+                                                            ticks: {
+                                                                display: true,
+                                                                autoSkip: true,
+                                                                //maxTicksLimit: 24
+                                                            },
+                                                        },
+                                                        y: {
+                                                            type: 'linear',
+                                                            display: 'auto', //true,
+                                                            title: {
+                                                                display: true,
+                                                                text: 'Temperatur [°C] | Luftfeuchtigkeit [%] | Feinstaubkonzentration [µg/m3]'
+                                                            },
+                                                            position: 'left',
+                                                            ticks: {
+                                                                //display: true,
+                                                                //autoskip: true,
+                                                            },
+                                                            grid: {
+                                                                drawOnChartArea: false, // only want the grid lines for one axis to show up
+                                                            },
 
-                    $.ajax({
-                        url: '/line_chart/',
-                        success: function(){ //success: function(formData){
-                        new Chart(ctx, {
-                        type: 'line',
-                        data: { //response.data,
-                            labels: mylabels, //formData.labels,
-                                datasets: [{
-                                    label: 'Temperatur [°C]',
-                                    backgroundColor:"red",
-                                    borderColor: "red",
-                                    fill: false,
-                                    lineTension: 0,
-                                    radius: 2,
-                                    data: ambient_temperature_chart_data, //formData.data
-                                    yAxisID: 'y',
-                                  }, {
-                                    label: 'Luftfeuchtigkeit [%]',
-                                    backgroundColor:"blue",
-                                    borderColor: "blue",
-                                    fill: false,
-                                    lineTension: 0,
-                                    radius: 2,
-                                    data: relative_humidity_chart_data, //formData.data
-                                    yAxisID: 'y',
-                                },{
-                                    label: 'CO2-Konzentration [ppm]',
-                                    backgroundColor:"grey",
-                                    borderColor: "grey",
-                                    fill: false,
-                                    lineTension: 0,
-                                    radius: 2,
-                                    data: co2_concentration_chart_data, //formData.data
-                                    yAxisID: 'y1',
+                                                        },
+                                                        y1: {
+                                                            type: 'linear',
+                                                            display: 'auto',//true,
+                                                            title: {
+                                                                display: true,
+                                                                text: 'CO2-Konzentration [ppm] | Luftdruck [mbar] | Luftqualität []'
+                                                            },
+                                                            position: 'right',
+                                                            ticks: {
+                                                                //display: true,
+                                                                //autoskip: true,
+                                                            }
+                                                        }
 
-                                }]
-                                },
-                       options: {
-                            locale: 'de-DE',
-                            responsive: true,
-                            interaction: {
-                              mode: 'index',
-                              intersect: false,
-                            },
-                            stacked: false,
-                            plugins: {
-                              //title: {
-                              //  display: true,
-                              //    text: 'Messwertverläufe'
-                              //}
-                            },
-                            scales: {
-                                x: {
-                                    type: "time",
-                                    time: {
-                                        tooltipFormat: 'DD.MM.YY, HH:mm',
-                                        displayFormats: {
-                                            'millisecond': 'HH:mm:ss.SSS',
-                                            'second': 'HH:mm:ss',
-                                            'minute': 'HH:mm',
-                                            'hour': 'HH:mm',
-                                            'day': 'D',
-                                            'week': 'DD MMM',
-                                            'month': 'DD MMM',
-                                            'quarter': 'DD MMM',
-                                            'year': 'DD MMM',
-                                        },
-                                    },
-                                    gridLines : {
-                                        display: false,
-                                    },
-                                    ticks:{
-                                        display: true,
-                                        autoSkip: true,
-                                        //maxTicksLimit: 24
-                                    },
-                                },
-                                y: {
-                                    type: 'linear',
-                                    display: true,
-                                    position: 'left',
-                                    ticks: {
-                                        display: true,
-                                        autoskip: true,
+                                                    },
+                                                },
+                                            });
+                                        }
+                                    });
+
+                                    function resetZoom() {
+                                        window.myline.resetZoom();
                                     }
-
-                                },
-                                y1:{
-                                    type: 'linear',
-                                    display: true,
-                                    position: 'right',
-                                    ticks: {
-                                        display: true,
-                                        autoskip: true,
-                                    }
-                                }
-
-                            },
-                        }
-                              });
-                            }
-                          });
-                  </script>
-            {% endblock javascript %}
-        </div>
-    </div>
-</div>
-            {% endif %}
-<div class="container bg-light mt-n5 p-5 rounded">
-    <div class="row">
-        <div class="col-12 border-bottom mb-3">
-            <h1>Aktuelle Meldungen</h1>
-        </div>
-        <div class="col-12 mb-3">
-
-            <p><a class="btn btn-md btn-primary"
-                  href="{% url 'message_create' %}">Neue Meldung verfassen</a></p>
-
-            {% if notifications.count > 0 %}
-                {% for message in notifications|dictsortreversed:"sent_at" %}
-                    <div class="row blog mb-5">
-                        <div class="col-lg-2 col-sm-12 text-center">
-                            Empfänger:<a class="mugshot-container mb-1"
-                                         href="{% url 'profile' message.recipient.pk %}">
-                            <div class="mugshot-img mb-2"
-                                 style="background-image:url({{ message.recipient.profile.image.url }})"></div>
-                            <span>{{ message.recipient.first_name }} {{ message.recipient.last_name }}</span>
-                        </a>
+                                </script>
+                            {% endblock javascript %}
                         </div>
-                        <div class="col-lg-10 col-sm-12">
-                            <div class="blog-information">
-                                <p class="text-muted">Gesendet am {{ message.sent_at|date:"d.m.Y" }}
-                                    um {{ message.sent_at|date:"H:i" }}</p>
-                                <p>{{ message.content }}</p>
-                                {#                                    <p class="text-muted">Gesendet am {{ message.sent_at|date:"d.m.Y" }}#}
-                                {#                                        um {{ message.sent_at|date:"H:i" }}</p>#}
-                                <p class="text-bold">Vorfall am {{ message.incident_date|date:"d.m.Y" }}
-                                    um {{ message.incident_date|date:"H:i" }}</p>
-                                <div class="update-edit">
-                                    {% if request.user.is_authenticated and request.user == message.sender %}
-                                        <a class="btn btn-sm btn-info"
-                                           href="{% url 'message_update' message.pk %}">Bearbeiten</a>
-                                        <a class="btn btn-sm btn-danger"
-                                           href="{% url 'message_delete' message.pk %}">Löschen</a>
-                                    {% endif %}
+                    </div>
+                    </div>
+                {% endif %}
+    <div class="container bg-light mt-n5 p-5 rounded">
+        <div class="row">
+            <div class="col-12 border-bottom mb-3">
+                <h1>Aktuelle Meldungen</h1>
+            </div>
+            <div class="col-12 mb-3">
+
+                <p><a class="btn btn-md btn-primary"
+                      href="{% url 'message_create' %}">Neue Meldung verfassen</a></p>
+
+                {% if notifications.count > 0 %}
+                    {% for message in notifications|dictsortreversed:"sent_at" %}
+                        <div class="row blog mb-5">
+                            <div class="col-lg-2 col-sm-12 text-center">
+                                Empfänger:<a class="mugshot-container mb-1"
+                                             href="{% url 'profile' message.recipient.pk %}">
+                                <div class="mugshot-img mb-2"
+                                     style="background-image:url({{ message.recipient.profile.image.url }})"></div>
+                                <span>{{ message.recipient.first_name }} {{ message.recipient.last_name }}</span>
+                            </a>
+                            </div>
+                            <div class="col-lg-10 col-sm-12">
+                                <div class="blog-information">
+                                    <p class="text-muted">Gesendet am {{ message.sent_at|date:"d.m.Y" }}
+                                        um {{ message.sent_at|date:"H:i" }}</p>
+                                    <p>{{ message.content }}</p>
+                                    {#                                    <p class="text-muted">Gesendet am {{ message.sent_at|date:"d.m.Y" }}#}
+                                    {#                                        um {{ message.sent_at|date:"H:i" }}</p>#}
+                                    <p class="text-bold">Vorfall am {{ message.incident_date|date:"d.m.Y" }}
+                                        um {{ message.incident_date|date:"H:i" }}</p>
+                                    <div class="update-edit">
+                                        {% if request.user.is_authenticated and request.user == message.sender %}
+                                            <a class="btn btn-sm btn-info"
+                                               href="{% url 'message_update' message.pk %}">Bearbeiten</a>
+                                            <a class="btn btn-sm btn-danger"
+                                               href="{% url 'message_delete' message.pk %}">Löschen</a>
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                    {% endfor %}
+                    {#                        <a class="btn btn-md btn-primary"#}
+                    {#                           href="{% url 'message_create' %}">Neue Meldung verfassen</a>#}
                     </div>
-                {% endfor %}
-                {#                        <a class="btn btn-md btn-primary"#}
-                {#                           href="{% url 'message_create' %}">Neue Meldung verfassen</a>#}
-                </div>
-                </div>
-            {% else %}
-                <div class=" ">
-                    <h2 class="text-muted text-center">Hier wurde leider noch keine Nachricht verfasst!
-                        ¯\_(ツ)_/¯<br/><br/></h2>
-                </div>
-            {% endif %}
-</div>
-</div>
-</div>
+                    </div>
+                {% else %}
+                    <div class=" ">
+                        <h2 class="text-muted text-center">Hier wurde leider noch keine Nachricht verfasst!
+                            ¯\_(ツ)_/¯<br/><br/></h2>
+                    </div>
+                {% endif %}
+    </div>
+    </div>
+    </div>
 
-{% comment %}<h1>Device details</h1>
+    {% comment %}<h1>Device details</h1>
     <table>{% endcomment %}
 
-{% comment %}
+    {% comment %}
 
         {% for item in query_results %}
             {% if request.user.is_authenticated and request.user == query_results.assigned_user %}
@@ -312,7 +400,7 @@
             {% endif %}
         {% endfor %}
     {% endcomment %}
-{% comment %}        <tr>
+    {% comment %}        <tr>
             <th>Datapoint</th>
             <th>MQTT-Node</th>
             <th>Device</th>
@@ -341,8 +429,8 @@
 
     <p>{{ query_current_temperature }}</p>{% endcomment %}
 
-</div>
-</div>
- </div>
+    </div>
+    </div>
+    </div>
 
 {% endblock content %}
