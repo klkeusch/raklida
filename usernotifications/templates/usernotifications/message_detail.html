@@ -1,0 +1,27 @@
+{% extends "blog/base.html" %}
+{% block content %}
+    <div class="container blog bg-light p-5 mt-5 rounded mb-5">
+        <div class="row">
+            <div class="col-3 text-center">
+                <a class="mugshot-container mb-1" href="{% url 'profile' message.sender.pk %}">
+                    <div class="mugshot-img mb-2"
+                         style="background-image:url({{ message.sender.profile.image.url }})"></div>
+                    <span>{{ message.sender.username }}</span>
+                </a>
+                <small class="text-muted">{{ message.sent_at|date:"d.m.Y | H:i a" }}</small>
+            </div>
+            <div class="col-9 question-information pb-1">
+                <h1 class="blog-card-title mb-3 font-weight-bold">BETREFF?!</h1>
+                {% if request.user == message.sender %}
+                    <a href="{% url 'message_update' message.pk %}" class="btn btn-sm btn-primary">Bearbeiten</a>
+                    <a href="{% url 'message_delete' message.pk %}" class="btn btn-sm btn-danger">Löschen</a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 mt-5">
+                <p class="line-height text-justify"> {{ message.content }}</p>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

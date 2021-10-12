@@ -5,11 +5,62 @@
         <div class="container">
             <div class="row align-items-center justify-content-center">
                 <div class="col-sm-12 col-lg-6 text-center">
-                    <h1 class="text-white font-weight-bold display-5 mb-3">Raum-Klimadaten-System der htw saar</h1>
+                    <h1 class="text-white font-weight-bold display-5 mt-5">Raum-Klimadaten-System der htw saar</h1>
                 </div>
             </div>
         </div>
     </div>
+
+
+
+{#        {% if request.user.is_authenticated %}#}
+{#        <div id="wrapper"><!-- sidenav wrapper for content-->#}
+{#        <!-- Sidebar -->#}
+{#        <div id="sidebar-wrapper">#}
+{#            <ul class="sidebar-nav bg-light border border-dark rounded">#}
+{#                <li class="border-bottom">#}
+{#                    <a href="{% url 'user_dashboard' %}">#}
+{#                        Benutzer-Dashboard#}
+{#                    </a>#}
+{#                </li>#}
+{##}
+{##}
+{#                <li class="border-bottom">#}
+{##}
+{#                    {% csrf_token %}#}
+{#                    <div class="col-md-12">#}
+{#                        <div class="form-group text-left">#}
+{#                            <label for="inputStatus" class="text-dark">Geräteauswahl</label>#}
+{#                            <select id="question-subject" class="form-control-sm custom-select">#}
+{#                                <option selected disabled>Bitte Gerät auswählen</option>#}
+{#                                {% for device in devices %}#}
+{#                                    <option value="{{ device.id }}">{{ device.display_name }}</option>#}
+{#                                {% endfor %}#}
+{#                            </select>#}
+{#                        </div>#}
+{#                    </div>#}
+{##}
+{#                </li>#}
+{##}
+{##}
+{#                <li class="border-bottom">#}
+{#                    <a href="{% url 'message_create' %}">Neue Meldung verfassen</a>#}
+{#                </li>#}
+{#                <li class="border-bottom">#}
+{#                    <a href="{% url 'messages_list' %}">Meine Meldungen</a>#}
+{#                </li>#}
+{#                <li class="border-bottom">#}
+{#                    <a href="{% url 'profile' user.pk %}">Benutzerprofil</a>#}
+{#                </li>#}
+{#                <li>#}
+{#                    <a href="{% url 'logout' %}">Abmelden</a>#}
+{#                </li>#}
+{#            </ul>#}
+{#        </div>#}
+{#        <!-- /#sidebar-wrapper -->#}
+{#    {% endif %}#}
+
+
     <div class="container p-5 rounded ">
         {% if object_list.count > 0 %}
             {% for blog in object_list %}

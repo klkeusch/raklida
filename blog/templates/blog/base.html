@@ -1,18 +1,27 @@
 {% load static %}
-
 <!doctype html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
-          integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}">
+
+    {% load bootstrap4 %}
+    {% bootstrap_javascript jquery='full' %}
+    {% bootstrap_css %}
+
+    {% block extrahead %}
+        {{ form.media }}
+    {% endblock %}
     <title>RaKliDa</title>
 </head>
+
 <body class="bg-light">
+
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
@@ -21,11 +30,9 @@
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav">
-                    <!--<li class="nav-item ml-2">
-                        <a href="#" class="nav-link btn btn-light text-dark">xx_template_xx</a>
-                    </li>-->
                     <li class="nav-item ml-2">
                         <a href="{% url 'blog_list' %}" class="nav-link btn btn-dark">Aktuelles</a>
                     </li>
@@ -33,153 +40,119 @@
 
                 <ul class="navbar-nav ml-auto">
                     {% if request.user.is_authenticated %}
+                        <li class="nav-item ml-2">
+                            <a href="{% url 'user_dashboard' %}" class="nav-link btn-primary text-white rounded">Dashboard</a>
+                        </li>
 
-                        <li class="nav-item">
-                            <!--<a href="{% url 'sensorvalues_list' %}" class="nav-link">Messwerte</a>-->
+                        <li class="nav-item ml-2">
+                            <a href="{% url 'message_create' %}" class="nav-link btn-danger text-white rounded">Neue
+                                Meldung</a>
+                        </li>
 
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button"
-                                        id="dropdownMenuSensVals"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
-                                    Daten
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuSensVals">
-                                    <a href="{% url 'sensorvalues_list' %}">
-                                        <button class="dropdown-item" type="button">Messwerte</button>
-                                    </a>
-                                    <a href="{% url 'devices_list' %}">
-                                        <button class="dropdown-item" type="button">Geräte</button>
-                                    </a>
-                                    <a href="{% url 'sensorvalues_list' %}">
-                                        <button class="dropdown-item" type="button">Datenpunkte</button>
-                                    </a>
+                        <li class="nav-item ml-2">
+                            <div class="dropdown show">
+                                <a class="btn btn-dark dropdown-toggle" href="{% url 'profile' request.user.pk %}"
+                                   role="button"
+                                   id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                                   aria-expanded="false">
+                                    {{ user.get_username }}
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <a class="dropdown-item" href="{% url 'messages_list' %}">Meine Meldungen</a>
+                                    <a class="dropdown-item"
+                                       href="{% url 'profile' request.user.pk %}">Benutzerprofil</a>
+                                    <a class="dropdown-item" href="{% url 'logout' %}">Abmelden</a>
                                 </div>
                             </div>
-
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="{% url 'profile' request.user.pk %}" class="nav-link">Benutzerprofil</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{% url 'logout' %}" class="nav-link">Abmelden</a>
                         </li>
                     {% else %}
-                        <li class="nav-item">
-                            <a href="{% url 'login' %}" class="nav-link">Anmelden</a>
+                        <li class="nav-item ml-2">
+                            <a href="{% url 'user_dashboard' %}" class="nav-link btn btn-dark">Benutzer-Dashboard</a>
                         </li>
-                        <li class="nav-item">
-                            <a href="{% url 'register' %}" class="nav-link">Registrieren</a>
+
+                        <li class="nav-item ml-2">
+                            <a href="/admin" class="nav-link btn btn-dark">Verwaltungs-Dashboard</a>
                         </li>
                     {% endif %}
-                    <!--<li class="nav-item">
-                        <a href="#" class="nav-link">xx_template_xx</a>
-                    </li>-->
                 </ul>
             </div>
         </div>
     </nav>
 </header>
 
-
 {% block content %}
+
+
+
 
 {% endblock content %}
 
-{% comment %}
-<!-- This is where the footer begins -->
-<footer>
-<div class= "navbar navbar-inverse navbar-static-bottom" role="navigation">
-    <div class="navbar-text pull-left">
-    </div>
-    <div class= "navbar-text pull-right">
-<!-- Add in your social media / github links here -->
-        <a href="https://github.com/clarkdatalabs">
-            <i class="fa fa-github-square fa-2x"></i></a>
-    </div>
-    <!--Below is the copyright information for the site. You can fill in your own here.-->
-    <div class="navbar-text pull-left">
-    &copy; K. Keusch, 2021
-    </div>
-</div>
-</footer>
-{% endcomment %}
-
 <!-- Footer -->
-<footer class="page-footer text-white font-small bg-dark pt-2">
+<footer class="page-footer text-white font-small bg-dark pt-3">
+    <!-- Footer Links -->
+    <div class="container-fluid text-center text-md-left">
+        <!-- Grid row -->
+        <div class="row">
+            <!-- Grid column -->
+            <div class="col-md-6 mt-md-0 mt-3"> <!--6 -->
+                <!-- Content -->
+                <h5 class="text-white mb-3">Über RaKliDa</h5>
+                <div class="ml-3">
+                    <p>Über dieses Website können die mit den Messstationenen gemessenen Werte eingesehen werden.</p>
+                    <p>Zugang erhalten Sie über die <a href="mailto:fasi@htwsaar.de">Fachkraft für Arbeitssicherheit</a>
+                        der htw saar.</p>
+                    <p>Bei technischen Problemen wenden Sie sich bitte an: <a href="mailto:dummy@htwsaar.de">Max
+                        Mustermann</a>.</p>
+                </div>
+            </div>
+            <!-- Grid column -->
 
-  <!-- Footer Links -->
-  <div class="container-fluid text-center text-md-left">
+            <hr class="clearfix w-100 d-md-none pb-3">
 
-    <!-- Grid row -->
-    <div class="row">
-
-      <!-- Grid column -->
-      <div class="col-md-6 mt-md-0 mt-3">
-
-        <!-- Content -->
-        <h5 class="text-uppercase text-white">RaKliDa</h5>
-        <p>Komischer Infotext für RaKliDa</p>
-
-      </div>
-      <!-- Grid column -->
-
-      <hr class="clearfix w-100 d-md-none pb-3">
-
-      <!-- Grid column -->
-      <div class="col-md-3 mb-md-0 mb-3">
-
-        <!-- Links -->
-        <h5 class="text-uppercase">Links</h5>
-
-        <ul class="list-unstyled">
-          <li>
-            <a href="https://www.htwsaar.de">htw saar</a>
-          </li>
-          <li>
-            <a href="https://profservice.htwsaar.de">ProfService</a>
-          </li>
-          <li>
-            <a href="https://raumservice.htwsaar.de">RaumService</a>
-          </li>
-        </ul>
-
-      </div>
-      <!-- Grid column -->
-
-      <!-- Grid column -->
-      <div class="col-md-3 mb-md-0 mb-3">
-
-        <!-- Links -->
-        <h5 class="text-uppercase">Info-Links</h5>
-
-        <ul class="list-unstyled">
-          <li>
-            <a href="#!">Wasser = gesund</a>
-          </li>
-          <li>
-            <a href="#!">Studie: Luft = sinnvoll</a>
-          </li>
-          <li>
-            <a href="#!">Forscher finden Heilung für Homeoffice-Langeweile</a>
-          </li>
-
-        </ul>
-
-      </div>
-      <!-- Grid column -->
-
+            <!-- Grid column -->
+            <div class="col-md-3 mb-md-0 mb-3">
+                <!-- Links -->
+                <h5 class="text-white mb-3">Links</h5>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item bg-transparent">
+                        <a href="https://www.htwsaar.de">htw saar</a>
+                    </li>
+                    <li class="list-group-item bg-transparent">
+                        <a href="https://profservice.htwsaar.de">ProfService</a>
+                    </li>
+                    <li class="list-group-item bg-transparent">
+                        <a href="https://raumservice.htwsaar.de">RaumService</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- Grid column -->
+            <hr class="clearfix w-100 d-md-none pb-3">
+            <!-- Grid column -->
+            <div class="col-md-3 mb-md-0 mb-3">
+                <!-- Links -->
+                <h5 class="text-white mb-3">Info-Links</h5>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item bg-transparent">
+                        <a href="#!">Info-Link 1</a>
+                    </li>
+                    <li class="list-group-item bg-transparent">
+                        <a href="#!">Info-Link 2</a>
+                    </li>
+                    <li class="list-group-item bg-transparent ">
+                        <a href="#!">Info-Link 3</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- Grid column -->
+        </div>
+        <!-- Grid row -->
     </div>
-    <!-- Grid row -->
-
-  </div>
-  <!-- Footer Links -->
-
-  <!-- Copyright -->
-  <div class="footer-copyright text-center py-3">2021 -
-    <a href="#"> STP|SoSe2021</a>
-  </div>
-  <!-- Copyright -->
+    <!-- Footer Links -->
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">2021 -
+        <a href="https://www.htwsaar.de" target="_blank"> htw saar</a>
+    </div>
+    <!-- Copyright -->
 
 </footer>
 <!-- Footer -->
@@ -195,14 +168,34 @@
     {% endfor %}
 {% endif %}
 
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"
         integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
-        crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"
+        integrity="sha512-UXumZrZNiOwnTcZSHLOfcTs0aos2MzBWHXOHOuB0J/R44QB0dwY5JgfbvljXcklVf65Gc4El6RjZ+lnwd2az2g=="
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@1.1.1/dist/chartjs-plugin-zoom.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0/dist/chartjs-plugin-datalabels.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@1.0.0/dist/chartjs-adapter-moment.min.js"></script>
+
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
+
 {% block js %}
+
 {% endblock js %}
 
 </body>

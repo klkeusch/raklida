@@ -17,21 +17,50 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
-from django.urls import path, include
+from django.urls import include, path
 from profiles import views as profiles_views
 from sensorvalues import views as sensorvalues_views
 from sensorvalues import tables as tables
+from sensorvaluesplots import views as sensvalplots
+from usernotifications import views as usrnotsvc
+# from profiles.views import user_dashboard, staff_dashboard, user_logged_in, show_user_device
+from profiles.views import *
+from .admin import admin_statistics_view
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", include('blog.urls')),
+    path("", include('usernotifications.urls')),
+    # path("", include('sensorvalues.urls')),
+
+    # path('staff-dashboard/', staff_dashboard, name='staff_dashboard'),
+    # path('user-dashboard/', user_dashboard, name='user_dashboard'),
+    # path('user-dashboard/user-logged-in/', user_logged_in, name='user-logged-in'),
+    path('user-dashboard/', user_logged_in, name='user_dashboard'),
+    path('staff-dashboard/', staff_logged_in, name='staff_dashboard'),
+    # path("", include('sensorvalues.urls')),
+    path('show-user-device/', show_user_device, name='show_user_device'),
+    path('line_chart/', show_user_device, name='line_chart'),
+    path('show-staff-devices/', show_staff_devices, name='show_staff_devices'),
+
+    # Messaging below
+    # does not work: path("send-message/", usrnotsvc.sending, name="send-message"),
+    # Messaging above
+
     # Sensorvalues below
     path("sensorvalues/", sensorvalues_views.data_list, name="sensorvalues_list"),
-    path("sensorvalues/devices", sensorvalues_views.DevicesTableView.as_view(template_name="sensorvalues/devices_list.html.html"),
+    path("sensorvalues/devices",
+         sensorvalues_views.DevicesTableView.as_view(template_name="sensorvalues/devices_list.html"),
          name="devices_list"),
-    #path("sensorvalues/", sensorvalues_views.DataListView.as_view(template_name="sensorvalues/sensorvalues_list.html"),
+    # path("sensorvalues/", sensorvalues_views.DataListView.as_view(template_name="sensorvalues/sensorvalues_list.html"),
     #     name="sensorvalues_list"),
     # Sensorvalues above
+
+    # Sensorvaluesplots below
+    path("sensorvaluesplots/", sensvalplots.index, name="index"),
+    # Sensorvaluesplots below
+
     # User related paths below
     path("register/", profiles_views.register, name="register"),
     path("login/", auth_views.LoginView.as_view(template_name="profiles/login.html"), name="login"),
@@ -39,6 +68,7 @@ urlpatterns = [
     path("profile/<int:pk>", profiles_views.profile, name="profile"),
     path("profile/update", profiles_views.update, name="update"),
     # User related paths above
+
     # password reset below
     path('password-reset/', auth_views.PasswordResetView.as_view(template_name="profiles/password_reset.html"),
          name="password_reset"),

@@ -22,6 +22,7 @@ MEDIA_URL = '/media/'
 
 # Login stuff
 LOGIN_REDIRECT_URL = "blog_list"
+LOGIN_URL = 'login'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -32,11 +33,14 @@ SECRET_KEY = ***REMOVED***
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
 INSTALLED_APPS = [
+    'related_admin',
+    'django_admin_listfilter_dropdown',
+    # 'raklida.apps.CustomAdminConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -48,6 +52,14 @@ INSTALLED_APPS = [
     'crispy_forms',
     'sensorvalues',
     'django_tables2',
+    'sensorvaluesplots',
+    'rest_framework',
+    'usernotifications',
+    'bootstrap_datepicker_plus',
+    'bootstrap4',
+    'chartjs',
+    'admincharts',
+    # 'djangobower',
 ]
 
 MIDDLEWARE = [
@@ -87,7 +99,8 @@ WSGI_APPLICATION = 'raklida.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'wetterstation_db_old3',
+        # 'NAME': 'wetterstation_db_old3',
+        'NAME': 'stp_web',
         'USER': 'postgres',
         'PASSWORD': ***REMOVED***,
         'HOST': '127.0.0.1',
@@ -149,3 +162,4 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = '***REMOVED***'
 EMAIL_HOST_PASSWORD = '***REMOVED***'
+
