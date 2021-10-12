@@ -68,3 +68,20 @@ class DeviceChoiceField(forms.Form):
             ).distinct(
 
             )
+
+
+class UserChoiceField(forms.Form):
+    users = forms.ModelChoiceField(queryset=None, label="", empty_label="Bitte Benutzer auswählen...")
+
+    def __init__(self, *args, user=None, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        if user:
+            self.fields['devices'].queryset = DeviceUserAssignment.objects.filter(
+                device__profile__user=user
+            ).values_list(
+                "device__profile__assigned_devices__display_name",
+                flat=True
+            ).distinct(
+
+            )

@@ -5,6 +5,7 @@ from django.conf import settings
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
+from sensorvalues.models import DeviceUserAssignment
 
 # AUTH_USER_MODEL = getattr(settings, 'AUTH_USER_MODEL', 'auth.User')
 
@@ -23,6 +24,7 @@ class Message(models.Model):
     # sent_at = forms.DateField(initial=datetime.date.today, widget=forms.widgets.DateInput(attrs={'type': 'date'}))    _("sent at") _("read at"),
     read_at = models.DateTimeField( null=True, blank=True, verbose_name="Gelesen")
     incident_date = models.DateTimeField(verbose_name="Vorfalldatum", null=True, blank=True)
+    user_devices = models.ForeignKey(DeviceUserAssignment, on_delete=models.CASCADE, verbose_name="Betroffene Geräte", null=True)
 
     class Meta:
         verbose_name = 'Benutzermeldung'
