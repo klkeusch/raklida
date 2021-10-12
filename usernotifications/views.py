@@ -8,8 +8,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from bootstrap_datepicker_plus import DateTimePickerInput
 from .models import Message
+from sensorvalues.models import DeviceUserAssignment
 from .forms import MessageCreateForm, MessageUpdateForm
 from django.contrib.auth.models import User
+from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 
 
 # def sending(request):
@@ -17,7 +19,7 @@ from django.contrib.auth.models import User
 #     return render(request, "usernotifications/message_list.html", context={'send': send})
 
 
-class MessageListView(generic.ListView):
+class MessageListView(LoginRequiredMixin, generic.ListView):
     model = Message
 
     # ordering = ['-sent_at']
@@ -28,7 +30,7 @@ class MessageListView(generic.ListView):
         return Message.objects.filter(sender=self.request.user)
 
 
-class MessageCreateView(generic.CreateView):
+class MessageCreateView(LoginRequiredMixin, UserPassesTestMixin, generic.CreateView):
     model = Message
     # fields = ['recipient', 'content', 'sent_at']
     form_class = MessageCreateForm
@@ -40,12 +42,22 @@ class MessageCreateView(generic.CreateView):
         form.fields['incident_date'].widget = DateTimePickerInput(options={
             "format": "DD.MM.YYYY HH:mm",
             "locale": "de",
-        }, )
+        },)
+        form.fields['recipient'].queryset = User.objects.values_list('username', flat=True).exclude(is_staff=False).exclude(username=self.request.user)
+        # form.fields['user_devices'].queryset = DeviceUserAssignment.objects.filter(
+        #     device__profile__user=self.request.user
+        # ).values_list(
+        #     "device__profile__assigned_devices__display_name",
+        #     flat=True
+        # ).distinct()
         return form
 
     def form_valid(self, form):
         form.instance.sender = self.request.user
         return super().form_valid(form)
+
+    def test_func(self):
+        return self.request.user.groups.filter(name='Benutzer').exists()
 
 
 class MessageDetailView(generic.DetailView):

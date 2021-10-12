@@ -6,7 +6,7 @@ from django.urls import path
 
 @staff_member_required
 def admin_statistics_view(request):
-    return render(request, 'sensorvalues/admin/statistics.html', {
+    return render(request, 'sensorvalues/../sensorvalues/templates/admin/statistics.html', {
         'title': 'Statistics'
     })
 

@@ -30,18 +30,19 @@ from .admin import admin_statistics_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('admin_tools_stats/', include('admin_tools_stats.urls')),
     path("", include('blog.urls')),
     path("", include('usernotifications.urls')),
     # path("", include('sensorvalues.urls')),
 
-    path('staff-dashboard/', staff_dashboard, name='staff_dashboard'),
+    # path('staff-dashboard/', staff_dashboard, name='staff_dashboard'),
     # path('user-dashboard/', user_dashboard, name='user_dashboard'),
     # path('user-dashboard/user-logged-in/', user_logged_in, name='user-logged-in'),
     path('user-dashboard/', user_logged_in, name='user_dashboard'),
+    path('staff-dashboard/', staff_logged_in, name='staff_dashboard'),
     # path("", include('sensorvalues.urls')),
     path('show-user-device/', show_user_device, name='show_user_device'),
     path('line_chart/', show_user_device, name='line_chart'),
+    path('show-staff-devices/', show_staff_devices, name='show_staff_devices'),
 
     # Messaging below
     # does not work: path("send-message/", usrnotsvc.sending, name="send-message"),
