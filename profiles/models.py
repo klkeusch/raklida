@@ -10,17 +10,14 @@ class Profile(models.Model):
     image = models.ImageField(default="default.jpg", upload_to="profile_pictures", verbose_name="Profilbild")
     description = models.CharField(max_length=300, blank=True, verbose_name="Kurzbeschreibung")
     user_rooms = models.CharField(max_length=50, blank=True, verbose_name="Raum")
-    assigned_devices = models.ManyToManyField('sensorvalues.Devices', through='sensorvalues.DeviceUserAssignment')
+    assigned_devices = models.ManyToManyField('sensorvalues.Devices', through='sensorvalues.DeviceUserAssignment',
+                                              verbose_name="Zugeordnete Geräte")
 
     def __str__(self):
         return self.user.first_name + ' ' + self.user.last_name
 
     def get_assigned_devices(self):
         return ", \n".join([d.display_name for d in self.assigned_devices.all()])
-
-    # @classmethod
-    # def get_assigned_devices(d):
-    #     return ", \n".join([d.display_name for d in Profile.assigned_devices.all()])
 
     class Meta:
         verbose_name = 'Profil'

@@ -11,7 +11,6 @@
                 <small class="text-muted">{{ message.sent_at|date:"d.m.Y | H:i a" }}</small>
             </div>
             <div class="col-9 question-information pb-1">
-                <h1 class="blog-card-title mb-3 font-weight-bold">BETREFF?!</h1>
                 {% if request.user == message.sender %}
                     <a href="{% url 'message_update' message.pk %}" class="btn btn-sm btn-primary">Bearbeiten</a>
                     <a href="{% url 'message_delete' message.pk %}" class="btn btn-sm btn-danger">Löschen</a>

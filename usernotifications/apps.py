@@ -1,4 +1,3 @@
-from django.apps import AppConfig
 from django import VERSION as DJANGO_VERSION
 
 Inbox = None
@@ -10,7 +9,7 @@ if DJANGO_VERSION >= (1, 7):
     class UsernotificationsConfig(AppConfig):
         name = 'usernotifications'
         label = 'usernotifications'
-        verbose_name="Benutzermeldungen"
+        verbose_name = "Benutzermeldungen"
 
         def ready(self):
             # For convenience
