@@ -1,5 +1,4 @@
 {% extends "blog/base.html" %}
-
 {% block content %}
     <div class="landing bg-dark">
         <div class="container">
@@ -10,56 +9,6 @@
             </div>
         </div>
     </div>
-
-
-
-{#        {% if request.user.is_authenticated %}#}
-{#        <div id="wrapper"><!-- sidenav wrapper for content-->#}
-{#        <!-- Sidebar -->#}
-{#        <div id="sidebar-wrapper">#}
-{#            <ul class="sidebar-nav bg-light border border-dark rounded">#}
-{#                <li class="border-bottom">#}
-{#                    <a href="{% url 'user_dashboard' %}">#}
-{#                        Benutzer-Dashboard#}
-{#                    </a>#}
-{#                </li>#}
-{##}
-{##}
-{#                <li class="border-bottom">#}
-{##}
-{#                    {% csrf_token %}#}
-{#                    <div class="col-md-12">#}
-{#                        <div class="form-group text-left">#}
-{#                            <label for="inputStatus" class="text-dark">Geräteauswahl</label>#}
-{#                            <select id="question-subject" class="form-control-sm custom-select">#}
-{#                                <option selected disabled>Bitte Gerät auswählen</option>#}
-{#                                {% for device in devices %}#}
-{#                                    <option value="{{ device.id }}">{{ device.display_name }}</option>#}
-{#                                {% endfor %}#}
-{#                            </select>#}
-{#                        </div>#}
-{#                    </div>#}
-{##}
-{#                </li>#}
-{##}
-{##}
-{#                <li class="border-bottom">#}
-{#                    <a href="{% url 'message_create' %}">Neue Meldung verfassen</a>#}
-{#                </li>#}
-{#                <li class="border-bottom">#}
-{#                    <a href="{% url 'messages_list' %}">Meine Meldungen</a>#}
-{#                </li>#}
-{#                <li class="border-bottom">#}
-{#                    <a href="{% url 'profile' user.pk %}">Benutzerprofil</a>#}
-{#                </li>#}
-{#                <li>#}
-{#                    <a href="{% url 'logout' %}">Abmelden</a>#}
-{#                </li>#}
-{#            </ul>#}
-{#        </div>#}
-{#        <!-- /#sidebar-wrapper -->#}
-{#    {% endif %}#}
-
 
     <div class="container p-5 rounded ">
         {% if object_list.count > 0 %}
@@ -110,8 +59,10 @@
             </span>
             </div>
         {% else %}
-            <h2 class="text-muted text-center">Hier wurde leider noch kein Blogeintrag verfasst! ¯\_(ツ)_/¯<br /><br /></h2>
-            <p class="mt-3 h3 text-muted text-center">Möchten Sie einen Eintrag verfassen? (ง'̀-'́)ง <a href="{% url 'blog_create' %}">Klicken Sie hier!</a></p>
+            <h2 class="text-muted text-center">Hier wurde leider noch kein Blogeintrag verfasst! ¯\_(ツ)_/¯<br/><br/>
+            </h2>
+            <p class="mt-3 h3 text-muted text-center">Möchten Sie einen Eintrag verfassen? (ง'̀-'́)ง <a
+                    href="{% url 'blog_create' %}">Klicken Sie hier!</a></p>
         {% endif %}
     </div>
 {% endblock content %}

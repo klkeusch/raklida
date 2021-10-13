@@ -20,41 +20,26 @@ from django.conf.urls.static import static
 from django.urls import include, path
 from profiles import views as profiles_views
 from sensorvalues import views as sensorvalues_views
-from sensorvalues import tables as tables
 from sensorvaluesplots import views as sensvalplots
-from usernotifications import views as usrnotsvc
-# from profiles.views import user_dashboard, staff_dashboard, user_logged_in, show_user_device
 from profiles.views import *
-from .admin import admin_statistics_view
-
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # User/Staff below
     path("", include('blog.urls')),
     path("", include('usernotifications.urls')),
-    # path("", include('sensorvalues.urls')),
-
-    # path('staff-dashboard/', staff_dashboard, name='staff_dashboard'),
-    # path('user-dashboard/', user_dashboard, name='user_dashboard'),
-    # path('user-dashboard/user-logged-in/', user_logged_in, name='user-logged-in'),
     path('user-dashboard/', user_logged_in, name='user_dashboard'),
     path('staff-dashboard/', staff_logged_in, name='staff_dashboard'),
-    # path("", include('sensorvalues.urls')),
     path('show-user-device/', show_user_device, name='show_user_device'),
     path('line_chart/', show_user_device, name='line_chart'),
     path('show-staff-devices/', show_staff_devices, name='show_staff_devices'),
-
-    # Messaging below
-    # does not work: path("send-message/", usrnotsvc.sending, name="send-message"),
-    # Messaging above
+    # User/Staff above
 
     # Sensorvalues below
-    path("sensorvalues/", sensorvalues_views.data_list, name="sensorvalues_list"),
+    # not reliable /w big db path("sensorvalues/", sensorvalues_views.data_list, name="sensorvalues_list"),
     path("sensorvalues/devices",
          sensorvalues_views.DevicesTableView.as_view(template_name="sensorvalues/devices_list.html"),
          name="devices_list"),
-    # path("sensorvalues/", sensorvalues_views.DataListView.as_view(template_name="sensorvalues/sensorvalues_list.html"),
-    #     name="sensorvalues_list"),
     # Sensorvalues above
 
     # Sensorvaluesplots below

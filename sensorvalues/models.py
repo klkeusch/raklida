@@ -9,13 +9,14 @@ class Data(models.Model):
     value_double = models.FloatField(blank=True, null=True, verbose_name="Double-Wert")
     value_integer = models.BigIntegerField(blank=True, null=True, verbose_name="Integer-Wert")
     value_string = models.CharField(max_length=100, blank=True, null=True, verbose_name="Statuscode")
-    datapoint = models.ForeignKey('Datapoints', models.CASCADE, verbose_name="Datenpunkt", blank=True, null=True)
+    datapoint = models.ForeignKey('Datapoints', on_delete=models.CASCADE, verbose_name="Datenpunkt", blank=True,
+                                  null=True)
     is_valid = models.BooleanField(verbose_name="Gültig?")
 
     class Meta:
         managed = True
-        verbose_name = 'Messdaten-Eintrag'
-        verbose_name_plural = 'Messdaten-Einträge'
+        verbose_name = 'Messwert'
+        verbose_name_plural = 'Messwerte'
         get_latest_by = ['-timestamp']
 
     def __str__(self):
@@ -41,8 +42,10 @@ class Devices(models.Model):
 
 
 class DeviceUserAssignment(models.Model):
-    device = models.ForeignKey('sensorvalues.Devices', models.CASCADE, null=True, blank=True, verbose_name="Gerät")
-    assigned_user = models.ForeignKey('profiles.Profile', models.CASCADE, null=True, blank=True, verbose_name="Benutzer")
+    device = models.ForeignKey('sensorvalues.Devices', on_delete=models.CASCADE, null=True, blank=True,
+                               verbose_name="Gerät")
+    assigned_user = models.ForeignKey('profiles.Profile', on_delete=models.CASCADE, null=True, blank=True,
+                                      verbose_name="Benutzer")
     usage_reason = models.CharField(max_length=100, verbose_name="Nutzungsgrund/Details")
     start_date = models.DateField(verbose_name="Startdatum")
     end_date = models.DateField(verbose_name="Enddatum")
@@ -62,7 +65,7 @@ class Datapoints(models.Model):
     display_name = models.CharField(max_length=50, verbose_name="Anzeigename")
     store_historic_data = models.BooleanField(verbose_name="Messwertaufzeichnung?")
     device_sub_id = models.BigIntegerField(verbose_name="Geräte-Sub-ID")
-    device = models.ForeignKey(Devices, models.CASCADE, verbose_name="Gerät", null=True, blank=True)
+    device = models.ForeignKey(Devices, on_delete=models.CASCADE, verbose_name="Gerät", null=True, blank=True)
     current_value_double = models.FloatField(blank=True, null=True, verbose_name="Aktueller Double-Wert")
     current_value_integer = models.BigIntegerField(blank=True, null=True, verbose_name="Aktueller Integer-Wert")
     current_value_string = models.CharField(max_length=30, blank=True, null=True, verbose_name="Aktueller Statuscode")
@@ -79,7 +82,7 @@ class Datapoints(models.Model):
 
 class DailyAverages(models.Model):
     id = models.BigAutoField(primary_key=True)
-    datapoint_id = models.ForeignKey(Datapoints, models.CASCADE, null=True, blank=True)
+    datapoint_id = models.ForeignKey(Datapoints, on_delete=models.CASCADE, null=True, blank=True)
     date = models.DateField()
     value_night = models.FloatField(blank=True, null=True)
     value_day = models.FloatField(blank=True, null=True)
@@ -107,8 +110,10 @@ class MqttTreeNodes(models.Model):
 
 class TreeDatapointTranslations(models.Model):
     id = models.BigAutoField(primary_key=True)
-    datapoint = models.ForeignKey(Datapoints, models.CASCADE, blank=True, null=True, verbose_name="Datenpunkt")
-    mqtt_node = models.ForeignKey(MqttTreeNodes, models.CASCADE, blank=True, null=True, verbose_name="MQTT-Node")
+    datapoint = models.ForeignKey(Datapoints, on_delete=models.CASCADE, blank=True, null=True,
+                                  verbose_name="Datenpunkt")
+    mqtt_node = models.ForeignKey(MqttTreeNodes, on_delete=models.CASCADE, blank=True, null=True,
+                                  verbose_name="MQTT-Node")
 
     class Meta:
         verbose_name = 'MQTT-Tree-Datapoint-Verknüpfung'
@@ -119,7 +124,5 @@ class TreeDatapointTranslations(models.Model):
 
 
 class DevicesTable(tables.Table):
-    # display_name = tables.Column(accessor='datapoint.display_name')
-
     class Meta:
         model = Devices

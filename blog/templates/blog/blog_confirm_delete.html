@@ -4,7 +4,8 @@
     <div class="container bg-light p-5 mt-5 rounded ">
         <div class="row">
             <div class="col-12">
-                <h2>Wollen Sie den folgenden Blogeintrag wirklich löschen?<br />"<strong>{{ object.title }}</strong>"<br /><br /></h2>
+                <h2>Wollen Sie den folgenden Blogeintrag wirklich
+                    löschen?<br/>"<strong>{{ object.title }}</strong>"<br/><br/></h2>
                 <form method="POST">
                     {% csrf_token %}
                     <div class="form-group">
