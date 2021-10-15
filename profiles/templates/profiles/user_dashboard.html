@@ -25,11 +25,11 @@
     <div class="container bg-light mt-n5 p-5 rounded">
         <div class="row border-bottom">
 
-                {% if current_device_display_name %}
-                                <div class="col-12 border-bottom mb-3">
-                <h1>Aktuelle Messwerte</h1>
-            </div>
-            <div class="container text-center">
+            {% if current_device_display_name %}
+                <div class="col-12 border-bottom mb-3">
+                    <h1>Aktuelle Messwerte</h1>
+                </div>
+                <div class="container text-center">
                     <h5>Aktives Gerät: {{ query_current_device_display_name|join:" " }}</h5>
                     <p>Aktualisiert: {{ query_current_last_update }}</p>
 
@@ -59,252 +59,253 @@
                             <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">{{ query_current_finedust_concentration|default_if_none:" - " }}</h1>
                         </div>
                     </div>
-                    </div>
-                    </div>
-                    <div class="row border-bottom">
-                        <div class="container text-center">
-                            <div class="row bg-secondary border-bottom align-items-center justify-content-center">
-                                <div class="col border-right">
-                                    <p class="text-white font-weight-bold display-8 mb-3 mt-3">Luftdruck [mbar]</p>
-                                </div>
-                                <div class="col border-right">
-                                    <p class="text-white font-weight-bold display-8 mb-3 mt-3">CO2-Wert [ppm]</p>
-                                </div>
-                                <div class="col">
-                                    <p class="text-white font-weight-bold display-8 mb-3 mt-3" data-toggle="tooltip"
-                                       data-placement="right" title="Zusatzmodul | Niedriger Wert: besser!">
-                                        Luftqualität*</p>
-                                </div>
+                </div>
+                </div>
+                <div class="row border-bottom">
+                    <div class="container text-center">
+                        <div class="row bg-secondary border-bottom align-items-center justify-content-center">
+                            <div class="col border-right">
+                                <p class="text-white font-weight-bold display-8 mb-3 mt-3">Luftdruck [mbar]</p>
                             </div>
-                            <div class="row align-items-center justify-content-center">
-                                <div class="col border-right">
-                                    <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">{{ query_current_barometric_pressure|default_if_none:" - "|floatformat:2 }}</h1>
-                                </div>
-                                <div class="col border-right">
-                                    <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">{{ query_current_co2_concentration|default_if_none:" "|floatformat:2 }}</h1>
-                                </div>
-                                <div class="col">
-                                    <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">{{ query_current_air_quality|default_if_none:" - " }}</h1>
-                                </div>
+                            <div class="col border-right">
+                                <p class="text-white font-weight-bold display-8 mb-3 mt-3">CO2-Wert [ppm]</p>
+                            </div>
+                            <div class="col">
+                                <p class="text-white font-weight-bold display-8 mb-3 mt-3" data-toggle="tooltip"
+                                   data-placement="right" title="Zusatzmodul | Niedriger Wert: besser!">
+                                    Luftqualität*</p>
+                            </div>
+                        </div>
+                        <div class="row align-items-center justify-content-center">
+                            <div class="col border-right">
+                                <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">{{ query_current_barometric_pressure|default_if_none:" - "|floatformat:2 }}</h1>
+                            </div>
+                            <div class="col border-right">
+                                <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">{{ query_current_co2_concentration|default_if_none:" "|floatformat:2 }}</h1>
+                            </div>
+                            <div class="col">
+                                <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">{{ query_current_air_quality|default_if_none:" - " }}</h1>
                             </div>
                         </div>
                     </div>
-                    </div>
-                    <div class="container bg-light mt-n5 p-5 rounded">
-                        <div class="row ">
-                            <div class="col-12 border-bottom mb-3">
-                                <h1>Messwertverlauf</h1>
-                            </div>
-                            <div class="col-12"><p class="font-weight-light font-italic">Die einzelnen Messwerte können durch Klicken
-                                ein- und
-                                ausgeblendet werden. Verschieben und Zoomen funktioniert mit der Maus bzw. dem
-                                Mausrad.</p></div>
-                            <div class="container-fluid clearfix pt-1">
-                                <button class="btn-sm btn-primary float-right" onclick="zoomOut()">Zoom -</button>
-                                <!--<button class="btn-sm btn-secondary float-right" onclick="zoomOut()">Zoom x -</button>-->
+                </div>
+                </div>
+                <div class="container bg-light mt-n5 p-5 rounded">
+                    <div class="row ">
+                        <div class="col-12 border-bottom mb-3">
+                            <h1>Messwertverlauf</h1>
+                        </div>
+                        <div class="col-12"><p class="font-weight-light font-italic">Die einzelnen Messwerte können
+                            durch Klicken
+                            ein- und
+                            ausgeblendet werden. Verschieben und Zoomen funktioniert mit der Maus bzw. dem
+                            Mausrad.</p></div>
+                        <div class="container-fluid clearfix pt-1">
+                            <button class="btn-sm btn-primary float-right" onclick="zoomOut()">Zoom -</button>
+                            <!--<button class="btn-sm btn-secondary float-right" onclick="zoomOut()">Zoom x -</button>-->
 
-                                <button class="btn-sm btn-secondary float-right" onclick="resetZoom()">Reset Zoom
-                                </button>
-                                <!--<button class="btn-sm btn-secondary float-right" onclick="zoomIn()">Zoom x +</button>-->
-                                <button class="btn-sm btn-primary float-right" onclick="zoomIn()">Zoom +</button>
+                            <button class="btn-sm btn-secondary float-right" onclick="resetZoom()">Reset Zoom
+                            </button>
+                            <!--<button class="btn-sm btn-secondary float-right" onclick="zoomIn()">Zoom x +</button>-->
+                            <button class="btn-sm btn-primary float-right" onclick="zoomIn()">Zoom +</button>
+                        </div>
+                        {% block javascript %}
+                            {{ ambient_temperature_chart_data|json_script:"ambient_temperature_chart_data" }}
+                            {{ relative_humidity_chart_data|json_script:"relative_humidity_chart_data" }}
+                            {{ co2_concentration_chart_data|json_script:"co2_concentration_chart_data" }}
+                            {{ barometric_pressure_chart_data|json_script:"barometric_pressure_chart_data" }}
+                            {{ pm2_5_atm_chart_data|json_script:"pm2_5_atm_chart_data" }}
+                            {{ air_quality_chart_data|json_script:"air_quality_chart_data" }}
+                            {{ labels|json_script:"timestamps" }}
+                            <div class="chart-container"
+                                 style="position: relative;margin-bottom: 35vh;  height:40vh; width:80vw">
+                                <canvas id="chart"></canvas>
                             </div>
-                            {% block javascript %}
-                                {{ ambient_temperature_chart_data|json_script:"ambient_temperature_chart_data" }}
-                                {{ relative_humidity_chart_data|json_script:"relative_humidity_chart_data" }}
-                                {{ co2_concentration_chart_data|json_script:"co2_concentration_chart_data" }}
-                                {{ barometric_pressure_chart_data|json_script:"barometric_pressure_chart_data" }}
-                                {{ pm2_5_atm_chart_data|json_script:"pm2_5_atm_chart_data" }}
-                                {{ air_quality_chart_data|json_script:"air_quality_chart_data" }}
-                                {{ labels|json_script:"timestamps" }}
-                                <div class="chart-container"
-                                     style="position: relative;margin-bottom: 35vh;  height:40vh; width:80vw">
-                                    <canvas id="chart"></canvas>
-                                </div>
-                                <script type="text/javascript" id="usercharts">
-                                    let ctx = document.getElementById('chart');
-                                    const ambient_temperature_chart_data = JSON.parse(document.getElementById('ambient_temperature_chart_data').textContent);
-                                    const relative_humidity_chart_data = JSON.parse(document.getElementById('relative_humidity_chart_data').textContent);
-                                    const co2_concentration_chart_data = JSON.parse(document.getElementById('co2_concentration_chart_data').textContent);
-                                    const pm2_5_atm_chart_data = JSON.parse(document.getElementById('pm2_5_atm_chart_data').textContent);
-                                    const barometric_pressure_chart_data = JSON.parse(document.getElementById('barometric_pressure_chart_data').textContent);
-                                    const air_quality_chart_data = JSON.parse(document.getElementById('air_quality_chart_data').textContent);
-                                    const timestamps = JSON.parse(document.getElementById('timestamps').textContent);
-                                    //console.log(ambient_temperature_chart_data)
-                                    $.ajax({
-                                        url: '/line_chart/',
-                                        success: function () {
-                                            window.myline = new Chart(ctx, {
-                                                type: 'line',
-                                                data: {
-                                                    labels: timestamps,
-                                                    datasets: [{
-                                                        label: 'Temperatur [°C]',
-                                                        backgroundColor: "crimson",
-                                                        borderColor: "crimson",
-                                                        fill: false,
-                                                        lineTension: 0.1,
-                                                        radius: 1,
-                                                        data: ambient_temperature_chart_data,
-                                                        yAxisID: 'y',
-                                                    }, {
-                                                        label: 'Luftfeuchtigkeit [%]',
-                                                        backgroundColor: "mediumslateblue",
-                                                        borderColor: "mediumslateblue",
-                                                        fill: false,
-                                                        lineTension: 0.1,
-                                                        radius: 1,
-                                                        data: relative_humidity_chart_data,
-                                                        yAxisID: 'y',
-                                                    }, {
-                                                        label: 'CO2-Konzentration [ppm]',
-                                                        backgroundColor: "dimgrey",
-                                                        borderColor: "dimgrey",
-                                                        fill: false,
-                                                        lineTension: 0.1,
-                                                        radius: 1,
-                                                        data: co2_concentration_chart_data,
-                                                        yAxisID: 'y1',
-                                                    }, {
-                                                        label: 'Luftdruck [mbar]',
-                                                        backgroundColor: "deepskyblue",
-                                                        borderColor: "deepskyblue",
-                                                        fill: false,
-                                                        lineTension: 0.1,
-                                                        radius: 1,
-                                                        data: barometric_pressure_chart_data,
-                                                        yAxisID: 'y1',
-                                                    }, {
-                                                        label: 'Feinstaubkonzentration [µg/m3]',
-                                                        backgroundColor: "black",
-                                                        borderColor: "black",
-                                                        fill: false,
-                                                        lineTension: 0.1,
-                                                        radius: 1,
-                                                        data: pm2_5_atm_chart_data,
-                                                        yAxisID: 'y',
-                                                    }, {
-                                                        label: 'Luftqualität []',
-                                                        backgroundColor: "ForestGreen",
-                                                        borderColor: "ForestGreen",
-                                                        fill: false,
-                                                        lineTension: 0.1,
-                                                        radius: 1,
-                                                        data: air_quality_chart_data,
-                                                        yAxisID: 'y1',
-                                                    },
-                                                    ]
+                            <script type="text/javascript" id="usercharts">
+                                let ctx = document.getElementById('chart');
+                                const ambient_temperature_chart_data = JSON.parse(document.getElementById('ambient_temperature_chart_data').textContent);
+                                const relative_humidity_chart_data = JSON.parse(document.getElementById('relative_humidity_chart_data').textContent);
+                                const co2_concentration_chart_data = JSON.parse(document.getElementById('co2_concentration_chart_data').textContent);
+                                const pm2_5_atm_chart_data = JSON.parse(document.getElementById('pm2_5_atm_chart_data').textContent);
+                                const barometric_pressure_chart_data = JSON.parse(document.getElementById('barometric_pressure_chart_data').textContent);
+                                const air_quality_chart_data = JSON.parse(document.getElementById('air_quality_chart_data').textContent);
+                                const timestamps = JSON.parse(document.getElementById('timestamps').textContent);
+                                //console.log(ambient_temperature_chart_data)
+                                $.ajax({
+                                    url: '/line_chart/',
+                                    success: function () {
+                                        window.myline = new Chart(ctx, {
+                                            type: 'line',
+                                            data: {
+                                                labels: timestamps,
+                                                datasets: [{
+                                                    label: 'Temperatur [°C]',
+                                                    backgroundColor: "crimson",
+                                                    borderColor: "crimson",
+                                                    fill: false,
+                                                    lineTension: 0.1,
+                                                    radius: 1,
+                                                    data: ambient_temperature_chart_data,
+                                                    yAxisID: 'y',
+                                                }, {
+                                                    label: 'Luftfeuchtigkeit [%]',
+                                                    backgroundColor: "mediumslateblue",
+                                                    borderColor: "mediumslateblue",
+                                                    fill: false,
+                                                    lineTension: 0.1,
+                                                    radius: 1,
+                                                    data: relative_humidity_chart_data,
+                                                    yAxisID: 'y',
+                                                }, {
+                                                    label: 'CO2-Konzentration [ppm]',
+                                                    backgroundColor: "dimgrey",
+                                                    borderColor: "dimgrey",
+                                                    fill: false,
+                                                    lineTension: 0.1,
+                                                    radius: 1,
+                                                    data: co2_concentration_chart_data,
+                                                    yAxisID: 'y1',
+                                                }, {
+                                                    label: 'Luftdruck [mbar]',
+                                                    backgroundColor: "deepskyblue",
+                                                    borderColor: "deepskyblue",
+                                                    fill: false,
+                                                    lineTension: 0.1,
+                                                    radius: 1,
+                                                    data: barometric_pressure_chart_data,
+                                                    yAxisID: 'y1',
+                                                }, {
+                                                    label: 'Feinstaubkonzentration [µg/m3]',
+                                                    backgroundColor: "black",
+                                                    borderColor: "black",
+                                                    fill: false,
+                                                    lineTension: 0.1,
+                                                    radius: 1,
+                                                    data: pm2_5_atm_chart_data,
+                                                    yAxisID: 'y',
+                                                }, {
+                                                    label: 'Luftqualität []',
+                                                    backgroundColor: "ForestGreen",
+                                                    borderColor: "ForestGreen",
+                                                    fill: false,
+                                                    lineTension: 0.1,
+                                                    radius: 1,
+                                                    data: air_quality_chart_data,
+                                                    yAxisID: 'y1',
                                                 },
-                                                options: {
-                                                    alignToPixels: true,
-                                                    locale: 'de-DE',
-                                                    responsive: true,
-                                                    interaction: {
-                                                        mode: 'index',
-                                                        intersect: false,
-                                                    },
-                                                    plugins: {
+                                                ]
+                                            },
+                                            options: {
+                                                alignToPixels: true,
+                                                locale: 'de-DE',
+                                                responsive: true,
+                                                interaction: {
+                                                    mode: 'index',
+                                                    intersect: false,
+                                                },
+                                                plugins: {
+                                                    zoom: {
+                                                        pan: {
+                                                            enabled: true,
+                                                            mode: 'xy',
+                                                        },
                                                         zoom: {
-                                                            pan: {
+                                                            wheel: {
                                                                 enabled: true,
-                                                                mode: 'xy',
                                                             },
-                                                            zoom: {
-                                                                wheel: {
-                                                                    enabled: true,
-                                                                },
-                                                                pinch: {
-                                                                    enabled: true
-                                                                },
-                                                                mode: 'xy',
-                                                            }
-                                                        },
-                                                        stacked: true,
-                                                    },
-                                                    scales: {
-                                                        x: {
-                                                            type: "time",
-                                                            display: true,
-                                                            title: {
-                                                                display: true,
-                                                                text: 'Zeit'
+                                                            pinch: {
+                                                                enabled: true
                                                             },
-                                                            time: {
-                                                                tooltipFormat: 'DD.MM.YY, HH:mm',
-                                                                displayFormats: {
-                                                                    'millisecond': 'HH:mm:ss.SSS',
-                                                                    'second': 'HH:mm:ss',
-                                                                    'minute': 'HH:mm',
-                                                                    'hour': 'HH:mm',
-                                                                    'day': 'D',
-                                                                    'week': 'DD MMM',
-                                                                    'month': 'DD MMM',
-                                                                    'quarter': 'DD MMM',
-                                                                    'year': 'DD MMM',
-                                                                },
-                                                            },
-                                                            gridLines: {
-                                                                display: false,
-                                                            },
-                                                            ticks: {
-                                                                display: true,
-                                                                autoSkip: true,
-                                                            },
-                                                        },
-                                                        y: {
-                                                            type: 'linear',
-                                                            display: 'auto',
-                                                            title: {
-                                                                display: true,
-                                                                text: 'Temperatur [°C] | Luftfeuchtigkeit [%] | Feinstaubkonzentration [µg/m3]'
-                                                            },
-                                                            position: 'left',
-                                                            ticks: {},
-                                                            grid: {
-                                                                drawOnChartArea: false,
-                                                            },
-
-                                                        },
-                                                        y1: {
-                                                            type: 'linear',
-                                                            display: 'auto',
-                                                            title: {
-                                                                display: true,
-                                                                text: 'CO2-Konzentration [ppm] | Luftdruck [mbar] | Luftqualität []'
-                                                            },
-                                                            position: 'right',
-                                                            ticks: {}
+                                                            mode: 'xy',
                                                         }
                                                     },
+                                                    stacked: true,
                                                 },
-                                            });
-                                        }
-                                    });
+                                                scales: {
+                                                    x: {
+                                                        type: "time",
+                                                        display: true,
+                                                        title: {
+                                                            display: true,
+                                                            text: 'Zeit'
+                                                        },
+                                                        time: {
+                                                            tooltipFormat: 'DD.MM.YY, HH:mm',
+                                                            displayFormats: {
+                                                                'millisecond': 'HH:mm:ss.SSS',
+                                                                'second': 'HH:mm:ss',
+                                                                'minute': 'HH:mm',
+                                                                'hour': 'HH:mm',
+                                                                'day': 'D',
+                                                                'week': 'DD MMM',
+                                                                'month': 'DD MMM',
+                                                                'quarter': 'DD MMM',
+                                                                'year': 'DD MMM',
+                                                            },
+                                                        },
+                                                        gridLines: {
+                                                            display: false,
+                                                        },
+                                                        ticks: {
+                                                            display: true,
+                                                            autoSkip: true,
+                                                        },
+                                                    },
+                                                    y: {
+                                                        type: 'linear',
+                                                        display: 'auto',
+                                                        title: {
+                                                            display: true,
+                                                            text: 'Temperatur [°C] | Luftfeuchtigkeit [%] | Feinstaubkonzentration [µg/m3]'
+                                                        },
+                                                        position: 'left',
+                                                        ticks: {},
+                                                        grid: {
+                                                            drawOnChartArea: false,
+                                                        },
 
-                                    function resetZoom() {
-                                        window.myline.resetZoom();
+                                                    },
+                                                    y1: {
+                                                        type: 'linear',
+                                                        display: 'auto',
+                                                        title: {
+                                                            display: true,
+                                                            text: 'CO2-Konzentration [ppm] | Luftdruck [mbar] | Luftqualität []'
+                                                        },
+                                                        position: 'right',
+                                                        ticks: {}
+                                                    }
+                                                },
+                                            },
+                                        });
                                     }
+                                });
 
-                                    function zoomIn() {
-                                        window.myline.zoom(1.15);
-                                    }
+                                function resetZoom() {
+                                    window.myline.resetZoom();
+                                }
 
-                                    function zoomXIn() {
-                                        window.myline.zoom({x: 1.15});
-                                    }
+                                function zoomIn() {
+                                    window.myline.zoom(1.15);
+                                }
 
-                                    function zoomXOut() {
-                                        window.myline.zoom({x: 0.85});
-                                    }
+                                function zoomXIn() {
+                                    window.myline.zoom({x: 1.15});
+                                }
 
-                                    function zoomOut() {
-                                        window.myline.zoom(0.85);
-                                    }
-                                </script>
-                            {% endblock javascript %}
-                        </div>
+                                function zoomXOut() {
+                                    window.myline.zoom({x: 0.85});
+                                }
+
+                                function zoomOut() {
+                                    window.myline.zoom(0.85);
+                                }
+                            </script>
+                        {% endblock javascript %}
                     </div>
-                    </div>
-                {% endif %}
+                </div>
+                </div>
+            {% endif %}
     <div class="container bg-light mt-n5 p-5 rounded">
         <div class="row">
             <div class="col-12 border-bottom mb-3">
@@ -329,6 +330,7 @@
                                     <p class="text-muted">Gesendet am {{ message.sent_at|date:"d.m.Y" }}
                                         um {{ message.sent_at|date:"H:i" }}</p>
                                     <p>{{ message.content }}</p>
+                                    <p class="text-bold"><br/>Betroffenes Gerät: {{ message.user_devices }}</p>
                                     <p class="text-bold">Vorfall am {{ message.incident_date|date:"d.m.Y" }}
                                         um {{ message.incident_date|date:"H:i" }}</p>
                                     <div class="update-edit">
