@@ -4,8 +4,8 @@
     <div class="container bg-light p-5 mt-5 rounded ">
         <div class="row">
             <div class="col-12">
-                <h2 class="font-weight-bolder">Wollen Sie die folgende Nachricht wirklich löschen?<br/><br/></h2>
-                <h3>"{{ object.content }}"<br/><br/></h3>
+                <h2 class="font-weight-bolder">Wollen Sie die folgende Nachricht vom {{ message.sent_at|date }} wirklich löschen?<br/><br/></h2>
+                <h3>Nachricht: "{{ object.content }}"<br/><br/></h3>
                 <form method="POST">
                     {% csrf_token %}
                     <div class="form-group">

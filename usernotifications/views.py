@@ -1,6 +1,5 @@
 from django.views import generic
 from django.contrib import messages
-from bootstrap_datepicker_plus import DateTimePickerInput
 from .models import Message
 from .forms import MessageCreateForm, MessageUpdateForm
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
@@ -57,14 +56,6 @@ class MessageUpdateView(generic.UpdateView):
             return True
         else:
             return False
-
-    # def get_form(self):
-    #     form = super().get_form()
-    #     form.fields['incident_date'].widget = DateTimePickerInput(options={
-    #         "format": "DD.MM.YYYY HH:mm",
-    #         "locale": "de",
-    #     })
-    #     return form
 
 
 class MessageDeleteView(generic.DeleteView):

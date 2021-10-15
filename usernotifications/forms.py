@@ -36,6 +36,8 @@ class MessageUpdateForm(forms.ModelForm):
     recipient = forms.ModelChoiceField(queryset=User.objects.all(), initial=0, label="Empfänger")
     content = forms.CharField(widget=forms.Textarea, max_length=500, required=True, label="Ihre Nachricht")
     incident_date = forms.DateTimeField(label="Zwischenfall-Datum")
+    user_devices = forms.ModelChoiceField(queryset=None, label="Betroffenes Gerät",
+                                          empty_label="Bitte Gerät auswählen...")
 
     class Meta:
         model = Message

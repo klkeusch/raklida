@@ -328,6 +328,7 @@
                                             <p class="text-muted">Gesendet am {{ message.sent_at|date:"d.m.Y" }}
                                                 um {{ message.sent_at|date:"H:i" }}</p>
                                             <p>{{ message.content }}</p>
+                                            <p class="text-bold"><br/>Betroffenes Gerät: {{ message.user_devices }}</p>
                                             <p class="text-bold">Vorfall am {{ message.incident_date|date:"d.m.Y" }}
                                                 um {{ message.incident_date|date:"H:i" }}</p>
                                             <div class="update-edit">
