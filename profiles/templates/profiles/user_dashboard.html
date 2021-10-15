@@ -24,9 +24,13 @@
 
     <div class="container bg-light mt-n5 p-5 rounded">
         <div class="row border-bottom">
-            <div class="container text-center">
+
                 {% if current_device_display_name %}
-                    <h3>Aktives Gerät: {{ query_current_device_display_name|join:" " }}</h3>
+                                <div class="col-12 border-bottom mb-3">
+                <h1>Aktuelle Messwerte</h1>
+            </div>
+            <div class="container text-center">
+                    <h5>Aktives Gerät: {{ query_current_device_display_name|join:" " }}</h5>
                     <p>Aktualisiert: {{ query_current_last_update }}</p>
 
                     <div class="row bg-secondary border-bottom align-items-center justify-content-center">
@@ -86,23 +90,22 @@
                         </div>
                     </div>
                     </div>
-
                     <div class="container bg-light mt-n5 p-5 rounded">
-                        <div class="row">
-                            <div class="col-12">
+                        <div class="row ">
+                            <div class="col-12 border-bottom mb-3">
                                 <h1>Messwertverlauf</h1>
-                                <p class="font-weight-light font-italic">Die einzelnen Messwerte können durch Klicken
-                                    ein- und
-                                    ausgeblendet werden. Verschieben und Zoomen funktioniert mit der Maus bzw. dem
-                                    Mausrad.</p>
                             </div>
+                            <div class="col-12"><p class="font-weight-light font-italic">Die einzelnen Messwerte können durch Klicken
+                                ein- und
+                                ausgeblendet werden. Verschieben und Zoomen funktioniert mit der Maus bzw. dem
+                                Mausrad.</p></div>
                             <div class="container-fluid clearfix pt-1">
                                 <button class="btn-sm btn-primary float-right" onclick="zoomOut()">Zoom -</button>
-                                <button class="btn-sm btn-secondary float-right" onclick="zoomOut()">Zoom x -</button>
+                                <!--<button class="btn-sm btn-secondary float-right" onclick="zoomOut()">Zoom x -</button>-->
 
                                 <button class="btn-sm btn-secondary float-right" onclick="resetZoom()">Reset Zoom
                                 </button>
-                                <button class="btn-sm btn-secondary float-right" onclick="zoomIn()">Zoom x +</button>
+                                <!--<button class="btn-sm btn-secondary float-right" onclick="zoomIn()">Zoom x +</button>-->
                                 <button class="btn-sm btn-primary float-right" onclick="zoomIn()">Zoom +</button>
                             </div>
                             {% block javascript %}
@@ -114,10 +117,10 @@
                                 {{ air_quality_chart_data|json_script:"air_quality_chart_data" }}
                                 {{ labels|json_script:"timestamps" }}
                                 <div class="chart-container"
-                                     style="position: relative;margin-bottom: 30vh;  height:40vh; width:80vw">
+                                     style="position: relative;margin-bottom: 35vh;  height:40vh; width:80vw">
                                     <canvas id="chart"></canvas>
                                 </div>
-                                <script type="text/javascript" id="staffcharts">
+                                <script type="text/javascript" id="usercharts">
                                     let ctx = document.getElementById('chart');
                                     const ambient_temperature_chart_data = JSON.parse(document.getElementById('ambient_temperature_chart_data').textContent);
                                     const relative_humidity_chart_data = JSON.parse(document.getElementById('relative_humidity_chart_data').textContent);
@@ -126,7 +129,7 @@
                                     const barometric_pressure_chart_data = JSON.parse(document.getElementById('barometric_pressure_chart_data').textContent);
                                     const air_quality_chart_data = JSON.parse(document.getElementById('air_quality_chart_data').textContent);
                                     const timestamps = JSON.parse(document.getElementById('timestamps').textContent);
-
+                                    //console.log(ambient_temperature_chart_data)
                                     $.ajax({
                                         url: '/line_chart/',
                                         success: function () {
@@ -344,7 +347,7 @@
                     </div>
                 {% else %}
                     <div class=" ">
-                        <h2 class="text-muted text-center">Hier wurde leider noch keine Nachricht verfasst!
+                        <h2 class="text-muted text-center"><br/>Es wurde noch keine Nachricht verfasst!
                             ¯\_(ツ)_/¯<br/><br/></h2>
                     </div>
                 {% endif %}

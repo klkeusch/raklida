@@ -18,17 +18,17 @@
                         <a class="mugshot-container mb-1" href="{% url 'profile' blog.author.pk %}">
                             <div class="mugshot-img mb-2"
                                  style="background-image:url({{ blog.author.profile.image.url }})"></div>
-                            <span>{{ blog.author.username }}</span>
+                            <span>{{ blog.author.first_name}} {{ blog.author.last_name }}</span>
                         </a>
                         <small class="text-muted">{{ blog.date_published|date:"d.m.Y | H:i a" }}</small>
                     </div>
                     <div class="col-lg-10 col-sm-12">
                         <div class="blog-information">
                             <h1 class="font-weight-bold mb-3">{{ blog.title }}</h1>
-                            <p>{{ blog.content|truncatewords:30 }}</p>
-                            <a href="{% url 'blog_detail' blog.pk %}" class="font-weight-bold mb-3 d-inline-block">
+                            <p>{{ blog.content }}</p><!--|truncatewords:30 }}</p>-->
+                            <!--<a href="{% url 'blog_detail' blog.pk %}" class="font-weight-bold mb-3 d-inline-block">
                                 Weiterlesen...
-                            </a>
+                            </a>-->
                             <div class="update-edit">
                                 {% if request.user.is_authenticated and request.user == blog.author %}
                                     <a class="btn btn-sm btn-info" href="{% url 'blog_update' blog.pk %}">Bearbeiten</a>

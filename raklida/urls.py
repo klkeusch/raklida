@@ -28,6 +28,7 @@ urlpatterns = [
     # User/Staff below
     path("", include('blog.urls')),
     path("", include('usernotifications.urls')),
+    path("", include('sensorvalues.urls')),
     path('user-dashboard/', user_logged_in, name='user_dashboard'),
     path('staff-dashboard/', staff_logged_in, name='staff_dashboard'),
     path('show-user-device/', show_user_device, name='show_user_device'),
@@ -35,11 +36,13 @@ urlpatterns = [
     path('show-staff-devices/', show_staff_devices, name='show_staff_devices'),
     # User/Staff above
 
+
+
     # Sensorvalues below
     # not reliable /w big db path("sensorvalues/", sensorvalues_views.data_list, name="sensorvalues_list"),
-    path("sensorvalues/devices",
-         sensorvalues_views.DevicesTableView.as_view(template_name="sensorvalues/devices_list.html"),
-         name="devices_list"),
+    # path("sensorvalues/devices",
+    #      sensorvalues_views.DevicesTableView.as_view(template_name="sensorvalues/devices_list.html"),
+    #      name="devices_list"),
     # Sensorvalues above
 
     # Sensorvaluesplots below

@@ -20,6 +20,7 @@ def register(request):
     return render(request, "profiles/register.html", {'form': form})
 
 
+@login_required
 def profile(request, pk):
     user = get_object_or_404(User, pk=pk)
     assigned_profile = get_object_or_404(Profile, pk=pk)
