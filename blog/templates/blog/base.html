@@ -18,6 +18,7 @@
         {{ form.media }}
     {% endblock %}
     <title>RaKliDa</title>
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
 </head>
 
 <body class="bg-light">
@@ -39,9 +40,20 @@
                 </ul>
 
                 <ul class="navbar-nav ml-auto">
-                    {% if request.user.is_authenticated %}
+                    {% if request.user.is_staff %}
                         <li class="nav-item ml-2">
-                            <a href="{% url 'user_dashboard' %}" class="nav-link btn-primary text-white rounded">Dashboard</a>
+                            <a href="/admin"
+                               class="nav-link btn-primary text-white rounded">Admin-Dashboard</a>
+                        </li>
+                        <li class="nav-item ml-2">
+                            <a href="{% url 'staff_dashboard' %}"
+                               class="nav-link btn-primary text-white rounded">Staff-Dashboard</a>
+                        </li>
+                    {% endif %}
+                    {% if request.user.is_authenticated %}
+
+                        <li class="nav-item ml-2">
+                            <a href="{% url 'user_dashboard' %}" class="nav-link btn-primary text-white rounded">Benutzer-Dashboard</a>
                         </li>
 
                         <li class="nav-item ml-2">
@@ -71,7 +83,7 @@
                         </li>
 
                         <li class="nav-item ml-2">
-                            <a href="/admin" class="nav-link btn btn-dark">Verwaltungs-Dashboard</a>
+                            <a href="{% url 'staff_dashboard' %}" class="nav-link btn btn-dark">Verwaltungs-Dashboard</a>
                         </li>
                     {% endif %}
                 </ul>

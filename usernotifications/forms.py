@@ -17,29 +17,22 @@ class MessageCreateForm(forms.ModelForm):
         fields = ['recipient', 'content', 'incident_date', 'user_devices']
 
     def __init__(self, *args, **kwargs):
-        user = kwargs.pop('user', None)
+        self.request = kwargs.pop('request', None)
+
         super(MessageCreateForm, self).__init__(*args, **kwargs)
 
         self.fields['recipient'].queryset = User.objects.all().exclude(
             is_staff=False)  # Benutzer ist niemals Mitarbeiter
-        # self.fields['user_devices'].queryset = DeviceUserAssignment.objects.all()#.filter(
-        self.fields['user_devices'].queryset = DeviceUserAssignment.objects.all().exclude(
-            assigned_user=user)  # .filter(
-        # device__deviceuserassignment__assigned_user=sender
-        # )  #all().exclude(assigned_user=sender)#values_list('assigned_devices__profile__user')#.exclude(assigned_user=self.user)
         self.fields['incident_date'].widget = DateTimePickerInput(options={
             "format": "DD.MM.YYYY HH:mm",
             "locale": "de",
         }, )
-
-        # self.fields['user_devices'].queryset = DeviceUserAssignment.objects.filter(
-        #     device__profile__user=user.id
-        # ).values_list(
-        #     "device__profile__assigned_devices__display_name",
-        #     flat=True
-        # ).distinct(
-        #
-        # )
+        self.fields['user_devices'].queryset = DeviceUserAssignment.objects.filter(
+            device__profile__user=self.request.user
+        ).values_list(
+            "device__profile__assigned_devices__display_name",
+            flat=True
+        ).distinct()
 
 
 class MessageUpdateForm(forms.ModelForm):

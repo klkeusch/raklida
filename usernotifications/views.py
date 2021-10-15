@@ -35,6 +35,10 @@ class MessageCreateView(LoginRequiredMixin, UserPassesTestMixin, generic.CreateV
     #     flat=True
     # ).distinct()
     # return form
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'request': self.request})
+        return kwargs
 
     def form_valid(self, form):
         form.instance.sender = self.request.user

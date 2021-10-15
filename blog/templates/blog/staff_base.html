@@ -24,6 +24,7 @@
         {{ form.media }}
     {% endblock %}
     <title>RaKliDa</title>
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
 </head>
 
 <body class="bg-light">
@@ -40,12 +41,16 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav">
                     <li class="nav-item ml-2">
-                        <a href="{% url 'blog_list' %}" class="nav-link btn btn-dark">Blog</a>
+                        <a href="{% url 'blog_list' %}" class="nav-link btn btn-dark">Aktuelles</a>
                     </li>
                 </ul>
 
                 <ul class="navbar-nav ml-auto">
                     {% if request.user.is_authenticated %}
+                        <li class="nav-item ml-2">
+                            <a href="/admin"
+                               class="nav-link btn-primary text-white rounded">Admin-Dashboard</a>
+                        </li>
                         <li class="nav-item ml-2">
                             <a href="{% url 'staff_dashboard' %}" class="nav-link btn-primary text-white rounded">Dashboard</a>
                         </li>
@@ -158,6 +163,12 @@
 <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
 
 {% block js %}
+
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
 
 {% endblock js %}
 
