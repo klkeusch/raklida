@@ -19,30 +19,14 @@ class MessageCreateView(LoginRequiredMixin, UserPassesTestMixin, generic.CreateV
     success_url = "/messages/"
     success_message = "Nachricht erfolgreich erstellt!"
 
-    # def get_form(self):
-    #     form = super().get_form()
-    #     form.fields['incident_date'].widget = DateTimePickerInput(options={
-    #         "format": "DD.MM.YYYY HH:mm",
-    #         "locale": "de",
-    #     }, )
-    # form.fields['recipient'].queryset = User.objects.values_list('username', flat=True).exclude(
-    #     is_staff=False).exclude(username=self.request.user)
+    def form_valid(self, form):
+        form.instance.sender = self.request.user
+        return super().form_valid(form)
 
-    # form.fields['user_devices'].queryset = DeviceUserAssignment.objects.filter(
-    #     device__profile__user=self.request.user
-    # ).values_list(
-    #     "device__profile__assigned_devices__display_name",
-    #     flat=True
-    # ).distinct()
-    # return form
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         kwargs.update({'request': self.request})
         return kwargs
-
-    def form_valid(self, form):
-        form.instance.sender = self.request.user
-        return super().form_valid(form)
 
     def test_func(self):
         return self.request.user.groups.filter(name='Benutzer').exists()
@@ -62,6 +46,11 @@ class MessageUpdateView(generic.UpdateView):
         form.instance.sender = self.request.user
         return super().form_valid(form)
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'request': self.request})
+        return kwargs
+
     def test_func(self):
         notification = self.get_object()
         if self.request.user == notification.sender:
@@ -69,13 +58,13 @@ class MessageUpdateView(generic.UpdateView):
         else:
             return False
 
-    def get_form(self):
-        form = super().get_form()
-        form.fields['incident_date'].widget = DateTimePickerInput(options={
-            "format": "DD.MM.YYYY HH:mm",
-            "locale": "de",
-        })
-        return form
+    # def get_form(self):
+    #     form = super().get_form()
+    #     form.fields['incident_date'].widget = DateTimePickerInput(options={
+    #         "format": "DD.MM.YYYY HH:mm",
+    #         "locale": "de",
+    #     })
+    #     return form
 
 
 class MessageDeleteView(generic.DeleteView):
