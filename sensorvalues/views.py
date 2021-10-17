@@ -13,13 +13,24 @@ staff_csv_export_timeframe = timezone.localtime() - timezone.timedelta(days=14)
 
 
 def export_devices_csv(request):
-    # Create the HttpResponse object with the appropriate CSV header.
+    """ Create the HttpResponse object with the appropriate CSV header.
+
+    :param request: .
+
+    :returns: CSV of all devices.
+    """
     data = download_csv(request, Devices.objects.all())
     response = HttpResponse(data, content_type='text/csv')
     return response
 
 
 def export_data_csv(request):
+    """ Create the HttpResponse object with the appropriate CSV header.
+
+    :param request: .
+
+    :returns: CSV of all data from the last 14 days.
+    """
     data = download_csv(
         request,
         Data.objects.all().filter(
@@ -31,18 +42,36 @@ def export_data_csv(request):
 
 
 def export_datapoints_csv(request):
+    """ Create the HttpResponse object with the appropriate CSV header.
+
+    :param request: .
+
+    :returns: CSV of all datapoints.
+    """
     data = download_csv(request, Datapoints.objects.all())
     response = HttpResponse(data, content_type='text/csv')
     return response
 
 
 def export_mqtt_tree_nodes_csv(request):
+    """ Create the HttpResponse object with the appropriate CSV header.
+
+    :param request: .
+
+    :returns: CSV of all mqtt tree nodes.
+    """
     data = download_csv(request, MqttTreeNodes.objects.all())
     response = HttpResponse(data, content_type='text/csv')
     return response
 
 
 def export_mqtt_tree_datapoint_translations_csv(request):
+    """ Create the HttpResponse object with the appropriate CSV header.
+
+    :param request: .
+
+    :returns: CSV of all tree datapoint translations.
+    """
     data = download_csv(request, TreeDatapointTranslations.objects.all())
     response = HttpResponse(data, content_type='text/csv')
     return response

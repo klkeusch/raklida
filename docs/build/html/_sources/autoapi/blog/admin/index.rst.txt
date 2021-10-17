@@ -1,0 +1,41 @@
+:py:mod:`blog.admin`
+====================
+
+.. py:module:: blog.admin
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   blog.admin.BlogAdmin
+
+
+
+
+.. py:class:: BlogAdmin(model, admin_site)
+
+   Bases: :py:obj:`django.contrib.admin.ModelAdmin`
+
+   Encapsulate all admin options and functionality for a given model.
+
+   .. py:attribute:: model
+      
+
+      
+
+   .. py:attribute:: list_display
+      :annotation: = ['id', 'date_published', 'title', 'author']
+
+      
+
+   .. py:attribute:: list_filter
+      :annotation: = ['date_published']
+
+      
+
+

@@ -1,0 +1,22 @@
+:py:mod:`sensorvalues`
+======================
+
+.. py:module:: sensorvalues
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   admin/index.rst
+   apps/index.rst
+   models/index.rst
+   tables/index.rst
+   tests/index.rst
+   urls/index.rst
+   util/index.rst
+   views/index.rst
+
+

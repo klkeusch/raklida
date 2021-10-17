@@ -1,0 +1,14 @@
+:py:mod:`sensorvalues.urls`
+===========================
+
+.. py:module:: sensorvalues.urls
+
+
+Module Contents
+---------------
+
+.. py:data:: urlpatterns
+   
+
+   
+

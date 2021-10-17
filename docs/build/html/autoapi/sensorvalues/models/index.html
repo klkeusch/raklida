@@ -1,0 +1,639 @@
+
+<!DOCTYPE html>
+
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>sensorvalues.models &#8212; RaKliDa | Raumklimadaten-System der htw saar 10.2021 Dokumentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/translations.js"></script>
+    <link rel="index" title="Stichwortverzeichnis" href="../../../genindex.html" />
+    <link rel="search" title="Suche" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-sensorvalues.models">
+<span id="sensorvalues-models"></span><h1><a class="reference internal" href="../../../sensorvalues.models.html#module-sensorvalues.models" title="sensorvalues.models"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sensorvalues.models</span></code></a><a class="headerlink" href="#module-sensorvalues.models" title="Link zu dieser Überschrift">¶</a></h1>
+<p>Database models for sensorvalues app</p>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link zu dieser Überschrift">¶</a></h2>
+<section id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Link zu dieser Überschrift">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sensorvalues.models.Data" title="sensorvalues.models.Data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Data</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sensorvalues.models.Devices" title="sensorvalues.models.Devices"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Devices</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sensorvalues.models.DeviceUserAssignment" title="sensorvalues.models.DeviceUserAssignment"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DeviceUserAssignment</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sensorvalues.models.Datapoints" title="sensorvalues.models.Datapoints"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Datapoints</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sensorvalues.models.DailyAverages" title="sensorvalues.models.DailyAverages"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DailyAverages</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sensorvalues.models.MqttTreeNodes" title="sensorvalues.models.MqttTreeNodes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MqttTreeNodes</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sensorvalues.models.TreeDatapointTranslations" title="sensorvalues.models.TreeDatapointTranslations"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TreeDatapointTranslations</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sensorvalues.models.DevicesTable" title="sensorvalues.models.DevicesTable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DevicesTable</span></code></a></p></td>
+<td><p>A representation of a table.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="sensorvalues.models.Data">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sensorvalues.models.</span></span><span class="sig-name descname"><span class="pre">Data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sensorvalues.models.Data" title="Link zu dieser Definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">django.db.models.Model</span></code></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="sensorvalues.models.Data.Meta">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">Meta</span></span><a class="headerlink" href="#sensorvalues.models.Data.Meta" title="Link zu dieser Definition">¶</a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.Data.Meta.managed">
+<span class="sig-name descname"><span class="pre">managed</span></span><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="headerlink" href="#sensorvalues.models.Data.Meta.managed" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.Data.Meta.verbose_name">
+<span class="sig-name descname"><span class="pre">verbose_name</span></span><em class="property"> <span class="pre">=</span> <span class="pre">Messwert</span></em><a class="headerlink" href="#sensorvalues.models.Data.Meta.verbose_name" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.Data.Meta.verbose_name_plural">
+<span class="sig-name descname"><span class="pre">verbose_name_plural</span></span><em class="property"> <span class="pre">=</span> <span class="pre">Messwerte</span></em><a class="headerlink" href="#sensorvalues.models.Data.Meta.verbose_name_plural" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.Data.Meta.get_latest_by">
+<span class="sig-name descname"><span class="pre">get_latest_by</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['-timestamp']</span></em><a class="headerlink" href="#sensorvalues.models.Data.Meta.get_latest_by" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.Data.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#sensorvalues.models.Data.id" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.Data.timestamp">
+<span class="sig-name descname"><span class="pre">timestamp</span></span><a class="headerlink" href="#sensorvalues.models.Data.timestamp" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.Data.value_double">
+<span class="sig-name descname"><span class="pre">value_double</span></span><a class="headerlink" href="#sensorvalues.models.Data.value_double" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.Data.value_integer">
+<span class="sig-name descname"><span class="pre">value_integer</span></span><a class="headerlink" href="#sensorvalues.models.Data.value_integer" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.Data.value_string">
+<span class="sig-name descname"><span class="pre">value_string</span></span><a class="headerlink" href="#sensorvalues.models.Data.value_string" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.Data.datapoint">
+<span class="sig-name descname"><span class="pre">datapoint</span></span><a class="headerlink" href="#sensorvalues.models.Data.datapoint" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.Data.is_valid">
+<span class="sig-name descname"><span class="pre">is_valid</span></span><a class="headerlink" href="#sensorvalues.models.Data.is_valid" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sensorvalues.models.Data.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sensorvalues.models.Data.__str__" title="Link zu dieser Definition">¶</a></dt>
+<dd><p>Return str(self).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="sensorvalues.models.Devices">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sensorvalues.models.</span></span><span class="sig-name descname"><span class="pre">Devices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sensorvalues.models.Devices" title="Link zu dieser Definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">django.db.models.Model</span></code></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="sensorvalues.models.Devices.Meta">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">Meta</span></span><a class="headerlink" href="#sensorvalues.models.Devices.Meta" title="Link zu dieser Definition">¶</a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.Devices.Meta.verbose_name">
+<span class="sig-name descname"><span class="pre">verbose_name</span></span><em class="property"> <span class="pre">=</span> <span class="pre">Gerät</span></em><a class="headerlink" href="#sensorvalues.models.Devices.Meta.verbose_name" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.Devices.Meta.verbose_name_plural">
+<span class="sig-name descname"><span class="pre">verbose_name_plural</span></span><em class="property"> <span class="pre">=</span> <span class="pre">Geräte</span></em><a class="headerlink" href="#sensorvalues.models.Devices.Meta.verbose_name_plural" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.Devices.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#sensorvalues.models.Devices.id" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.Devices.location">
+<span class="sig-name descname"><span class="pre">location</span></span><a class="headerlink" href="#sensorvalues.models.Devices.location" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.Devices.current_status_code">
+<span class="sig-name descname"><span class="pre">current_status_code</span></span><a class="headerlink" href="#sensorvalues.models.Devices.current_status_code" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.Devices.last_status_update">
+<span class="sig-name descname"><span class="pre">last_status_update</span></span><a class="headerlink" href="#sensorvalues.models.Devices.last_status_update" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.Devices.device_type">
+<span class="sig-name descname"><span class="pre">device_type</span></span><a class="headerlink" href="#sensorvalues.models.Devices.device_type" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.Devices.display_name">
+<span class="sig-name descname"><span class="pre">display_name</span></span><a class="headerlink" href="#sensorvalues.models.Devices.display_name" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.Devices.platform">
+<span class="sig-name descname"><span class="pre">platform</span></span><a class="headerlink" href="#sensorvalues.models.Devices.platform" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.Devices.mac_address">
+<span class="sig-name descname"><span class="pre">mac_address</span></span><a class="headerlink" href="#sensorvalues.models.Devices.mac_address" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sensorvalues.models.Devices.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sensorvalues.models.Devices.__str__" title="Link zu dieser Definition">¶</a></dt>
+<dd><p>Return str(self).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="sensorvalues.models.DeviceUserAssignment">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sensorvalues.models.</span></span><span class="sig-name descname"><span class="pre">DeviceUserAssignment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sensorvalues.models.DeviceUserAssignment" title="Link zu dieser Definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">django.db.models.Model</span></code></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="sensorvalues.models.DeviceUserAssignment.Meta">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">Meta</span></span><a class="headerlink" href="#sensorvalues.models.DeviceUserAssignment.Meta" title="Link zu dieser Definition">¶</a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.DeviceUserAssignment.Meta.verbose_name">
+<span class="sig-name descname"><span class="pre">verbose_name</span></span><em class="property"> <span class="pre">=</span> <span class="pre">Benutzer-Gerät-Zuordnung</span></em><a class="headerlink" href="#sensorvalues.models.DeviceUserAssignment.Meta.verbose_name" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.DeviceUserAssignment.Meta.verbose_name_plural">
+<span class="sig-name descname"><span class="pre">verbose_name_plural</span></span><em class="property"> <span class="pre">=</span> <span class="pre">Benutzer-Gerät-Zuordnungen</span></em><a class="headerlink" href="#sensorvalues.models.DeviceUserAssignment.Meta.verbose_name_plural" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.DeviceUserAssignment.device">
+<span class="sig-name descname"><span class="pre">device</span></span><a class="headerlink" href="#sensorvalues.models.DeviceUserAssignment.device" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.DeviceUserAssignment.assigned_user">
+<span class="sig-name descname"><span class="pre">assigned_user</span></span><a class="headerlink" href="#sensorvalues.models.DeviceUserAssignment.assigned_user" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.DeviceUserAssignment.usage_reason">
+<span class="sig-name descname"><span class="pre">usage_reason</span></span><a class="headerlink" href="#sensorvalues.models.DeviceUserAssignment.usage_reason" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.DeviceUserAssignment.start_date">
+<span class="sig-name descname"><span class="pre">start_date</span></span><a class="headerlink" href="#sensorvalues.models.DeviceUserAssignment.start_date" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.DeviceUserAssignment.end_date">
+<span class="sig-name descname"><span class="pre">end_date</span></span><a class="headerlink" href="#sensorvalues.models.DeviceUserAssignment.end_date" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sensorvalues.models.DeviceUserAssignment.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sensorvalues.models.DeviceUserAssignment.__str__" title="Link zu dieser Definition">¶</a></dt>
+<dd><p>Return str(self).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="sensorvalues.models.Datapoints">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sensorvalues.models.</span></span><span class="sig-name descname"><span class="pre">Datapoints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sensorvalues.models.Datapoints" title="Link zu dieser Definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">django.db.models.Model</span></code></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="sensorvalues.models.Datapoints.Meta">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">Meta</span></span><a class="headerlink" href="#sensorvalues.models.Datapoints.Meta" title="Link zu dieser Definition">¶</a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.Datapoints.Meta.verbose_name">
+<span class="sig-name descname"><span class="pre">verbose_name</span></span><em class="property"> <span class="pre">=</span> <span class="pre">Datenpunkt</span></em><a class="headerlink" href="#sensorvalues.models.Datapoints.Meta.verbose_name" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.Datapoints.Meta.verbose_name_plural">
+<span class="sig-name descname"><span class="pre">verbose_name_plural</span></span><em class="property"> <span class="pre">=</span> <span class="pre">Datenpunkte</span></em><a class="headerlink" href="#sensorvalues.models.Datapoints.Meta.verbose_name_plural" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.Datapoints.Meta.get_latest_by">
+<span class="sig-name descname"><span class="pre">get_latest_by</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['-last_update']</span></em><a class="headerlink" href="#sensorvalues.models.Datapoints.Meta.get_latest_by" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.Datapoints.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#sensorvalues.models.Datapoints.id" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.Datapoints.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#sensorvalues.models.Datapoints.name" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.Datapoints.unit">
+<span class="sig-name descname"><span class="pre">unit</span></span><a class="headerlink" href="#sensorvalues.models.Datapoints.unit" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.Datapoints.display_name">
+<span class="sig-name descname"><span class="pre">display_name</span></span><a class="headerlink" href="#sensorvalues.models.Datapoints.display_name" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.Datapoints.store_historic_data">
+<span class="sig-name descname"><span class="pre">store_historic_data</span></span><a class="headerlink" href="#sensorvalues.models.Datapoints.store_historic_data" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.Datapoints.device_sub_id">
+<span class="sig-name descname"><span class="pre">device_sub_id</span></span><a class="headerlink" href="#sensorvalues.models.Datapoints.device_sub_id" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.Datapoints.device">
+<span class="sig-name descname"><span class="pre">device</span></span><a class="headerlink" href="#sensorvalues.models.Datapoints.device" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.Datapoints.current_value_double">
+<span class="sig-name descname"><span class="pre">current_value_double</span></span><a class="headerlink" href="#sensorvalues.models.Datapoints.current_value_double" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.Datapoints.current_value_integer">
+<span class="sig-name descname"><span class="pre">current_value_integer</span></span><a class="headerlink" href="#sensorvalues.models.Datapoints.current_value_integer" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.Datapoints.current_value_string">
+<span class="sig-name descname"><span class="pre">current_value_string</span></span><a class="headerlink" href="#sensorvalues.models.Datapoints.current_value_string" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.Datapoints.last_update">
+<span class="sig-name descname"><span class="pre">last_update</span></span><a class="headerlink" href="#sensorvalues.models.Datapoints.last_update" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sensorvalues.models.Datapoints.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sensorvalues.models.Datapoints.__str__" title="Link zu dieser Definition">¶</a></dt>
+<dd><p>Return str(self).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="sensorvalues.models.DailyAverages">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sensorvalues.models.</span></span><span class="sig-name descname"><span class="pre">DailyAverages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sensorvalues.models.DailyAverages" title="Link zu dieser Definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">django.db.models.Model</span></code></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="sensorvalues.models.DailyAverages.Meta">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">Meta</span></span><a class="headerlink" href="#sensorvalues.models.DailyAverages.Meta" title="Link zu dieser Definition">¶</a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.DailyAverages.Meta.verbose_name">
+<span class="sig-name descname"><span class="pre">verbose_name</span></span><em class="property"> <span class="pre">=</span> <span class="pre">Tagesdurchschnitt</span></em><a class="headerlink" href="#sensorvalues.models.DailyAverages.Meta.verbose_name" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.DailyAverages.Meta.verbose_name_plural">
+<span class="sig-name descname"><span class="pre">verbose_name_plural</span></span><em class="property"> <span class="pre">=</span> <span class="pre">Tagesdurchschnitte</span></em><a class="headerlink" href="#sensorvalues.models.DailyAverages.Meta.verbose_name_plural" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.DailyAverages.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#sensorvalues.models.DailyAverages.id" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.DailyAverages.datapoint_id">
+<span class="sig-name descname"><span class="pre">datapoint_id</span></span><a class="headerlink" href="#sensorvalues.models.DailyAverages.datapoint_id" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.DailyAverages.date">
+<span class="sig-name descname"><span class="pre">date</span></span><a class="headerlink" href="#sensorvalues.models.DailyAverages.date" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.DailyAverages.value_night">
+<span class="sig-name descname"><span class="pre">value_night</span></span><a class="headerlink" href="#sensorvalues.models.DailyAverages.value_night" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.DailyAverages.value_day">
+<span class="sig-name descname"><span class="pre">value_day</span></span><a class="headerlink" href="#sensorvalues.models.DailyAverages.value_day" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.DailyAverages.value_min">
+<span class="sig-name descname"><span class="pre">value_min</span></span><a class="headerlink" href="#sensorvalues.models.DailyAverages.value_min" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.DailyAverages.value_max">
+<span class="sig-name descname"><span class="pre">value_max</span></span><a class="headerlink" href="#sensorvalues.models.DailyAverages.value_max" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="sensorvalues.models.MqttTreeNodes">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sensorvalues.models.</span></span><span class="sig-name descname"><span class="pre">MqttTreeNodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sensorvalues.models.MqttTreeNodes" title="Link zu dieser Definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">django.db.models.Model</span></code></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="sensorvalues.models.MqttTreeNodes.Meta">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">Meta</span></span><a class="headerlink" href="#sensorvalues.models.MqttTreeNodes.Meta" title="Link zu dieser Definition">¶</a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.MqttTreeNodes.Meta.verbose_name">
+<span class="sig-name descname"><span class="pre">verbose_name</span></span><em class="property"> <span class="pre">=</span> <span class="pre">MQTT-Tree-Node</span></em><a class="headerlink" href="#sensorvalues.models.MqttTreeNodes.Meta.verbose_name" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.MqttTreeNodes.Meta.verbose_name_plural">
+<span class="sig-name descname"><span class="pre">verbose_name_plural</span></span><em class="property"> <span class="pre">=</span> <span class="pre">MQTT-Tree-Nodes</span></em><a class="headerlink" href="#sensorvalues.models.MqttTreeNodes.Meta.verbose_name_plural" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.MqttTreeNodes.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#sensorvalues.models.MqttTreeNodes.id" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.MqttTreeNodes.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#sensorvalues.models.MqttTreeNodes.name" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.MqttTreeNodes.is_leaf">
+<span class="sig-name descname"><span class="pre">is_leaf</span></span><a class="headerlink" href="#sensorvalues.models.MqttTreeNodes.is_leaf" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.MqttTreeNodes.parent_id">
+<span class="sig-name descname"><span class="pre">parent_id</span></span><a class="headerlink" href="#sensorvalues.models.MqttTreeNodes.parent_id" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sensorvalues.models.MqttTreeNodes.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sensorvalues.models.MqttTreeNodes.__str__" title="Link zu dieser Definition">¶</a></dt>
+<dd><p>Return str(self).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="sensorvalues.models.TreeDatapointTranslations">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sensorvalues.models.</span></span><span class="sig-name descname"><span class="pre">TreeDatapointTranslations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sensorvalues.models.TreeDatapointTranslations" title="Link zu dieser Definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">django.db.models.Model</span></code></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="sensorvalues.models.TreeDatapointTranslations.Meta">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">Meta</span></span><a class="headerlink" href="#sensorvalues.models.TreeDatapointTranslations.Meta" title="Link zu dieser Definition">¶</a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.TreeDatapointTranslations.Meta.verbose_name">
+<span class="sig-name descname"><span class="pre">verbose_name</span></span><em class="property"> <span class="pre">=</span> <span class="pre">MQTT-Tree-Datapoint-Verknüpfung</span></em><a class="headerlink" href="#sensorvalues.models.TreeDatapointTranslations.Meta.verbose_name" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.TreeDatapointTranslations.Meta.verbose_name_plural">
+<span class="sig-name descname"><span class="pre">verbose_name_plural</span></span><em class="property"> <span class="pre">=</span> <span class="pre">MQTT-Tree-Datapoint-Verknüpfungen</span></em><a class="headerlink" href="#sensorvalues.models.TreeDatapointTranslations.Meta.verbose_name_plural" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.TreeDatapointTranslations.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#sensorvalues.models.TreeDatapointTranslations.id" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.TreeDatapointTranslations.datapoint">
+<span class="sig-name descname"><span class="pre">datapoint</span></span><a class="headerlink" href="#sensorvalues.models.TreeDatapointTranslations.datapoint" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.TreeDatapointTranslations.mqtt_node">
+<span class="sig-name descname"><span class="pre">mqtt_node</span></span><a class="headerlink" href="#sensorvalues.models.TreeDatapointTranslations.mqtt_node" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sensorvalues.models.TreeDatapointTranslations.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sensorvalues.models.TreeDatapointTranslations.__str__" title="Link zu dieser Definition">¶</a></dt>
+<dd><p>Return str(self).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="sensorvalues.models.DevicesTable">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sensorvalues.models.</span></span><span class="sig-name descname"><span class="pre">DevicesTable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_by</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orderable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">empty_text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pinned_row_attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sequence</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_by_field</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_field</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">per_page_field</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">template_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_header</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_footer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_columns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sensorvalues.models.DevicesTable" title="Link zu dieser Definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">django_tables2.Table</span></code></p>
+<p>A representation of a table.</p>
+<dl>
+<dt>Arguments:</dt><dd><dl class="simple">
+<dt>data (QuerySet, list of dicts): The data to display.</dt><dd><p>This is a required variable, a <cite>TypeError</cite> will be raised if it’s not passed.</p>
+</dd>
+<dt>order_by: (tuple or str): The default ordering tuple or comma separated str.</dt><dd><p>A hyphen <cite>-</cite> can be used to prefix a column name to indicate
+<em>descending</em> order, for example: <cite>(„name“, „-age“)</cite> or <cite>name,-age</cite>.</p>
+</dd>
+</dl>
+<p>orderable (bool): Enable/disable column ordering on this table</p>
+<dl class="simple">
+<dt>empty_text (str): Empty text to render when the table has no data.</dt><dd><p>(default <cite>.Table.Meta.empty_text</cite>)</p>
+</dd>
+<dt>exclude (iterable or str): The names of columns that should not be</dt><dd><p>included in the table.</p>
+</dd>
+<dt>attrs (dict): HTML attributes to add to the <code class="docutils literal notranslate"><span class="pre">&lt;table&gt;</span></code> tag.</dt><dd><p>When accessing the attribute, the value is always returned as an
+<cite>.AttributeDict</cite> to allow easily conversion to HTML.</p>
+</dd>
+<dt>row_attrs (dict): Add custom html attributes to the table rows.</dt><dd><p>Allows custom HTML attributes to be specified which will be added
+to the <code class="docutils literal notranslate"><span class="pre">&lt;tr&gt;</span></code> tag of the rendered table.</p>
+</dd>
+</dl>
+<p>pinned_row_attrs (dict): Same as row_attrs but for pinned rows.</p>
+<dl>
+<dt>sequence (iterable): The sequence/order of columns the columns (from</dt><dd><p>left to right).</p>
+<p>Items in the sequence must be <span class="xref std std-term">column names</span>, or
+<cite>„…“</cite> (string containing three periods). <cite>‚…‘</cite> can be used as a
+catch-all for columns that are not specified.</p>
+</dd>
+<dt>prefix (str): A prefix for query string fields.</dt><dd><p>To avoid name-clashes when  using multiple tables on single page.</p>
+</dd>
+<dt>order_by_field (str): If not <cite>None</cite>, defines the name of the <em>order by</em></dt><dd><p>query string field in the URL.</p>
+</dd>
+<dt>page_field (str): If not <cite>None</cite>, defines the name of the <em>current page</em></dt><dd><p>query string field.</p>
+</dd>
+<dt>per_page_field (str): If not <cite>None</cite>, defines the name of the <em>per page</em></dt><dd><p>query string field.</p>
+</dd>
+<dt>template_name (str): The template to render when using <code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">render_table</span> <span class="pre">%}</span></code></dt><dd><p>(defaults to DJANGO_TABLES2_TEMPLATE, which is <code class="docutils literal notranslate"><span class="pre">&quot;django_tables2/table.html&quot;</span></code>
+by default).</p>
+</dd>
+<dt>default (str): Text to render in empty cells (determined by</dt><dd><p><cite>.Column.empty_values</cite>, default <cite>.Table.Meta.default</cite>)</p>
+</dd>
+</dl>
+<p>request: Django’s request to avoid using <cite>RequestConfig</cite></p>
+<dl class="simple">
+<dt>show_header (bool): If <cite>False</cite>, the table will not have a header</dt><dd><p>(<cite>&lt;thead&gt;</cite>), defaults to <cite>True</cite></p>
+</dd>
+<dt>show_footer (bool): If <cite>False</cite>, the table footer will not be rendered,</dt><dd><p>even if some columns have a footer, defaults to <cite>True</cite>.</p>
+</dd>
+<dt>extra_columns (str, <cite>.Column</cite>): list of <cite>(name, column)</cite>-tuples containing</dt><dd><p>extra columns to add to the instance. If <cite>column</cite> is <cite>None</cite>, the column
+with <cite>name</cite> will be removed from the table.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="sensorvalues.models.DevicesTable.Meta">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">Meta</span></span><a class="headerlink" href="#sensorvalues.models.DevicesTable.Meta" title="Link zu dieser Definition">¶</a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="sensorvalues.models.DevicesTable.Meta.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#sensorvalues.models.DevicesTable.Meta.model" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">RaKliDa | Raumklimadaten-System der htw saar</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Schnellsuche</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Los" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Ahmad Alshikh Ali, Klaus Keusch, Sven-David Otto.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../../_sources/autoapi/sensorvalues/models/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

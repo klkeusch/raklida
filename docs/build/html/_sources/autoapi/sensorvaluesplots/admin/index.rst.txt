@@ -1,0 +1,6 @@
+:py:mod:`sensorvaluesplots.admin`
+=================================
+
+.. py:module:: sensorvaluesplots.admin
+
+

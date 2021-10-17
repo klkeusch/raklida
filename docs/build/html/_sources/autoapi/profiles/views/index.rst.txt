@@ -1,0 +1,109 @@
+:py:mod:`profiles.views`
+========================
+
+.. py:module:: profiles.views
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   profiles.views.register
+   profiles.views.profile
+   profiles.views.update
+   profiles.views.staff_dashboard
+   profiles.views.user_dashboard
+   profiles.views.user_logged_in
+   profiles.views.staff_logged_in
+   profiles.views.show_user_device
+   profiles.views.show_staff_devices
+
+
+
+.. py:function:: register(request)
+
+   Functions allows people to create accounts.
+
+   :param request: .
+
+   :returns: Context to template.
+
+
+.. py:function:: profile(request, pk)
+
+   Functions allows gathering user and assigned profile.
+
+   :param request: .
+   :param pk: primary key, user
+
+   :returns: Context to template.
+
+
+.. py:function:: update(request)
+
+   Functions allows updating user and assigned profile.
+
+   :param request: .
+
+   :returns: Context to template.
+
+
+.. py:function:: staff_dashboard(request)
+
+   Functions allows access to staff-dashboard.
+
+   :param request: .
+
+   :returns: Context to template.
+
+
+.. py:function:: user_dashboard(request)
+
+   Functions allows access to user-dashboard.
+
+   :param request: .
+
+   :returns: Context to template.
+
+
+.. py:function:: user_logged_in(request)
+
+   Functions allows access to user-dashboard and to assigned messages.
+
+   :param request: .
+
+   :returns: Context to template.
+
+
+.. py:function:: staff_logged_in(request)
+
+   Functions allows access to staff-dashboard and to assigned messages.
+
+   :param request: .
+
+   :returns: Context to template.
+
+
+.. py:function:: show_user_device(request)
+
+   Functions collects latest user-specific sensor values and input data for charting.
+
+   :param request: .
+
+   :returns: Context to template.
+
+
+.. py:function:: show_staff_devices(request)
+
+   Functions collects latest user-specific sensor values and all input data for charting for staff-members.
+
+   :param request: .
+
+   :returns: Context to template.
+
+

@@ -1,0 +1,24 @@
+:py:mod:`raklida.wsgi`
+======================
+
+.. py:module:: raklida.wsgi
+
+.. autoapi-nested-parse::
+
+   WSGI config for raklida project.
+
+   It exposes the WSGI callable as a module-level variable named ``application``.
+
+   For more information on this file, see
+   https://docs.djangoproject.com/en/3.2/howto/deployment/wsgi/
+
+
+
+Module Contents
+---------------
+
+.. py:data:: application
+   
+
+   
+

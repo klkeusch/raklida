@@ -5,6 +5,12 @@ from django.http import HttpResponse
 
 # European format: . -> , 15102021
 def localize_floats(row):
+    """ Function for switching . to , for csv export.
+
+    :param row: current value row
+
+    :returns: Corrected row.
+    """
     return [
         str(el).replace('.', ',') if isinstance(el, float) else el
         for el in row
@@ -12,6 +18,13 @@ def localize_floats(row):
 
 
 def download_csv(request, queryset):
+    """ Function collects and exports data to csv.
+
+    :param request: .
+    :param queryset: queryset for model
+
+    :returns: Http response with csv values.
+    """
     if not request.user.is_staff:
         raise PermissionDenied
 

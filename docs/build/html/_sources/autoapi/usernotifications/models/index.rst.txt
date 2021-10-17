@@ -1,0 +1,99 @@
+:py:mod:`usernotifications.models`
+==================================
+
+.. py:module:: usernotifications.models
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   usernotifications.models.Message
+
+
+
+
+.. py:class:: Message(*args, **kwargs)
+
+   Bases: :py:obj:`django.db.models.Model`
+
+   A private directmessage
+   (Using simplified version without implemented functions - just django-admin)
+
+   .. py:class:: Meta
+
+      .. py:attribute:: verbose_name
+         :annotation: = Benutzermeldung
+
+         
+
+      .. py:attribute:: verbose_name_plural
+         :annotation: = Benutzermeldungen
+
+         
+
+
+   .. py:attribute:: content
+      
+
+      
+
+   .. py:attribute:: sender
+      
+
+      
+
+   .. py:attribute:: recipient
+      
+
+      
+
+   .. py:attribute:: sent_at
+      
+
+      
+
+   .. py:attribute:: read_at
+      
+
+      
+
+   .. py:attribute:: incident_date
+      
+
+      
+
+   .. py:attribute:: user_devices
+      
+
+      
+
+   .. py:method:: get_absolute_url(self)
+
+
+   .. py:method:: unread(self)
+      :property:
+
+      returns whether the message was read or not
+
+
+   .. py:method:: __str__(self)
+
+      Return str(self).
+
+
+   .. py:method:: save(self, **kwargs)
+
+      Save the current instance. Override this in a subclass if you want to
+      control the saving process.
+
+      The 'force_insert' and 'force_update' parameters can be used to insist
+      that the "save" must be an SQL insert or update (or equivalent for
+      non-SQL backends), respectively. Normally, they should not be set.
+
+
+

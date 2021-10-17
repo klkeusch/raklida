@@ -1,0 +1,39 @@
+:py:mod:`sensorvalues.util`
+===========================
+
+.. py:module:: sensorvalues.util
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   sensorvalues.util.localize_floats
+   sensorvalues.util.download_csv
+
+
+
+.. py:function:: localize_floats(row)
+
+   Function for switching . to , for csv export.
+
+   :param row: current value row
+
+   :returns: Corrected row.
+
+
+.. py:function:: download_csv(request, queryset)
+
+   Function collects and exports data to csv.
+
+   :param request: .
+   :param queryset: queryset for model
+
+   :returns: Http response with csv values.
+
+

@@ -1,0 +1,14 @@
+:py:mod:`usernotifications.urls`
+================================
+
+.. py:module:: usernotifications.urls
+
+
+Module Contents
+---------------
+
+.. py:data:: urlpatterns
+   
+
+   
+

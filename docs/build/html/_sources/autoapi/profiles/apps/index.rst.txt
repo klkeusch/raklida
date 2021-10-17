@@ -1,0 +1,41 @@
+:py:mod:`profiles.apps`
+=======================
+
+.. py:module:: profiles.apps
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   profiles.apps.ProfilesConfig
+
+
+
+
+.. py:class:: ProfilesConfig(app_name, app_module)
+
+   Bases: :py:obj:`django.apps.AppConfig`
+
+   Class representing a Django application and its configuration.
+
+   .. py:attribute:: default_auto_field
+      :annotation: = django.db.models.BigAutoField
+
+      
+
+   .. py:attribute:: name
+      :annotation: = profiles
+
+      
+
+   .. py:attribute:: verbose_name
+      :annotation: = Benutzerprofile
+
+      
+
+

@@ -1,0 +1,14 @@
+:py:mod:`blog.urls`
+===================
+
+.. py:module:: blog.urls
+
+
+Module Contents
+---------------
+
+.. py:data:: urlpatterns
+   
+
+   
+

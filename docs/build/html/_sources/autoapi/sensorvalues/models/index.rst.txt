@@ -1,0 +1,506 @@
+:py:mod:`sensorvalues.models`
+=============================
+
+.. py:module:: sensorvalues.models
+
+.. autoapi-nested-parse::
+
+   Database models for sensorvalues app
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   sensorvalues.models.Data
+   sensorvalues.models.Devices
+   sensorvalues.models.DeviceUserAssignment
+   sensorvalues.models.Datapoints
+   sensorvalues.models.DailyAverages
+   sensorvalues.models.MqttTreeNodes
+   sensorvalues.models.TreeDatapointTranslations
+   sensorvalues.models.DevicesTable
+
+
+
+
+.. py:class:: Data(*args, **kwargs)
+
+   Bases: :py:obj:`django.db.models.Model`
+
+   .. py:class:: Meta
+
+      .. py:attribute:: managed
+         :annotation: = True
+
+         
+
+      .. py:attribute:: verbose_name
+         :annotation: = Messwert
+
+         
+
+      .. py:attribute:: verbose_name_plural
+         :annotation: = Messwerte
+
+         
+
+      .. py:attribute:: get_latest_by
+         :annotation: = ['-timestamp']
+
+         
+
+
+   .. py:attribute:: id
+      
+
+      
+
+   .. py:attribute:: timestamp
+      
+
+      
+
+   .. py:attribute:: value_double
+      
+
+      
+
+   .. py:attribute:: value_integer
+      
+
+      
+
+   .. py:attribute:: value_string
+      
+
+      
+
+   .. py:attribute:: datapoint
+      
+
+      
+
+   .. py:attribute:: is_valid
+      
+
+      
+
+   .. py:method:: __str__(self)
+
+      Return str(self).
+
+
+
+.. py:class:: Devices(*args, **kwargs)
+
+   Bases: :py:obj:`django.db.models.Model`
+
+   .. py:class:: Meta
+
+      .. py:attribute:: verbose_name
+         :annotation: = Gerät
+
+         
+
+      .. py:attribute:: verbose_name_plural
+         :annotation: = Geräte
+
+         
+
+
+   .. py:attribute:: id
+      
+
+      
+
+   .. py:attribute:: location
+      
+
+      
+
+   .. py:attribute:: current_status_code
+      
+
+      
+
+   .. py:attribute:: last_status_update
+      
+
+      
+
+   .. py:attribute:: device_type
+      
+
+      
+
+   .. py:attribute:: display_name
+      
+
+      
+
+   .. py:attribute:: platform
+      
+
+      
+
+   .. py:attribute:: mac_address
+      
+
+      
+
+   .. py:method:: __str__(self)
+
+      Return str(self).
+
+
+
+.. py:class:: DeviceUserAssignment(*args, **kwargs)
+
+   Bases: :py:obj:`django.db.models.Model`
+
+   .. py:class:: Meta
+
+      .. py:attribute:: verbose_name
+         :annotation: = Benutzer-Gerät-Zuordnung
+
+         
+
+      .. py:attribute:: verbose_name_plural
+         :annotation: = Benutzer-Gerät-Zuordnungen
+
+         
+
+
+   .. py:attribute:: device
+      
+
+      
+
+   .. py:attribute:: assigned_user
+      
+
+      
+
+   .. py:attribute:: usage_reason
+      
+
+      
+
+   .. py:attribute:: start_date
+      
+
+      
+
+   .. py:attribute:: end_date
+      
+
+      
+
+   .. py:method:: __str__(self)
+
+      Return str(self).
+
+
+
+.. py:class:: Datapoints(*args, **kwargs)
+
+   Bases: :py:obj:`django.db.models.Model`
+
+   .. py:class:: Meta
+
+      .. py:attribute:: verbose_name
+         :annotation: = Datenpunkt
+
+         
+
+      .. py:attribute:: verbose_name_plural
+         :annotation: = Datenpunkte
+
+         
+
+      .. py:attribute:: get_latest_by
+         :annotation: = ['-last_update']
+
+         
+
+
+   .. py:attribute:: id
+      
+
+      
+
+   .. py:attribute:: name
+      
+
+      
+
+   .. py:attribute:: unit
+      
+
+      
+
+   .. py:attribute:: display_name
+      
+
+      
+
+   .. py:attribute:: store_historic_data
+      
+
+      
+
+   .. py:attribute:: device_sub_id
+      
+
+      
+
+   .. py:attribute:: device
+      
+
+      
+
+   .. py:attribute:: current_value_double
+      
+
+      
+
+   .. py:attribute:: current_value_integer
+      
+
+      
+
+   .. py:attribute:: current_value_string
+      
+
+      
+
+   .. py:attribute:: last_update
+      
+
+      
+
+   .. py:method:: __str__(self)
+
+      Return str(self).
+
+
+
+.. py:class:: DailyAverages(*args, **kwargs)
+
+   Bases: :py:obj:`django.db.models.Model`
+
+   .. py:class:: Meta
+
+      .. py:attribute:: verbose_name
+         :annotation: = Tagesdurchschnitt
+
+         
+
+      .. py:attribute:: verbose_name_plural
+         :annotation: = Tagesdurchschnitte
+
+         
+
+
+   .. py:attribute:: id
+      
+
+      
+
+   .. py:attribute:: datapoint_id
+      
+
+      
+
+   .. py:attribute:: date
+      
+
+      
+
+   .. py:attribute:: value_night
+      
+
+      
+
+   .. py:attribute:: value_day
+      
+
+      
+
+   .. py:attribute:: value_min
+      
+
+      
+
+   .. py:attribute:: value_max
+      
+
+      
+
+
+.. py:class:: MqttTreeNodes(*args, **kwargs)
+
+   Bases: :py:obj:`django.db.models.Model`
+
+   .. py:class:: Meta
+
+      .. py:attribute:: verbose_name
+         :annotation: = MQTT-Tree-Node
+
+         
+
+      .. py:attribute:: verbose_name_plural
+         :annotation: = MQTT-Tree-Nodes
+
+         
+
+
+   .. py:attribute:: id
+      
+
+      
+
+   .. py:attribute:: name
+      
+
+      
+
+   .. py:attribute:: is_leaf
+      
+
+      
+
+   .. py:attribute:: parent_id
+      
+
+      
+
+   .. py:method:: __str__(self)
+
+      Return str(self).
+
+
+
+.. py:class:: TreeDatapointTranslations(*args, **kwargs)
+
+   Bases: :py:obj:`django.db.models.Model`
+
+   .. py:class:: Meta
+
+      .. py:attribute:: verbose_name
+         :annotation: = MQTT-Tree-Datapoint-Verknüpfung
+
+         
+
+      .. py:attribute:: verbose_name_plural
+         :annotation: = MQTT-Tree-Datapoint-Verknüpfungen
+
+         
+
+
+   .. py:attribute:: id
+      
+
+      
+
+   .. py:attribute:: datapoint
+      
+
+      
+
+   .. py:attribute:: mqtt_node
+      
+
+      
+
+   .. py:method:: __str__(self)
+
+      Return str(self).
+
+
+
+.. py:class:: DevicesTable(data=None, order_by=None, orderable=None, empty_text=None, exclude=None, attrs=None, row_attrs=None, pinned_row_attrs=None, sequence=None, prefix=None, order_by_field=None, page_field=None, per_page_field=None, template_name=None, default=None, request=None, show_header=None, show_footer=True, extra_columns=None)
+
+   Bases: :py:obj:`django_tables2.Table`
+
+   A representation of a table.
+
+   Arguments:
+       data (QuerySet, list of dicts): The data to display.
+           This is a required variable, a `TypeError` will be raised if it's not passed.
+
+       order_by: (tuple or str): The default ordering tuple or comma separated str.
+           A hyphen `-` can be used to prefix a column name to indicate
+           *descending* order, for example: `("name", "-age")` or `name,-age`.
+
+       orderable (bool): Enable/disable column ordering on this table
+
+       empty_text (str): Empty text to render when the table has no data.
+           (default `.Table.Meta.empty_text`)
+
+       exclude (iterable or str): The names of columns that should not be
+           included in the table.
+
+       attrs (dict): HTML attributes to add to the ``<table>`` tag.
+           When accessing the attribute, the value is always returned as an
+           `.AttributeDict` to allow easily conversion to HTML.
+
+       row_attrs (dict): Add custom html attributes to the table rows.
+           Allows custom HTML attributes to be specified which will be added
+           to the ``<tr>`` tag of the rendered table.
+
+       pinned_row_attrs (dict): Same as row_attrs but for pinned rows.
+
+       sequence (iterable): The sequence/order of columns the columns (from
+           left to right).
+
+           Items in the sequence must be :term:`column names <column name>`, or
+           `"..."` (string containing three periods). `'...'` can be used as a
+           catch-all for columns that are not specified.
+
+       prefix (str): A prefix for query string fields.
+           To avoid name-clashes when  using multiple tables on single page.
+
+       order_by_field (str): If not `None`, defines the name of the *order by*
+           query string field in the URL.
+
+       page_field (str): If not `None`, defines the name of the *current page*
+           query string field.
+
+       per_page_field (str): If not `None`, defines the name of the *per page*
+           query string field.
+
+       template_name (str): The template to render when using ``{% render_table %}``
+           (defaults to DJANGO_TABLES2_TEMPLATE, which is ``"django_tables2/table.html"``
+           by default).
+
+       default (str): Text to render in empty cells (determined by
+           `.Column.empty_values`, default `.Table.Meta.default`)
+
+       request: Django's request to avoid using `RequestConfig`
+
+       show_header (bool): If `False`, the table will not have a header
+           (`<thead>`), defaults to `True`
+
+       show_footer (bool): If `False`, the table footer will not be rendered,
+           even if some columns have a footer, defaults to `True`.
+
+       extra_columns (str, `.Column`): list of `(name, column)`-tuples containing
+           extra columns to add to the instance. If `column` is `None`, the column
+           with `name` will be removed from the table.
+
+   .. py:class:: Meta
+
+      .. py:attribute:: model
+         
+
+         
+
+
+

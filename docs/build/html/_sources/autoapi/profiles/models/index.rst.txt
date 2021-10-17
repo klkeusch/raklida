@@ -1,0 +1,81 @@
+:py:mod:`profiles.models`
+=========================
+
+.. py:module:: profiles.models
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   profiles.models.Profile
+
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   profiles.models.create_profile
+
+
+
+.. py:class:: Profile(*args, **kwargs)
+
+   Bases: :py:obj:`django.db.models.Model`
+
+   .. py:class:: Meta
+
+      .. py:attribute:: verbose_name
+         :annotation: = Profil
+
+         
+
+      .. py:attribute:: verbose_name_plural
+         :annotation: = Profile
+
+         
+
+
+   .. py:attribute:: user
+      
+
+      
+
+   .. py:attribute:: image
+      
+
+      
+
+   .. py:attribute:: description
+      
+
+      
+
+   .. py:attribute:: user_rooms
+      
+
+      
+
+   .. py:attribute:: assigned_devices
+      
+
+      
+
+   .. py:method:: __str__(self)
+
+      Return str(self).
+
+
+   .. py:method:: get_assigned_devices(self)
+
+
+
+.. py:function:: create_profile(sender, instance, created, **kwargs)
+
+
