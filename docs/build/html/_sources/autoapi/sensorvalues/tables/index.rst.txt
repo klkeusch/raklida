@@ -1,0 +1,108 @@
+:py:mod:`sensorvalues.tables`
+=============================
+
+.. py:module:: sensorvalues.tables
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   sensorvalues.tables.DataTable
+
+
+
+
+.. py:class:: DataTable(data=None, order_by=None, orderable=None, empty_text=None, exclude=None, attrs=None, row_attrs=None, pinned_row_attrs=None, sequence=None, prefix=None, order_by_field=None, page_field=None, per_page_field=None, template_name=None, default=None, request=None, show_header=None, show_footer=True, extra_columns=None)
+
+   Bases: :py:obj:`django_tables2.Table`
+
+   A representation of a table.
+
+   Arguments:
+       data (QuerySet, list of dicts): The data to display.
+           This is a required variable, a `TypeError` will be raised if it's not passed.
+
+       order_by: (tuple or str): The default ordering tuple or comma separated str.
+           A hyphen `-` can be used to prefix a column name to indicate
+           *descending* order, for example: `("name", "-age")` or `name,-age`.
+
+       orderable (bool): Enable/disable column ordering on this table
+
+       empty_text (str): Empty text to render when the table has no data.
+           (default `.Table.Meta.empty_text`)
+
+       exclude (iterable or str): The names of columns that should not be
+           included in the table.
+
+       attrs (dict): HTML attributes to add to the ``<table>`` tag.
+           When accessing the attribute, the value is always returned as an
+           `.AttributeDict` to allow easily conversion to HTML.
+
+       row_attrs (dict): Add custom html attributes to the table rows.
+           Allows custom HTML attributes to be specified which will be added
+           to the ``<tr>`` tag of the rendered table.
+
+       pinned_row_attrs (dict): Same as row_attrs but for pinned rows.
+
+       sequence (iterable): The sequence/order of columns the columns (from
+           left to right).
+
+           Items in the sequence must be :term:`column names <column name>`, or
+           `"..."` (string containing three periods). `'...'` can be used as a
+           catch-all for columns that are not specified.
+
+       prefix (str): A prefix for query string fields.
+           To avoid name-clashes when  using multiple tables on single page.
+
+       order_by_field (str): If not `None`, defines the name of the *order by*
+           query string field in the URL.
+
+       page_field (str): If not `None`, defines the name of the *current page*
+           query string field.
+
+       per_page_field (str): If not `None`, defines the name of the *per page*
+           query string field.
+
+       template_name (str): The template to render when using ``{% render_table %}``
+           (defaults to DJANGO_TABLES2_TEMPLATE, which is ``"django_tables2/table.html"``
+           by default).
+
+       default (str): Text to render in empty cells (determined by
+           `.Column.empty_values`, default `.Table.Meta.default`)
+
+       request: Django's request to avoid using `RequestConfig`
+
+       show_header (bool): If `False`, the table will not have a header
+           (`<thead>`), defaults to `True`
+
+       show_footer (bool): If `False`, the table footer will not be rendered,
+           even if some columns have a footer, defaults to `True`.
+
+       extra_columns (str, `.Column`): list of `(name, column)`-tuples containing
+           extra columns to add to the instance. If `column` is `None`, the column
+           with `name` will be removed from the table.
+
+   .. py:class:: Meta
+
+      .. py:attribute:: model
+         
+
+         
+
+      .. py:attribute:: sequence
+         :annotation: = ['timestamp', 'id', 'datapoint', 'value_string', 'value_integer', 'value_double', 'is_valid']
+
+         
+
+      .. py:attribute:: exclude
+         :annotation: = []
+
+         
+
+
+

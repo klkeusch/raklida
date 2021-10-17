@@ -1,0 +1,79 @@
+:py:mod:`usernotifications.services`
+====================================
+
+.. py:module:: usernotifications.services
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   usernotifications.services.MessagingService
+
+
+
+
+.. py:class:: MessagingService
+
+   Bases: :py:obj:`object`
+
+   A object to manage all messages and conversations
+
+   .. py:method:: send_message(self, sender, recipient, message)
+
+      Send a new message
+      :param sender: user
+      :param recipient: user
+      :param message: String
+      :return: Message and status code
+
+
+   .. py:method:: get_unread_messages(self, user)
+
+      List of unread messages for a specific user
+      :param user: user
+      :return: messages
+
+
+   .. py:method:: read_message(self, message_id)
+
+      Read specific message
+      :param message_id: Integer
+      :return: Message Text
+
+
+   .. py:method:: read_message_formatted(self, message_id)
+
+      Read a message in the format <User>: <Message>
+      :param message_id: Id
+      :return: Formatted Message Text
+
+
+   .. py:method:: get_conversations(self, user)
+
+      Lists all conversation-partners for a specific user
+      :param user: User
+      :return: Conversation list
+
+
+   .. py:method:: get_conversation(self, user1, user2, limit=None, reversed=False, mark_read=False)
+
+      List of messages between two users
+      :param user1: User
+      :param user2: User
+      :param limit: int
+      :param reversed: Boolean - Makes the newest message be at index 0
+      :return: messages
+
+
+   .. py:method:: mark_as_read(self, message)
+
+      Marks a message as read, if it hasn't been read before
+      :param message: Message
+
+
+

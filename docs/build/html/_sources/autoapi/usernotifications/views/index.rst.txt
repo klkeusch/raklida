@@ -1,0 +1,170 @@
+:py:mod:`usernotifications.views`
+=================================
+
+.. py:module:: usernotifications.views
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   usernotifications.views.MessageListView
+   usernotifications.views.MessageCreateView
+   usernotifications.views.MessageDetailView
+   usernotifications.views.MessageUpdateView
+   usernotifications.views.MessageDeleteView
+
+
+
+
+.. py:class:: MessageListView(**kwargs)
+
+   Bases: :py:obj:`django.contrib.auth.mixins.LoginRequiredMixin`, :py:obj:`django.views.generic.ListView`
+
+   Verify that the current user is authenticated.
+
+   .. py:attribute:: model
+      
+
+      
+
+   .. py:method:: get_queryset(self, *args, **kwargs)
+
+      Return the list of items for this view.
+
+      The return value must be an iterable and may be an instance of
+      `QuerySet` in which case `QuerySet` specific behavior will be enabled.
+
+
+
+.. py:class:: MessageCreateView(**kwargs)
+
+   Bases: :py:obj:`django.contrib.auth.mixins.LoginRequiredMixin`, :py:obj:`django.contrib.auth.mixins.UserPassesTestMixin`, :py:obj:`django.views.generic.CreateView`
+
+   Verify that the current user is authenticated.
+
+   .. py:attribute:: model
+      
+
+      
+
+   .. py:attribute:: form_class
+      
+
+      
+
+   .. py:attribute:: success_url
+      :annotation: = /messages/
+
+      
+
+   .. py:attribute:: success_message
+      :annotation: = Nachricht erfolgreich erstellt!
+
+      
+
+   .. py:method:: form_valid(self, form)
+
+      If the form is valid, save the associated model.
+
+
+   .. py:method:: get_form_kwargs(self)
+
+      Return the keyword arguments for instantiating the form.
+
+
+   .. py:method:: test_func(self)
+
+
+
+.. py:class:: MessageDetailView(**kwargs)
+
+   Bases: :py:obj:`django.views.generic.DetailView`
+
+   Render a "detail" view of an object.
+
+   By default this is a model instance looked up from `self.queryset`, but the
+   view will support display of *any* object by overriding `self.get_object()`.
+
+   .. py:attribute:: model
+      
+
+      
+
+
+.. py:class:: MessageUpdateView(**kwargs)
+
+   Bases: :py:obj:`django.views.generic.UpdateView`
+
+   View for updating an object, with a response rendered by a template.
+
+   .. py:attribute:: model
+      
+
+      
+
+   .. py:attribute:: form_class
+      
+
+      
+
+   .. py:attribute:: success_message
+      :annotation: = Nachricht erfolgreich aktualisiert!
+
+      
+
+   .. py:attribute:: success_url
+      :annotation: = /messages/
+
+      
+
+   .. py:method:: form_valid(self, form)
+
+      If the form is valid, save the associated model.
+
+
+   .. py:method:: get_form_kwargs(self)
+
+      Return the keyword arguments for instantiating the form.
+
+
+   .. py:method:: test_func(self)
+
+
+
+.. py:class:: MessageDeleteView(**kwargs)
+
+   Bases: :py:obj:`django.views.generic.DeleteView`
+
+   View for deleting an object retrieved with self.get_object(), with a
+   response rendered by a template.
+
+   .. py:attribute:: model
+      
+
+      
+
+   .. py:attribute:: success_message
+      :annotation: = Nachricht erfolgreich gelöscht!
+
+      
+
+   .. py:attribute:: success_url
+      :annotation: = /messages/
+
+      
+
+   .. py:method:: test_func(self)
+
+
+   .. py:method:: delete(self, request, *args, **kwargs)
+
+      Call the delete() method on the fetched object and then redirect to the
+      success URL.
+
+
+

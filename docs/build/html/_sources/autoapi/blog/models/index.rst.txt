@@ -1,0 +1,83 @@
+:py:mod:`blog.models`
+=====================
+
+.. py:module:: blog.models
+
+.. autoapi-nested-parse::
+
+   Database models for blog app
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   blog.models.Blog
+
+
+
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   blog.models.content_validator
+
+
+.. py:data:: content_validator
+   
+
+   
+
+.. py:class:: Blog(*args, **kwargs)
+
+   Bases: :py:obj:`django.db.models.Model`
+
+   .. py:class:: Meta
+
+      .. py:attribute:: verbose_name
+         :annotation: = Blogeintrag
+
+         
+
+      .. py:attribute:: verbose_name_plural
+         :annotation: = Blogeinträge
+
+         
+
+
+   .. py:attribute:: title
+      
+
+      
+
+   .. py:attribute:: content
+      
+
+      
+
+   .. py:attribute:: date_published
+      
+
+      
+
+   .. py:attribute:: author
+      
+
+      
+
+   .. py:method:: __str__(self)
+
+      Return str(self).
+
+
+   .. py:method:: get_absolute_url(self)
+
+
+

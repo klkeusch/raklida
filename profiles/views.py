@@ -9,6 +9,12 @@ from .forms import RegisterForm, UserUpdateForm, ProfileUpdateForm, DeviceChoice
 
 
 def register(request):
+    """ Functions allows people to create accounts.
+
+    :param request: .
+
+    :returns: Context to template.
+    """
     if request.method == "POST":
         form = RegisterForm(request.POST)
         if form.is_valid():
@@ -22,6 +28,13 @@ def register(request):
 
 @login_required
 def profile(request, pk):
+    """ Functions allows gathering user and assigned profile.
+
+    :param request: .
+    :param pk: primary key, user
+
+    :returns: Context to template.
+    """
     user = get_object_or_404(User, pk=pk)
     assigned_profile = get_object_or_404(Profile, pk=pk)
 
@@ -34,6 +47,12 @@ def profile(request, pk):
 
 @login_required
 def update(request):
+    """ Functions allows updating user and assigned profile.
+
+    :param request: .
+
+    :returns: Context to template.
+    """
     if request.POST:
         user_form = UserUpdateForm(request.POST, instance=request.user)
         profile_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
@@ -55,16 +74,34 @@ def update(request):
 
 @user_passes_test(lambda u: u.groups.filter(name='Verwaltung').exists())
 def staff_dashboard(request):
+    """ Functions allows access to staff-dashboard.
+
+    :param request: .
+
+    :returns: Context to template.
+    """
     return render(request, 'profiles/staff_dashboard.html')
 
 
 @user_passes_test(lambda u: u.groups.filter(name='Benutzer').exists())
 def user_dashboard(request):
+    """ Functions allows access to user-dashboard.
+
+    :param request: .
+
+    :returns: Context to template.
+    """
     return render(request, 'profiles/user_dashboard.html')
 
 
 @user_passes_test(lambda u: u.groups.filter(name='Benutzer').exists())
 def user_logged_in(request):
+    """ Functions allows access to user-dashboard and to assigned messages.
+
+    :param request: .
+
+    :returns: Context to template.
+    """
     notifications = Message.objects.filter(sender=request.user)
 
     context = {
@@ -75,6 +112,12 @@ def user_logged_in(request):
 
 @user_passes_test(lambda u: u.groups.filter(name='Verwaltung').exists())
 def staff_logged_in(request):
+    """ Functions allows access to staff-dashboard and to assigned messages.
+
+    :param request: .
+
+    :returns: Context to template.
+    """
     notifications = Message.objects.all()
 
     context = {
@@ -85,6 +128,12 @@ def staff_logged_in(request):
 
 @user_passes_test(lambda u: u.groups.filter(name='Benutzer').exists())
 def show_user_device(request):
+    """ Functions collects latest user-specific sensor values and input data for charting.
+
+    :param request: .
+
+    :returns: Context to template.
+    """
     notifications = Message.objects.filter(sender=request.user)
 
     device_list = DeviceChoiceField(user=request.user)
@@ -343,6 +392,12 @@ def show_user_device(request):
 
 @user_passes_test(lambda u: u.groups.filter(name='Verwaltung').exists())
 def show_staff_devices(request):
+    """ Functions collects latest user-specific sensor values and all input data for charting for staff-members.
+
+    :param request: .
+
+    :returns: Context to template.
+    """
     notifications = Message.objects.all()
 
     devices_list = DeviceChoiceField(user=request.user)

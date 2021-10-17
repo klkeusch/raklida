@@ -1,0 +1,41 @@
+:py:mod:`usernotifications.admin`
+=================================
+
+.. py:module:: usernotifications.admin
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   usernotifications.admin.MessageAdmin
+
+
+
+
+.. py:class:: MessageAdmin(model, admin_site)
+
+   Bases: :py:obj:`django.contrib.admin.ModelAdmin`
+
+   Encapsulate all admin options and functionality for a given model.
+
+   .. py:attribute:: model
+      
+
+      
+
+   .. py:attribute:: list_display
+      :annotation: = ['id', 'sent_at', 'sender', 'content', 'incident_date']
+
+      
+
+   .. py:attribute:: list_filter
+      :annotation: = ['sent_at', None]
+
+      
+
+

@@ -1,0 +1,93 @@
+:py:mod:`profiles.admin`
+========================
+
+.. py:module:: profiles.admin
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   profiles.admin.DevicesInline
+   profiles.admin.ProfileAdmin
+
+
+
+
+.. py:class:: DevicesInline(parent_model, admin_site)
+
+   Bases: :py:obj:`django.contrib.admin.StackedInline`
+
+   Options for inline editing of ``model`` instances.
+
+   Provide ``fk_name`` to specify the attribute name of the ``ForeignKey``
+   from ``model`` to its parent. This is required if ``model`` has more than
+   one ``ForeignKey`` to its parent.
+
+   .. py:attribute:: model
+      
+
+      
+
+   .. py:attribute:: extra
+      :annotation: = 0
+
+      
+
+   .. py:attribute:: verbose_name
+      :annotation: = Zugewiesenes Gerät
+
+      
+
+   .. py:attribute:: verbose_name_plural
+      :annotation: = Zugewiesene Geräte
+
+      
+
+   .. py:attribute:: show_change_link
+      :annotation: = True
+
+      
+
+
+.. py:class:: ProfileAdmin(model, admin_site)
+
+   Bases: :py:obj:`django.contrib.admin.ModelAdmin`
+
+   Encapsulate all admin options and functionality for a given model.
+
+   .. py:attribute:: model
+      
+
+      
+
+   .. py:attribute:: list_display
+      :annotation: = ['id', 'user', 'description', 'user_rooms', 'get_assigned_devices']
+
+      
+
+   .. py:attribute:: list_display_links
+      :annotation: = ['id', 'user']
+
+      
+
+   .. py:attribute:: list_filter
+      :annotation: = [None, None]
+
+      
+
+   .. py:attribute:: inlines
+      
+
+      
+
+   .. py:attribute:: short_description
+      :annotation: = Zugeordnete Geräte
+
+      
+
+

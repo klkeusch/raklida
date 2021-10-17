@@ -1,0 +1,201 @@
+:py:mod:`sensorvalues.admin`
+============================
+
+.. py:module:: sensorvalues.admin
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   sensorvalues.admin.TreeDatapointTranslationsAdmin
+   sensorvalues.admin.MqttTreeNodesAdmin
+   sensorvalues.admin.DevicesAdmin
+   sensorvalues.admin.DevicesUserAssignmentAdmin
+   sensorvalues.admin.DataAdmin
+   sensorvalues.admin.DatapointAdmin
+
+
+
+
+.. py:class:: TreeDatapointTranslationsAdmin(model, admin_site)
+
+   Bases: :py:obj:`django.contrib.admin.ModelAdmin`
+
+   Encapsulate all admin options and functionality for a given model.
+
+   .. py:attribute:: model
+      
+
+      
+
+   .. py:attribute:: sortable_by
+      :annotation: = ['datapoint', 'mqtt_node', 'id']
+
+      
+
+   .. py:attribute:: list_display
+      :annotation: = ['id', 'datapoint', 'mqtt_node']
+
+      
+
+   .. py:attribute:: list_display_links
+      :annotation: = ['id', 'datapoint']
+
+      
+
+   .. py:attribute:: list_filter
+      :annotation: = [None, None]
+
+      
+
+
+.. py:class:: MqttTreeNodesAdmin(model, admin_site)
+
+   Bases: :py:obj:`django.contrib.admin.ModelAdmin`
+
+   Encapsulate all admin options and functionality for a given model.
+
+   .. py:attribute:: model
+      
+
+      
+
+   .. py:attribute:: sortable_by
+      :annotation: = ['parent_id', 'is_leaf', 'name', 'id']
+
+      
+
+   .. py:attribute:: list_display
+      :annotation: = ['id', 'name', 'parent_id', 'is_leaf']
+
+      
+
+   .. py:attribute:: list_display_links
+      :annotation: = ['id', 'name']
+
+      
+
+   .. py:attribute:: list_filter
+      :annotation: = [None, None, None]
+
+      
+
+
+.. py:class:: DevicesAdmin(model, admin_site)
+
+   Bases: :py:obj:`django.contrib.admin.ModelAdmin`
+
+   Encapsulate all admin options and functionality for a given model.
+
+   .. py:attribute:: model
+      
+
+      
+
+   .. py:attribute:: list_display
+      :annotation: = ['id', 'display_name', 'location', 'last_status_update']
+
+      
+
+   .. py:attribute:: list_display_links
+      :annotation: = ['id', 'display_name']
+
+      
+
+   .. py:attribute:: list_filter
+      :annotation: = [None, None]
+
+      
+
+
+.. py:class:: DevicesUserAssignmentAdmin(model, admin_site)
+
+   Bases: :py:obj:`django.contrib.admin.ModelAdmin`
+
+   Encapsulate all admin options and functionality for a given model.
+
+   .. py:attribute:: model
+      
+
+      
+
+   .. py:attribute:: fields
+      :annotation: = ['assigned_user', 'device', 'usage_reason', ['start_date', 'end_date']]
+
+      
+
+   .. py:attribute:: list_display
+      :annotation: = ['id', 'assigned_user', 'device', 'usage_reason', 'start_date', 'end_date']
+
+      
+
+   .. py:attribute:: list_display_links
+      :annotation: = ['id', 'assigned_user', 'device']
+
+      
+
+   .. py:attribute:: list_filter
+      :annotation: = [None, None]
+
+      
+
+
+.. py:class:: DataAdmin(model, admin_site)
+
+   Bases: :py:obj:`django.contrib.admin.ModelAdmin`
+
+   Encapsulate all admin options and functionality for a given model.
+
+   .. py:attribute:: model
+      
+
+      
+
+   .. py:attribute:: list_display_links
+      :annotation: = ['id', 'timestamp', 'datapoint']
+
+      
+
+   .. py:attribute:: list_display
+      :annotation: = ['id', 'timestamp', 'datapoint', 'value_double', 'value_integer', 'value_string', 'is_valid']
+
+      
+
+   .. py:attribute:: list_filter
+      :annotation: = ['timestamp', None, None, None]
+
+      
+
+
+.. py:class:: DatapointAdmin(model, admin_site)
+
+   Bases: :py:obj:`django.contrib.admin.ModelAdmin`
+
+   Encapsulate all admin options and functionality for a given model.
+
+   .. py:attribute:: model
+      
+
+      
+
+   .. py:attribute:: list_filter
+      :annotation: = [None, None, None]
+
+      
+
+   .. py:attribute:: list_display
+      :annotation: = ['id', 'name', 'display_name', 'unit', 'device', 'current_value_double',...
+
+      
+
+   .. py:attribute:: list_display_links
+      :annotation: = ['id', 'name', 'display_name']
+
+      
+
+

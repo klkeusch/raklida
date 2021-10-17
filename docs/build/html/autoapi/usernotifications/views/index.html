@@ -1,0 +1,292 @@
+
+<!DOCTYPE html>
+
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>usernotifications.views &#8212; RaKliDa | Raumklimadaten-System der htw saar 10.2021 Dokumentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/translations.js"></script>
+    <link rel="index" title="Stichwortverzeichnis" href="../../../genindex.html" />
+    <link rel="search" title="Suche" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-usernotifications.views">
+<span id="usernotifications-views"></span><h1><a class="reference internal" href="../../../usernotifications.views.html#module-usernotifications.views" title="usernotifications.views"><code class="xref py py-mod docutils literal notranslate"><span class="pre">usernotifications.views</span></code></a><a class="headerlink" href="#module-usernotifications.views" title="Link zu dieser Überschrift">¶</a></h1>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link zu dieser Überschrift">¶</a></h2>
+<section id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Link zu dieser Überschrift">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#usernotifications.views.MessageListView" title="usernotifications.views.MessageListView"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MessageListView</span></code></a></p></td>
+<td><p>Verify that the current user is authenticated.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#usernotifications.views.MessageCreateView" title="usernotifications.views.MessageCreateView"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MessageCreateView</span></code></a></p></td>
+<td><p>Verify that the current user is authenticated.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#usernotifications.views.MessageDetailView" title="usernotifications.views.MessageDetailView"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MessageDetailView</span></code></a></p></td>
+<td><p>Render a &quot;detail&quot; view of an object.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#usernotifications.views.MessageUpdateView" title="usernotifications.views.MessageUpdateView"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MessageUpdateView</span></code></a></p></td>
+<td><p>View for updating an object, with a response rendered by a template.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#usernotifications.views.MessageDeleteView" title="usernotifications.views.MessageDeleteView"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MessageDeleteView</span></code></a></p></td>
+<td><p>View for deleting an object retrieved with self.get_object(), with a</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="usernotifications.views.MessageListView">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">usernotifications.views.</span></span><span class="sig-name descname"><span class="pre">MessageListView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usernotifications.views.MessageListView" title="Link zu dieser Definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">django.views.generic.ListView</span></code></p>
+<p>Verify that the current user is authenticated.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="usernotifications.views.MessageListView.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#usernotifications.views.MessageListView.model" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="usernotifications.views.MessageListView.get_queryset">
+<span class="sig-name descname"><span class="pre">get_queryset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usernotifications.views.MessageListView.get_queryset" title="Link zu dieser Definition">¶</a></dt>
+<dd><p>Return the list of items for this view.</p>
+<p>The return value must be an iterable and may be an instance of
+<cite>QuerySet</cite> in which case <cite>QuerySet</cite> specific behavior will be enabled.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usernotifications.views.MessageCreateView">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">usernotifications.views.</span></span><span class="sig-name descname"><span class="pre">MessageCreateView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usernotifications.views.MessageCreateView" title="Link zu dieser Definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.UserPassesTestMixin</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">django.views.generic.CreateView</span></code></p>
+<p>Verify that the current user is authenticated.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="usernotifications.views.MessageCreateView.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#usernotifications.views.MessageCreateView.model" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="usernotifications.views.MessageCreateView.form_class">
+<span class="sig-name descname"><span class="pre">form_class</span></span><a class="headerlink" href="#usernotifications.views.MessageCreateView.form_class" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="usernotifications.views.MessageCreateView.success_url">
+<span class="sig-name descname"><span class="pre">success_url</span></span><em class="property"> <span class="pre">=</span> <span class="pre">/messages/</span></em><a class="headerlink" href="#usernotifications.views.MessageCreateView.success_url" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="usernotifications.views.MessageCreateView.success_message">
+<span class="sig-name descname"><span class="pre">success_message</span></span><em class="property"> <span class="pre">=</span> <span class="pre">Nachricht</span> <span class="pre">erfolgreich</span> <span class="pre">erstellt!</span></em><a class="headerlink" href="#usernotifications.views.MessageCreateView.success_message" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="usernotifications.views.MessageCreateView.form_valid">
+<span class="sig-name descname"><span class="pre">form_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">form</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usernotifications.views.MessageCreateView.form_valid" title="Link zu dieser Definition">¶</a></dt>
+<dd><p>If the form is valid, save the associated model.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="usernotifications.views.MessageCreateView.get_form_kwargs">
+<span class="sig-name descname"><span class="pre">get_form_kwargs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usernotifications.views.MessageCreateView.get_form_kwargs" title="Link zu dieser Definition">¶</a></dt>
+<dd><p>Return the keyword arguments for instantiating the form.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="usernotifications.views.MessageCreateView.test_func">
+<span class="sig-name descname"><span class="pre">test_func</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usernotifications.views.MessageCreateView.test_func" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usernotifications.views.MessageDetailView">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">usernotifications.views.</span></span><span class="sig-name descname"><span class="pre">MessageDetailView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usernotifications.views.MessageDetailView" title="Link zu dieser Definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">django.views.generic.DetailView</span></code></p>
+<p>Render a „detail“ view of an object.</p>
+<p>By default this is a model instance looked up from <cite>self.queryset</cite>, but the
+view will support display of <em>any</em> object by overriding <cite>self.get_object()</cite>.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="usernotifications.views.MessageDetailView.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#usernotifications.views.MessageDetailView.model" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usernotifications.views.MessageUpdateView">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">usernotifications.views.</span></span><span class="sig-name descname"><span class="pre">MessageUpdateView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usernotifications.views.MessageUpdateView" title="Link zu dieser Definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">django.views.generic.UpdateView</span></code></p>
+<p>View for updating an object, with a response rendered by a template.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="usernotifications.views.MessageUpdateView.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#usernotifications.views.MessageUpdateView.model" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="usernotifications.views.MessageUpdateView.form_class">
+<span class="sig-name descname"><span class="pre">form_class</span></span><a class="headerlink" href="#usernotifications.views.MessageUpdateView.form_class" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="usernotifications.views.MessageUpdateView.success_message">
+<span class="sig-name descname"><span class="pre">success_message</span></span><em class="property"> <span class="pre">=</span> <span class="pre">Nachricht</span> <span class="pre">erfolgreich</span> <span class="pre">aktualisiert!</span></em><a class="headerlink" href="#usernotifications.views.MessageUpdateView.success_message" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="usernotifications.views.MessageUpdateView.success_url">
+<span class="sig-name descname"><span class="pre">success_url</span></span><em class="property"> <span class="pre">=</span> <span class="pre">/messages/</span></em><a class="headerlink" href="#usernotifications.views.MessageUpdateView.success_url" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="usernotifications.views.MessageUpdateView.form_valid">
+<span class="sig-name descname"><span class="pre">form_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">form</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usernotifications.views.MessageUpdateView.form_valid" title="Link zu dieser Definition">¶</a></dt>
+<dd><p>If the form is valid, save the associated model.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="usernotifications.views.MessageUpdateView.get_form_kwargs">
+<span class="sig-name descname"><span class="pre">get_form_kwargs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usernotifications.views.MessageUpdateView.get_form_kwargs" title="Link zu dieser Definition">¶</a></dt>
+<dd><p>Return the keyword arguments for instantiating the form.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="usernotifications.views.MessageUpdateView.test_func">
+<span class="sig-name descname"><span class="pre">test_func</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usernotifications.views.MessageUpdateView.test_func" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usernotifications.views.MessageDeleteView">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">usernotifications.views.</span></span><span class="sig-name descname"><span class="pre">MessageDeleteView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usernotifications.views.MessageDeleteView" title="Link zu dieser Definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">django.views.generic.DeleteView</span></code></p>
+<p>View for deleting an object retrieved with self.get_object(), with a
+response rendered by a template.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="usernotifications.views.MessageDeleteView.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#usernotifications.views.MessageDeleteView.model" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="usernotifications.views.MessageDeleteView.success_message">
+<span class="sig-name descname"><span class="pre">success_message</span></span><em class="property"> <span class="pre">=</span> <span class="pre">Nachricht</span> <span class="pre">erfolgreich</span> <span class="pre">gelöscht!</span></em><a class="headerlink" href="#usernotifications.views.MessageDeleteView.success_message" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="usernotifications.views.MessageDeleteView.success_url">
+<span class="sig-name descname"><span class="pre">success_url</span></span><em class="property"> <span class="pre">=</span> <span class="pre">/messages/</span></em><a class="headerlink" href="#usernotifications.views.MessageDeleteView.success_url" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="usernotifications.views.MessageDeleteView.test_func">
+<span class="sig-name descname"><span class="pre">test_func</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usernotifications.views.MessageDeleteView.test_func" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="usernotifications.views.MessageDeleteView.delete">
+<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usernotifications.views.MessageDeleteView.delete" title="Link zu dieser Definition">¶</a></dt>
+<dd><p>Call the delete() method on the fetched object and then redirect to the
+success URL.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">RaKliDa | Raumklimadaten-System der htw saar</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Schnellsuche</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Los" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Ahmad Alshikh Ali, Klaus Keusch, Sven-David Otto.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../../_sources/autoapi/usernotifications/views/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,6 @@
+:py:mod:`sensorvaluesplots.models`
+==================================
+
+.. py:module:: sensorvaluesplots.models
+
+

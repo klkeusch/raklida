@@ -1,0 +1,59 @@
+:py:mod:`usernotifications.apps`
+================================
+
+.. py:module:: usernotifications.apps
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   usernotifications.apps.UsernotificationsConfig
+
+
+
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   usernotifications.apps.Inbox
+
+
+.. py:data:: Inbox
+   
+
+   
+
+.. py:class:: UsernotificationsConfig(app_name, app_module)
+
+   Bases: :py:obj:`django.apps.AppConfig`
+
+   Class representing a Django application and its configuration.
+
+   .. py:attribute:: name
+      :annotation: = usernotifications
+
+      
+
+   .. py:attribute:: label
+      :annotation: = usernotifications
+
+      
+
+   .. py:attribute:: verbose_name
+      :annotation: = Benutzermeldungen
+
+      
+
+   .. py:method:: ready(self)
+
+      Override this method in subclasses to run code when Django starts.
+
+
+

@@ -1,0 +1,20 @@
+:py:mod:`profiles`
+==================
+
+.. py:module:: profiles
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   admin/index.rst
+   apps/index.rst
+   forms/index.rst
+   models/index.rst
+   tests/index.rst
+   views/index.rst
+
+

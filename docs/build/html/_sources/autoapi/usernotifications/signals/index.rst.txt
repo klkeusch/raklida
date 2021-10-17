@@ -1,0 +1,19 @@
+:py:mod:`usernotifications.signals`
+===================================
+
+.. py:module:: usernotifications.signals
+
+
+Module Contents
+---------------
+
+.. py:data:: message_sent
+   
+
+   
+
+.. py:data:: message_read
+   
+
+   
+

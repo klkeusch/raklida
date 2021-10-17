@@ -1,0 +1,41 @@
+:py:mod:`blog.apps`
+===================
+
+.. py:module:: blog.apps
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   blog.apps.BlogConfig
+
+
+
+
+.. py:class:: BlogConfig(app_name, app_module)
+
+   Bases: :py:obj:`django.apps.AppConfig`
+
+   Class representing a Django application and its configuration.
+
+   .. py:attribute:: default_auto_field
+      :annotation: = django.db.models.BigAutoField
+
+      
+
+   .. py:attribute:: name
+      :annotation: = blog
+
+      
+
+   .. py:attribute:: verbose_name
+      :annotation: = Aktuelles - Blog
+
+      
+
+

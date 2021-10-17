@@ -1,0 +1,160 @@
+:py:mod:`blog.views`
+====================
+
+.. py:module:: blog.views
+
+.. autoapi-nested-parse::
+
+   Views for blog app
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   blog.views.BlogListView
+   blog.views.BlogDetailView
+   blog.views.BlogCreateView
+   blog.views.BlogUpdateView
+   blog.views.BlogDeleteView
+
+
+
+
+.. py:class:: BlogListView(**kwargs)
+
+   Bases: :py:obj:`django.views.generic.ListView`
+
+   Class-based view for listing blog entries.
+
+   :returns: page with lists of blog entries.
+
+   .. py:attribute:: model
+      
+
+      
+
+   .. py:attribute:: ordering
+      :annotation: = ['-date_published']
+
+      
+
+   .. py:attribute:: paginate_by
+      :annotation: = 3
+
+      
+
+
+.. py:class:: BlogDetailView(**kwargs)
+
+   Bases: :py:obj:`django.views.generic.DetailView`
+
+   Class-based view for viewing blog entries.
+
+   :returns: detail page of blog entry.
+
+   .. py:attribute:: model
+      
+
+      
+
+
+.. py:class:: BlogCreateView(**kwargs)
+
+   Bases: :py:obj:`django.contrib.auth.mixins.LoginRequiredMixin`, :py:obj:`django.contrib.messages.views.SuccessMessageMixin`, :py:obj:`django.views.generic.CreateView`
+
+   Class-based view for creating blog entries.
+
+   :returns: create page for blog entry .
+
+   .. py:attribute:: model
+      
+
+      
+
+   .. py:attribute:: fields
+      :annotation: = ['title', 'content']
+
+      
+
+   .. py:attribute:: success_message
+      :annotation: = Blogeintrag erfolgreich erstellt!
+
+      
+
+   .. py:method:: form_valid(self, form)
+
+      If the form is valid, save the associated model.
+
+
+
+.. py:class:: BlogUpdateView(**kwargs)
+
+   Bases: :py:obj:`django.contrib.auth.mixins.LoginRequiredMixin`, :py:obj:`django.contrib.messages.views.SuccessMessageMixin`, :py:obj:`django.contrib.auth.mixins.UserPassesTestMixin`, :py:obj:`django.views.generic.UpdateView`
+
+   Class-based view for updating blog entries.
+
+   :returns: update page for blog entry .
+
+   .. py:attribute:: model
+      
+
+      
+
+   .. py:attribute:: fields
+      :annotation: = ['title', 'content']
+
+      
+
+   .. py:attribute:: success_message
+      :annotation: = Blogeintrag erfolgreich aktualisiert!
+
+      
+
+   .. py:method:: form_valid(self, form)
+
+      If the form is valid, save the associated model.
+
+
+   .. py:method:: test_func(self)
+
+
+
+.. py:class:: BlogDeleteView(**kwargs)
+
+   Bases: :py:obj:`django.contrib.auth.mixins.LoginRequiredMixin`, :py:obj:`django.contrib.auth.mixins.UserPassesTestMixin`, :py:obj:`django.views.generic.DeleteView`
+
+   Class-based view for deleting blog entries.
+
+   :returns: delete page for blog entry .
+
+   .. py:attribute:: model
+      
+
+      
+
+   .. py:attribute:: success_message
+      :annotation: = Blog erfolgreich gelöscht!
+
+      
+
+   .. py:attribute:: success_url
+      :annotation: = /
+
+      
+
+   .. py:method:: test_func(self)
+
+
+   .. py:method:: delete(self, request, *args, **kwargs)
+
+      Call the delete() method on the fetched object and then redirect to the
+      success URL.
+
+
+
