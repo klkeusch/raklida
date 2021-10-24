@@ -40,9 +40,10 @@
                 </ul>
 
                 <ul class="navbar-nav ml-auto">
-                    {% if request.user.is_staff %}
+                    {% if request.user.is_staff and request.user.is_authenticated %}
                         <li class="nav-item ml-2">
                             <a href="/admin"
+                               target="_blank"
                                class="nav-link btn-primary text-white rounded">Admin-Dashboard</a>
                         </li>
                         <li class="nav-item ml-2">
@@ -51,7 +52,6 @@
                         </li>
                     {% endif %}
                     {% if request.user.is_authenticated %}
-
                         <li class="nav-item ml-2">
                             <a href="{% url 'user_dashboard' %}" class="nav-link btn-primary text-white rounded">Benutzer-Dashboard</a>
                         </li>
@@ -62,10 +62,12 @@
                         </li>
 
                         <li class="nav-item ml-2">
-                            <div class="dropdown show">
-                                <a class="btn btn-dark dropdown-toggle" href="{% url 'profile' request.user.pk %}"
+                            <div class="dropdown">
+                                <a class="dropdown-toggle btn btn-dark " href="{% url 'profile' request.user.pk %}"
                                    role="button"
-                                   id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                                   id="dropdownMenuLink"
+                                   data-toggle="dropdown"
+                                   aria-haspopup="true"
                                    aria-expanded="false">
                                     {{ user.get_username }}
                                 </a>

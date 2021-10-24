@@ -7,9 +7,21 @@ from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 
 class MessageListView(LoginRequiredMixin, generic.ListView):
     model = Message
+    paginate_by = 3
 
     def get_queryset(self, *args, **kwargs):
         return Message.objects.filter(sender=self.request.user)
+
+
+class StaffMessageListView(LoginRequiredMixin, UserPassesTestMixin, generic.ListView):
+    model = Message
+    paginate_by = 3
+
+    def test_func(self):
+        return self.request.user.groups.filter(name='Verwaltung').exists()
+
+    def get_queryset(self, *args, **kwargs):
+        return Message.objects.all()
 
 
 class MessageCreateView(LoginRequiredMixin, UserPassesTestMixin, generic.CreateView):
