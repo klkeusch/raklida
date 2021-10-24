@@ -3,6 +3,7 @@ from . import views
 
 urlpatterns = [
     path("messages/", views.MessageListView.as_view(), name="messages_list"),
+    path('staff-messages-list/', views.StaffMessageListView.as_view(), name="staff_messages_list"),
     path("messages/<int:pk>", views.MessageDetailView.as_view(), name="message_detail"),
     path("messages/create/", views.MessageCreateView.as_view(), name="message_create"),
     path("messages/<int:pk>/update", views.MessageUpdateView.as_view(), name="message_update"),

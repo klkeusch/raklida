@@ -49,6 +49,7 @@
                     {% if request.user.is_authenticated %}
                         <li class="nav-item ml-2">
                             <a href="/admin"
+                               target="_blank"
                                class="nav-link btn-primary text-white rounded">Admin-Dashboard</a>
                         </li>
                         <li class="nav-item ml-2">
@@ -69,7 +70,7 @@
                                     {{ user.get_username }}
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                    <a class="dropdown-item" href="{% url 'blog_list' %}">Blog</a>
+                                    <a class="dropdown-item" href="{% url 'staff_messages_list' %}">Meldungen</a>
                                     <a class="dropdown-item"
                                        href="{% url 'profile' request.user.pk %}">Benutzerprofil</a>
                                     <a class="dropdown-item" href="{% url 'logout' %}">Abmelden</a>

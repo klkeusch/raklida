@@ -1,17 +1,17 @@
-{% extends "blog/base.html" %}
+{% extends "blog/staff_base.html" %}
 {% block content %}
     <div class="landing bg-dark">
         <div class="container">
             <div class="row align-items-center justify-content-center">
                 <div class="col-sm-12 col-lg-8 text-center">
-                    <h1 class="text-white font-weight-bold display-5 mt-5">Meine Meldungen</h1>
+                    <h1 class="text-white font-weight-bold display-5 mt-5">Meldungen</h1>
                 </div>
             </div>
         </div>
     </div>
     <div class="container bg-light mt-n5 p-5 rounded ">
-        {% if message_list.count > 0 %}
-            {% for message in message_list|dictsortreversed:"sent_at" %}
+        {% if notifications.count > 0 %}
+            {% for message in notifications|dictsortreversed:"sent_at" %}
                 <div class="row blog mb-3">
                     <div class="col-lg-2 col-sm-12 text-center">
                         <div class="border-bottom mb-3">Sender:<a class="mugshot-container mb-1"
@@ -71,9 +71,7 @@
         {% else %}
             <div class="mx-auto mb-5" style="width: 720px;">
             <h2 class="text-muted text-center">Keine Meldungen vorhanden.<br/><br/></h2>
-            <p class="mt-3 h3 text-muted text-center">Möchten Sie eine neue Meldung verfassen?</p>
-            <p class="mt-3 h3 text-muted text-center"><a href="{% url 'message_create' %}">Klicken Sie
-                hier!<br/><br/><br/><br/><br/></a></p>
+            <p><br/><br/><br/><br/><br/></p>
         {% endif %}
         </div>
     </div>

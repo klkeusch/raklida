@@ -2,6 +2,7 @@ from django.utils import timezone
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.core.paginator import Paginator
 from .models import *
 from usernotifications.models import Message
 from sensorvalues.models import *
@@ -135,6 +136,9 @@ def show_user_device(request):
     :returns: Context to template.
     """
     notifications = Message.objects.filter(sender=request.user)
+    paginator = Paginator(notifications, 3)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
     device_list = DeviceChoiceField(user=request.user)
 
@@ -365,6 +369,7 @@ def show_user_device(request):
 
     context = {
         'notifications': notifications,
+        'page_obj': page_obj,
         'query_results': query_results,
         'query_current_values': query_current_values,
         'device_list': device_list,
