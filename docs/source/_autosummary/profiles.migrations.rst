@@ -1,4 +1,4 @@
-profiles.migrations
+﻿profiles.migrations
 ===================
 
 .. automodule:: profiles.migrations
@@ -32,4 +32,5 @@ profiles.migrations
    profiles.migrations.0003_auto_20210917_0925
    profiles.migrations.0004_profile_user_rooms
    profiles.migrations.0005_profile_assigned_devices
+   profiles.migrations.0006_alter_profile_assigned_devices
 

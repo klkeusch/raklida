@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'sensorvalues',
     'django_tables2',
-    'sensorvaluesplots',
+    # 'sensorvaluesplots',
     'rest_framework',
     'usernotifications',
     'bootstrap_datepicker_plus',

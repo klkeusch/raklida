@@ -1,4 +1,4 @@
-usernotifications.views
+﻿usernotifications.views
 =======================
 
 .. automodule:: usernotifications.views
@@ -22,6 +22,7 @@ usernotifications.views
       MessageDetailView
       MessageListView
       MessageUpdateView
+      StaffMessageListView
    
    
 

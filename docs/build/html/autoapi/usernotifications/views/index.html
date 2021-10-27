@@ -48,16 +48,19 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#usernotifications.views.MessageListView" title="usernotifications.views.MessageListView"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MessageListView</span></code></a></p></td>
 <td><p>Verify that the current user is authenticated.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#usernotifications.views.MessageCreateView" title="usernotifications.views.MessageCreateView"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MessageCreateView</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#usernotifications.views.StaffMessageListView" title="usernotifications.views.StaffMessageListView"><code class="xref py py-obj docutils literal notranslate"><span class="pre">StaffMessageListView</span></code></a></p></td>
 <td><p>Verify that the current user is authenticated.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#usernotifications.views.MessageDetailView" title="usernotifications.views.MessageDetailView"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MessageDetailView</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#usernotifications.views.MessageCreateView" title="usernotifications.views.MessageCreateView"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MessageCreateView</span></code></a></p></td>
+<td><p>Verify that the current user is authenticated.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#usernotifications.views.MessageDetailView" title="usernotifications.views.MessageDetailView"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MessageDetailView</span></code></a></p></td>
 <td><p>Render a &quot;detail&quot; view of an object.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#usernotifications.views.MessageUpdateView" title="usernotifications.views.MessageUpdateView"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MessageUpdateView</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#usernotifications.views.MessageUpdateView" title="usernotifications.views.MessageUpdateView"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MessageUpdateView</span></code></a></p></td>
 <td><p>View for updating an object, with a response rendered by a template.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#usernotifications.views.MessageDeleteView" title="usernotifications.views.MessageDeleteView"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MessageDeleteView</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#usernotifications.views.MessageDeleteView" title="usernotifications.views.MessageDeleteView"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MessageDeleteView</span></code></a></p></td>
 <td><p>View for deleting an object retrieved with self.get_object(), with a</p></td>
 </tr>
 </tbody>
@@ -72,9 +75,44 @@
 <span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#usernotifications.views.MessageListView.model" title="Link zu dieser Definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="usernotifications.views.MessageListView.paginate_by">
+<span class="sig-name descname"><span class="pre">paginate_by</span></span><em class="property"> <span class="pre">=</span> <span class="pre">3</span></em><a class="headerlink" href="#usernotifications.views.MessageListView.paginate_by" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="usernotifications.views.MessageListView.get_queryset">
 <span class="sig-name descname"><span class="pre">get_queryset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usernotifications.views.MessageListView.get_queryset" title="Link zu dieser Definition">¶</a></dt>
+<dd><p>Return the list of items for this view.</p>
+<p>The return value must be an iterable and may be an instance of
+<cite>QuerySet</cite> in which case <cite>QuerySet</cite> specific behavior will be enabled.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="usernotifications.views.StaffMessageListView">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">usernotifications.views.</span></span><span class="sig-name descname"><span class="pre">StaffMessageListView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usernotifications.views.StaffMessageListView" title="Link zu dieser Definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.UserPassesTestMixin</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">django.views.generic.ListView</span></code></p>
+<p>Verify that the current user is authenticated.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="usernotifications.views.StaffMessageListView.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#usernotifications.views.StaffMessageListView.model" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="usernotifications.views.StaffMessageListView.paginate_by">
+<span class="sig-name descname"><span class="pre">paginate_by</span></span><em class="property"> <span class="pre">=</span> <span class="pre">3</span></em><a class="headerlink" href="#usernotifications.views.StaffMessageListView.paginate_by" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="usernotifications.views.StaffMessageListView.test_func">
+<span class="sig-name descname"><span class="pre">test_func</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usernotifications.views.StaffMessageListView.test_func" title="Link zu dieser Definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="usernotifications.views.StaffMessageListView.get_queryset">
+<span class="sig-name descname"><span class="pre">get_queryset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usernotifications.views.StaffMessageListView.get_queryset" title="Link zu dieser Definition">¶</a></dt>
 <dd><p>Return the list of items for this view.</p>
 <p>The return value must be an iterable and may be an instance of
 <cite>QuerySet</cite> in which case <cite>QuerySet</cite> specific behavior will be enabled.</p>
