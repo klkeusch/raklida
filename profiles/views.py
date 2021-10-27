@@ -401,10 +401,9 @@ def show_staff_devices(request):
     """
     notifications = Message.objects.all()
 
-    devices_list = DeviceChoiceField(user=request.user)
+    device_list = DeviceChoiceField(user=request.user)
 
     query_current_values = None
-
     query_current_device_display_name = None
     query_current_ambient_temperature = None
     query_current_relative_humidity = None
@@ -633,7 +632,7 @@ def show_staff_devices(request):
         'notifications': notifications,
         'query_results': query_results,
         'query_current_values': query_current_values,
-        'devices_list': devices_list,
+        'devices_list': device_list,
         'current_device_display_name': current_device_display_name,
         'query_current_device_display_name': query_current_device_display_name,
         'query_current_ambient_temperature': query_current_ambient_temperature,

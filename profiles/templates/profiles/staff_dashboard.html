@@ -40,8 +40,12 @@
                         <div class="col border-right">
                             <p class="text-white font-weight-bold display-8 mb-3 mt-3">Luftfeuchtigkeit [%]</p>
                         </div>
+
                         <div class="col">
-                            <p class="text-white font-weight-bold display-8 mb-3 mt-3">CO2-Wert [ppm]</p>
+                            <p class="text-white font-weight-bold display-8 mb-3 mt-3" data-toggle="tooltip"
+                               data-placement="right" title="Zusatzmodul | Niedriger Wert: besser!">
+                                Feinstaubkonzentration*
+                                [&microg/m<sup>3</sup>]</p>
                         </div>
                     </div>
                     <div class="row align-items-center justify-content-center">
@@ -52,7 +56,7 @@
                             <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">{{ query_current_relative_humidity|default_if_none:" "|floatformat:2 }}</h1>
                         </div>
                         <div class="col">
-                            <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">{{ query_current_co2_concentration|default_if_none:" "|floatformat:2 }}</h1>
+                            <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">{{ query_current_finedust_concentration|default_if_none:" - " }}</h1>
                         </div>
                     </div>
                 </div>
@@ -64,22 +68,23 @@
                                 <p class="text-white font-weight-bold display-8 mb-3 mt-3">Luftdruck [mbar]</p>
                             </div>
                             <div class="col border-right">
-                                <p class="text-white font-weight-bold display-8 mb-3 mt-3">Feinstaubkonzentration
-                                    [&microg/m<sup>3</sup>]</p>
+                                <p class="text-white font-weight-bold display-8 mb-3 mt-3">CO2-Wert [ppm]</p>
                             </div>
                             <div class="col">
-                                <p class="text-white font-weight-bold display-8 mb-3 mt-3">Luftqualität</p>
+                                <p class="text-white font-weight-bold display-8 mb-3 mt-3" data-toggle="tooltip"
+                                   data-placement="right" title="Zusatzmodul | Niedriger Wert: besser!">
+                                    Luftqualität*</p>
                             </div>
                         </div>
                         <div class="row align-items-center justify-content-center">
                             <div class="col border-right">
-                                <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">{{ query_current_barometric_pressure|default_if_none:" "|floatformat:2 }}</h1>
+                                <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">{{ query_current_barometric_pressure|default_if_none:" - "|floatformat:2 }}</h1>
                             </div>
                             <div class="col border-right">
-                                <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">{{ query_current_finedust_concentration|default_if_none:" " }}</h1>
+                                <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">{{ query_current_co2_concentration|default_if_none:" "|floatformat:2 }}</h1>
                             </div>
                             <div class="col">
-                                <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">{{ query_current_air_quality|default_if_none:" " }}</h1>
+                                <h1 class="text-dark font-weight-bold display-12 mb-3 mt-3">{{ query_current_air_quality|default_if_none:" - " }}</h1>
                             </div>
                         </div>
                     </div>
@@ -87,297 +92,299 @@
                 </div>
 
                 <div class="container bg-light mt-n3 p-5 rounded">
-                <div class="row">
-                <div class="col-12">
-                    <h1>Messwertverlauf | 14 Tage</h1>
-                    <p class="font-weight-light font-italic">Die einzelnen Messwerte können durch Klicken
-                        ein- und
-                        ausgeblendet werden. Verschieben und Zoomen funktioniert mit der Maus bzw. dem
-                        Mausrad.</p>
-                </div>
-                <div class="container-fluid clearfix pt-1">
-                    <button class="btn-sm btn-primary float-right" onclick="zoomOut()">Zoom -</button>
-                    <!--<button class="btn-sm btn-secondary float-right" onclick="zoomOut()">Zoom x -</button>-->
+                    <div class="row">
+                        <div class="col-12">
+                            <h1>Messwertverlauf | 14 Tage</h1>
+                            <p class="font-weight-light font-italic">Die einzelnen Messwerte können durch Klicken
+                                ein- und
+                                ausgeblendet werden. Verschieben und Zoomen funktioniert mit der Maus bzw. dem
+                                Mausrad.</p>
+                        </div>
+                        <div class="container-fluid clearfix pt-1">
+                            <button class="btn-sm btn-primary float-right" onclick="zoomOut()">Zoom -</button>
+                            <!--<button class="btn-sm btn-secondary float-right" onclick="zoomOut()">Zoom x -</button>-->
 
-                    <button class="btn-sm btn-secondary float-right" onclick="resetZoom()">Reset Zoom
-                    </button>
-                    <!--<button class="btn-sm btn-secondary float-right" onclick="zoomIn()">Zoom x +</button>-->
-                    <button class="btn-sm btn-primary float-right" onclick="zoomIn()">Zoom +</button>
-                </div>
-                {% block javascript %}
-                    {{ ambient_temperature_chart_data|json_script:"ambient_temperature_chart_data" }}
-                    {{ relative_humidity_chart_data|json_script:"relative_humidity_chart_data" }}
-                    {{ co2_concentration_chart_data|json_script:"co2_concentration_chart_data" }}
-                    {{ barometric_pressure_chart_data|json_script:"barometric_pressure_chart_data" }}
-                    {{ pm2_5_atm_chart_data|json_script:"pm2_5_atm_chart_data" }}
-                    {{ air_quality_chart_data|json_script:"air_quality_chart_data" }}
-                    {{ labels|json_script:"timestamps" }}
-                    <div class="chart-container"
-                         style="position: relative;margin-bottom: 40vh;  height:40vh; width:80vw">
-                        <canvas id="chart"></canvas>
-                    </div>
-                    <script type="text/javascript" id="staffchart">
-                        let ctx = document.getElementById('chart');
-                        const ambient_temperature_chart_data = JSON.parse(document.getElementById('ambient_temperature_chart_data').textContent);
-                        const relative_humidity_chart_data = JSON.parse(document.getElementById('relative_humidity_chart_data').textContent);
-                        const co2_concentration_chart_data = JSON.parse(document.getElementById('co2_concentration_chart_data').textContent);
-                        const pm2_5_atm_chart_data = JSON.parse(document.getElementById('pm2_5_atm_chart_data').textContent);
-                        const barometric_pressure_chart_data = JSON.parse(document.getElementById('barometric_pressure_chart_data').textContent);
-                        const air_quality_chart_data = JSON.parse(document.getElementById('air_quality_chart_data').textContent);
-                        const timestamps = JSON.parse(document.getElementById('timestamps').textContent);
+                            <button class="btn-sm btn-secondary float-right" onclick="resetZoom()">Reset Zoom
+                            </button>
+                            <!--<button class="btn-sm btn-secondary float-right" onclick="zoomIn()">Zoom x +</button>-->
+                            <button class="btn-sm btn-primary float-right" onclick="zoomIn()">Zoom +</button>
+                        </div>
+                        {% block javascript %}
+                            {{ ambient_temperature_chart_data|json_script:"ambient_temperature_chart_data" }}
+                            {{ relative_humidity_chart_data|json_script:"relative_humidity_chart_data" }}
+                            {{ co2_concentration_chart_data|json_script:"co2_concentration_chart_data" }}
+                            {{ barometric_pressure_chart_data|json_script:"barometric_pressure_chart_data" }}
+                            {{ pm2_5_atm_chart_data|json_script:"pm2_5_atm_chart_data" }}
+                            {{ air_quality_chart_data|json_script:"air_quality_chart_data" }}
+                            {{ labels|json_script:"timestamps" }}
 
-                        $.ajax({
-                            url: '/line_chart/',
-                            success: function () {
-                                window.myline = new Chart(ctx, {
-                                    type: 'line',
-                                    data: {
-                                        labels: timestamps,
-                                        datasets: [{
-                                            label: 'Temperatur [°C]',
-                                            backgroundColor: "crimson",
-                                            borderColor: "crimson",
-                                            fill: false,
-                                            lineTension: 0.1,
-                                            radius: 1,
-                                            data: ambient_temperature_chart_data,
-                                            yAxisID: 'y',
-                                        }, {
-                                            label: 'Luftfeuchtigkeit [%]',
-                                            backgroundColor: "mediumslateblue",
-                                            borderColor: "mediumslateblue",
-                                            fill: false,
-                                            lineTension: 0.1,
-                                            radius: 1,
-                                            data: relative_humidity_chart_data,
-                                            yAxisID: 'y',
-                                        }, {
-                                            label: 'CO2-Konzentration [ppm]',
-                                            backgroundColor: "dimgrey",
-                                            borderColor: "dimgrey",
-                                            fill: false,
-                                            lineTension: 0.1,
-                                            radius: 1,
-                                            data: co2_concentration_chart_data,
-                                            yAxisID: 'y1',
-                                        }, {
-                                            label: 'Luftdruck [mbar]',
-                                            backgroundColor: "deepskyblue",
-                                            borderColor: "deepskyblue",
-                                            fill: false,
-                                            lineTension: 0.1,
-                                            radius: 1,
-                                            data: barometric_pressure_chart_data,
-                                            yAxisID: 'y1',
-                                        }, {
-                                            label: 'Feinstaubkonzentration [µg/m3]',
-                                            backgroundColor: "black",
-                                            borderColor: "black",
-                                            fill: false,
-                                            lineTension: 0.1,
-                                            radius: 1,
-                                            data: pm2_5_atm_chart_data,
-                                            yAxisID: 'y',
-                                        }, {
-                                            label: 'Luftqualität []',
-                                            backgroundColor: "ForestGreen",
-                                            borderColor: "ForestGreen",
-                                            fill: false,
-                                            lineTension: 0.1,
-                                            radius: 1,
-                                            data: air_quality_chart_data,
-                                            yAxisID: 'y1',
-                                        },
-                                        ]
-                                    },
-                                    options: {
-                                        alignToPixels: true,
-                                        locale: 'de-DE',
-                                        responsive: true,
-                                        interaction: {
-                                            mode: 'index',
-                                            intersect: false,
-                                        },
-                                        plugins: {
-                                            zoom: {
-                                                pan: {
-                                                    enabled: true,
-                                                    mode: 'xy',
+                            <div class="chart-container"
+                                 style="position: relative;margin-bottom: 35vh;  height:40vh; width:80vw">
+                                <canvas id="chart"></canvas>
+                            </div>
+                            <script type="text/javascript" id="staffcharts">
+                                let ctx = document.getElementById('chart');
+                                const ambient_temperature_chart_data = JSON.parse(document.getElementById('ambient_temperature_chart_data').textContent);
+                                const relative_humidity_chart_data = JSON.parse(document.getElementById('relative_humidity_chart_data').textContent);
+                                const co2_concentration_chart_data = JSON.parse(document.getElementById('co2_concentration_chart_data').textContent);
+                                const pm2_5_atm_chart_data = JSON.parse(document.getElementById('pm2_5_atm_chart_data').textContent);
+                                const barometric_pressure_chart_data = JSON.parse(document.getElementById('barometric_pressure_chart_data').textContent);
+                                const air_quality_chart_data = JSON.parse(document.getElementById('air_quality_chart_data').textContent);
+                                const timestamps = JSON.parse(document.getElementById('timestamps').textContent);
+                                $.ajax({
+                                    url: '/line_chart/',
+                                    success: function () {
+                                        window.myline = new Chart(ctx, {
+                                            type: 'line',
+                                            data: {
+                                                labels: timestamps,
+                                                datasets: [{
+                                                    label: 'Temperatur [°C]',
+                                                    backgroundColor: "crimson",
+                                                    borderColor: "crimson",
+                                                    fill: false,
+                                                    lineTension: 0.1,
+                                                    radius: 1,
+                                                    data: ambient_temperature_chart_data,
+                                                    yAxisID: 'y',
+                                                }, {
+                                                    label: 'Luftfeuchtigkeit [%]',
+                                                    backgroundColor: "mediumslateblue",
+                                                    borderColor: "mediumslateblue",
+                                                    fill: false,
+                                                    lineTension: 0.1,
+                                                    radius: 1,
+                                                    data: relative_humidity_chart_data,
+                                                    yAxisID: 'y',
+                                                }, {
+                                                    label: 'CO2-Konzentration [ppm]',
+                                                    backgroundColor: "dimgrey",
+                                                    borderColor: "dimgrey",
+                                                    fill: false,
+                                                    lineTension: 0.1,
+                                                    radius: 1,
+                                                    data: co2_concentration_chart_data,
+                                                    yAxisID: 'y1',
+                                                }, {
+                                                    label: 'Luftdruck [mbar]',
+                                                    backgroundColor: "deepskyblue",
+                                                    borderColor: "deepskyblue",
+                                                    fill: false,
+                                                    lineTension: 0.1,
+                                                    radius: 1,
+                                                    data: barometric_pressure_chart_data,
+                                                    yAxisID: 'y1',
+                                                }, {
+                                                    label: 'Feinstaubkonzentration [µg/m3]',
+                                                    backgroundColor: "black",
+                                                    borderColor: "black",
+                                                    fill: false,
+                                                    lineTension: 0.1,
+                                                    radius: 1,
+                                                    data: pm2_5_atm_chart_data,
+                                                    yAxisID: 'y',
+                                                }, {
+                                                    label: 'Luftqualität []',
+                                                    backgroundColor: "ForestGreen",
+                                                    borderColor: "ForestGreen",
+                                                    fill: false,
+                                                    lineTension: 0.1,
+                                                    radius: 1,
+                                                    data: air_quality_chart_data,
+                                                    yAxisID: 'y1',
                                                 },
-                                                zoom: {
-                                                    wheel: {
-                                                        enabled: true,
-                                                    },
-                                                    pinch: {
-                                                        enabled: true
-                                                    },
-                                                    mode: 'xy',
-                                                }
+                                                ]
                                             },
-                                            stacked: true,
-                                        },
-                                        scales: {
-                                            x: {
-                                                type: "time",
-                                                display: true,
-                                                title: {
-                                                    display: true,
-                                                    text: 'Zeit'
+                                            options: {
+                                                alignToPixels: true,
+                                                locale: 'de-DE',
+                                                responsive: true,
+                                                interaction: {
+                                                    mode: 'index',
+                                                    intersect: false,
                                                 },
-                                                time: {
-                                                    tooltipFormat: 'DD.MM.YY, HH:mm',
-                                                    displayFormats: {
-                                                        'millisecond': 'HH:mm:ss.SSS',
-                                                        'second': 'HH:mm:ss',
-                                                        'minute': 'DD.MM.YY, HH:mm',
-                                                        'hour': 'DD.MM.YY, HH:mm',
-                                                        'day': 'DD.MM.YY',
-                                                        'week': 'DD.MM.YY',
-                                                        'month': 'MMM YY',
-                                                        'quarter': 'MM YY',
-                                                        'year': 'MMM YYYY',
+                                                plugins: {
+                                                    zoom: {
+                                                        pan: {
+                                                            enabled: true,
+                                                            mode: 'xy',
+                                                        },
+                                                        zoom: {
+                                                            wheel: {
+                                                                enabled: true,
+                                                            },
+                                                            pinch: {
+                                                                enabled: true
+                                                            },
+                                                            mode: 'xy',
+                                                        }
                                                     },
+                                                    stacked: true,
                                                 },
-                                                gridLines: {
-                                                    display: false,
-                                                },
-                                                ticks: {
-                                                    display: true,
-                                                    autoSkip: true,
-                                                    maxTicksLimit: 24
+                                                scales: {
+                                                    x: {
+                                                        type: "time",
+                                                        display: true,
+                                                        title: {
+                                                            display: true,
+                                                            text: 'Zeit'
+                                                        },
+                                                        time: {
+                                                            tooltipFormat: 'DD.MM.YY, HH:mm',
+                                                            displayFormats: {
+                                                                'millisecond': 'HH:mm:ss.SSS',
+                                                                'second': 'HH:mm:ss',
+                                                                'minute': 'DD.MM.YY, HH:mm',
+                                                                'hour': 'DD.MM.YY, HH:mm',
+                                                                'day': 'DD.MM.YY',
+                                                                'week': 'DD.MM.YY',
+                                                                'month': 'MMM YY',
+                                                                'quarter': 'MM YY',
+                                                                'year': 'MMM YYYY',
+                                                            },
+                                                        },
+                                                        gridLines: {
+                                                            display: false,
+                                                        },
+                                                        ticks: {
+                                                            display: true,
+                                                            autoSkip: true,
+                                                        },
+                                                    },
+                                                    y: {
+                                                        type: 'linear',
+                                                        display: 'auto',
+                                                        title: {
+                                                            display: true,
+                                                            text: 'Temperatur [°C] | Luftfeuchtigkeit [%] | Feinstaubkonzentration [µg/m3]'
+                                                        },
+                                                        position: 'left',
+                                                        ticks: {},
+                                                        grid: {
+                                                            drawOnChartArea: false,
+                                                        },
+
+                                                    },
+                                                    y1: {
+                                                        type: 'linear',
+                                                        display: 'auto',
+                                                        title: {
+                                                            display: true,
+                                                            text: 'CO2-Konzentration [ppm] | Luftdruck [mbar] | Luftqualität []'
+                                                        },
+                                                        position: 'right',
+                                                        ticks: {}
+                                                    }
                                                 },
                                             },
-                                            y: {
-                                                type: 'linear',
-                                                display: 'auto',
-                                                title: {
-                                                    display: true,
-                                                    text: 'Temperatur [°C] | Luftfeuchtigkeit [%] | Feinstaubkonzentration [µg/m3]'
-                                                },
-                                                position: 'left',
-                                                ticks: {},
-                                                grid: {
-                                                    drawOnChartArea: false,
-                                                },
-                                            },
-                                            y1: {
-                                                type: 'linear',
-                                                display: 'auto',
-                                                title: {
-                                                    display: true,
-                                                    text: 'CO2-Konzentration [ppm] | Luftdruck [mbar] | Luftqualität []'
-                                                },
-                                                position: 'right',
-                                                ticks: {}
-                                            }
-                                        },
-                                    },
+                                        });
+                                    }
                                 });
-                            }
-                        });
 
-                        function resetZoom() {
-                            window.myline.resetZoom();
-                        }
+                                function resetZoom() {
+                                    window.myline.resetZoom();
+                                }
 
-                        function zoomIn() {
-                            window.myline.zoom(1.15);
-                        }
+                                function zoomIn() {
+                                    window.myline.zoom(1.15);
+                                }
 
-                        function zoomXIn() {
-                            window.myline.zoom({x: 1.15});
-                        }
+                                function zoomXIn() {
+                                    window.myline.zoom({x: 1.15});
+                                }
 
-                        function zoomXOut() {
-                            window.myline.zoom({x: 0.85});
-                        }
+                                function zoomXOut() {
+                                    window.myline.zoom({x: 0.85});
+                                }
 
-                        function zoomOut() {
-                            window.myline.zoom(0.85);
-                        }
-                    </script>
-                {% endblock javascript %}
-                <!--</div>-->
-                <!--</div>-->
-            {% endif %}
-            </div>
-            <div class="container bg-light mt-n3 p-5 rounded">
-                <div class="row">
-                    <div class="col-12 border-bottom mb-3">
-                        <h1>Aktuelle Meldungen</h1>
+                                function zoomOut() {
+                                    window.myline.zoom(0.85);
+                                }
+                            </script>
+                        {% endblock javascript %}
                     </div>
-                    <div class="col-12 mb-3">
-                        {% if notifications.count > 0 %}
-                            {% for message in notifications|dictsortreversed:"sent_at" %}
-                                <div class="row blog mb-3">
-                                    <div class="col-lg-2 col-sm-12 text-center">
-                                        <div class="border-bottom mb-3">Sender:<a class="mugshot-container mb-1"
-                                                                                  href="{% url 'profile' message.sender.pk %}">
-                                            <span>{{ message.sender.first_name }} {{ message.sender.last_name }}</span>
-                                        </a></div>
-                                        <div>Empfänger:<a class="mugshot-container mb-1"
-                                                          href="{% url 'profile' message.recipient.pk %}">
-                                            <div class="mugshot-img mb-2"
-                                                 style="background-image:url({{ message.recipient.profile.image.url }})"></div>
-                                            <span>{{ message.recipient.first_name }} {{ message.recipient.last_name }}</span>
-                                        </a></div>
-                                    </div>
-                                    <div class="col-lg-10 col-sm-12">
-                                        <div class="blog-information">
-                                            <p class="text-muted">Gesendet am {{ message.sent_at|date:"d.m.Y" }}
-                                                um {{ message.sent_at|date:"H:i" }}</p>
-                                            <p>{{ message.content }}</p>
-                                            <p class="text-bold"><br/>Betroffenes Gerät: {{ message.user_devices }}</p>
-                                            <p class="text-bold">Vorfall am {{ message.incident_date|date:"d.m.Y" }}
-                                                um {{ message.incident_date|date:"H:i" }}</p>
-                                            <div class="update-edit">
-                                                {% if request.user.is_authenticated and request.user == message.sender %}
-                                                    <a class="btn btn-sm btn-info"
-                                                       href="{% url 'message_update' message.pk %}">Bearbeiten</a>
-                                                    <a class="btn btn-sm btn-danger"
-                                                       href="{% url 'message_delete' message.pk %}">Löschen</a>
-                                                {% endif %}
-                                            </div>
-                                        </div>
+                </div>
+                </div>
+            {% endif %}
+
+
+    <div class="container bg-light mt-n3 p-5 rounded">
+        <div class="row">
+            <div class="col-12 border-bottom mb-3">
+                <h1>Aktuelle Meldungen</h1>
+            </div>
+            <div class="col-12 mb-3">
+                {% if notifications.count > 0 %}
+                    {% for message in notifications|dictsortreversed:"sent_at" %}
+                        <div class="row blog mb-3">
+                            <div class="col-lg-2 col-sm-12 text-center">
+                                <div class="border-bottom mb-3">Sender:<a class="mugshot-container mb-1"
+                                                                          href="{% url 'profile' message.sender.pk %}">
+                                    <span>{{ message.sender.first_name }} {{ message.sender.last_name }}</span>
+                                </a></div>
+                                <div>Empfänger:<a class="mugshot-container mb-1"
+                                                  href="{% url 'profile' message.recipient.pk %}">
+                                    <div class="mugshot-img mb-2"
+                                         style="background-image:url({{ message.recipient.profile.image.url }})"></div>
+                                    <span>{{ message.recipient.first_name }} {{ message.recipient.last_name }}</span>
+                                </a></div>
+                            </div>
+                            <div class="col-lg-10 col-sm-12">
+                                <div class="blog-information">
+                                    <p class="text-muted">Gesendet am {{ message.sent_at|date:"d.m.Y" }}
+                                        um {{ message.sent_at|date:"H:i" }}</p>
+                                    <p>{{ message.content }}</p>
+                                    <p class="text-bold"><br/>Betroffenes Gerät: {{ message.user_devices }}</p>
+                                    <p class="text-bold">Vorfall am {{ message.incident_date|date:"d.m.Y" }}
+                                        um {{ message.incident_date|date:"H:i" }}</p>
+                                    <div class="update-edit">
+                                        {% if request.user.is_authenticated and request.user == message.sender %}
+                                            <a class="btn btn-sm btn-info"
+                                               href="{% url 'message_update' message.pk %}">Bearbeiten</a>
+                                            <a class="btn btn-sm btn-danger"
+                                               href="{% url 'message_delete' message.pk %}">Löschen</a>
+                                        {% endif %}
                                     </div>
                                 </div>
-                            {% endfor %}
-                            </div>
-                            </div>
-                        {% else %}
-                            <div class=" ">
-                                <h2 class="text-muted text-center">Hier wurde leider noch keine Nachricht verfasst!
-                                    ¯\_(ツ)_/¯<br/><br/></h2>
-                            </div>
-                        {% endif %}
-            </div>
-
-            <div class="container bg-light mt-n3 p-5 rounded">
-                <div class="row">
-                    <div class="col-12 border-bottom mb-3">
-                        <h1>Exportmöglichkeiten</h1>
-                    </div>
-                    <div class="col-12 mb-3">
-                        <div class="row blog mb-5">
-                            <h3>Alle Datensätze - CSV</h3>
-                            <div class="row mt-4 p-3">
-                                <a type="button" class="btn btn-primary m-1"
-                                   href="{% url 'export_devices_csv' %}?format=csv">Geräte</a>
-                                <a type="button" class="btn btn-primary m-1"
-                                   href="{% url 'export_data_csv' %}?format=csv">Messwerte (14 Tage)</a>
-                                <a type="button" class="btn btn-primary m-1"
-                                   href="{% url 'export_datapoints_csv' %}?format=csv">Datenpunkte</a>
-                                <a type="button" class="btn btn-primary m-1"
-                                   href="{% url 'export_mqtt_tree_nodes_csv' %}?format=csv">MQTT-Tree-Nodes</a>
-                                <a type="button" class="btn btn-primary m-1"
-                                   href="{% url 'export_mqtt_tree_datapoint_translations_csv' %}?format=csv">MQTT-Tree-Datapoint-Translations</a>
                             </div>
                         </div>
+                    {% endfor %}
+                    </div>
+                    </div>
+                {% else %}
+                    <div class=" ">
+                        <h2 class="text-muted text-center">Hier wurde leider noch keine Nachricht verfasst!
+                            ¯\_(ツ)_/¯<br/><br/></h2>
+                    </div>
+                {% endif %}
+    </div>
+
+    <div class="container bg-light mt-n3 p-5 rounded">
+        <div class="row">
+            <div class="col-12 border-bottom mb-3">
+                <h1>Exportmöglichkeiten</h1>
+            </div>
+            <div class="col-12 mb-3">
+                <div class="row blog mb-5">
+                    <h3>Alle Datensätze - CSV</h3>
+                    <div class="row mt-4 p-3">
+                        <a type="button" class="btn btn-primary m-1"
+                           href="{% url 'export_devices_csv' %}?format=csv">Geräte</a>
+                        <a type="button" class="btn btn-primary m-1"
+                           href="{% url 'export_data_csv' %}?format=csv">Messwerte (14 Tage)</a>
+                        <a type="button" class="btn btn-primary m-1"
+                           href="{% url 'export_datapoints_csv' %}?format=csv">Datenpunkte</a>
+                        <a type="button" class="btn btn-primary m-1"
+                           href="{% url 'export_mqtt_tree_nodes_csv' %}?format=csv">MQTT-Tree-Nodes</a>
+                        <a type="button" class="btn btn-primary m-1"
+                           href="{% url 'export_mqtt_tree_datapoint_translations_csv' %}?format=csv">MQTT-Tree-Datapoint-Translations</a>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
 
-            </div>
+    </div>
     </div>
 
     </div>
