@@ -1,4 +1,4 @@
-sensorvalues.migrations
+﻿sensorvalues.migrations
 =======================
 
 .. automodule:: sensorvalues.migrations
@@ -46,4 +46,5 @@ sensorvalues.migrations
    sensorvalues.migrations.0017_auto_20211002_0750
    sensorvalues.migrations.0018_auto_20211006_0822
    sensorvalues.migrations.0019_auto_20211006_0827
+   sensorvalues.migrations.0020_alter_data_options
 

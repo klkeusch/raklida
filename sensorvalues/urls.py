@@ -12,6 +12,5 @@ urlpatterns = [
     path('export-csv/mqtt-tree-nodes', views.export_mqtt_tree_nodes_csv, name='export_mqtt_tree_nodes_csv'),
     path('export-csv/mqtt-tree-datapoint-translations', views.export_mqtt_tree_datapoint_translations_csv,
          name='export_mqtt_tree_datapoint_translations_csv'),
-
     # Exports above
 ]

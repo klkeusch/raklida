@@ -19,7 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import include, path
 from profiles import views as profiles_views
-from sensorvalues import views as sensorvalues_views
+# from sensorvalues import views as sensorvalues_views
 from sensorvaluesplots import views as sensvalplots
 from profiles.views import *
 
@@ -35,8 +35,6 @@ urlpatterns = [
     path('line_chart/', show_user_device, name='line_chart'),
     path('show-staff-devices/', show_staff_devices, name='show_staff_devices'),
     # User/Staff above
-
-
 
     # Sensorvalues below
     # not reliable /w big db path("sensorvalues/", sensorvalues_views.data_list, name="sensorvalues_list"),

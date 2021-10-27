@@ -136,12 +136,6 @@ def show_user_device(request):
     :returns: Context to template.
     """
     notifications = Message.objects.filter(sender=request.user)
-    #latest_user_message = Message.objects.filter(sender=request.user).latest("sent_at")#Message.objects.filter(sender=request.user).latest("sent_at")
-
-
-    #paginator = Paginator(notifications, 3)
-    #page_number = request.GET.get('page')
-    #page_obj = paginator.get_page(page_number)
 
     device_list = DeviceChoiceField(user=request.user)
 
@@ -371,9 +365,7 @@ def show_user_device(request):
         query_results = Devices.objects.none()
 
     context = {
-        #'latest_user_message': latest_user_message,
         'notifications': notifications,
-        #'page_obj': page_obj,
         'query_results': query_results,
         'query_current_values': query_current_values,
         'device_list': device_list,
@@ -408,7 +400,6 @@ def show_staff_devices(request):
     :returns: Context to template.
     """
     notifications = Message.objects.all()
-    #latest_user_message = Message.objects.latest("sent_at")
 
     devices_list = DeviceChoiceField(user=request.user)
 
@@ -639,7 +630,6 @@ def show_staff_devices(request):
         query_results = Devices.objects.none()
 
     context = {
-        #'latest_user_message': latest_user_message,
         'notifications': notifications,
         'query_results': query_results,
         'query_current_values': query_current_values,

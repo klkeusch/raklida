@@ -13,6 +13,7 @@ Classes
 .. autoapisummary::
 
    usernotifications.views.MessageListView
+   usernotifications.views.StaffMessageListView
    usernotifications.views.MessageCreateView
    usernotifications.views.MessageDetailView
    usernotifications.views.MessageUpdateView
@@ -31,6 +32,39 @@ Classes
       
 
       
+
+   .. py:attribute:: paginate_by
+      :annotation: = 3
+
+      
+
+   .. py:method:: get_queryset(self, *args, **kwargs)
+
+      Return the list of items for this view.
+
+      The return value must be an iterable and may be an instance of
+      `QuerySet` in which case `QuerySet` specific behavior will be enabled.
+
+
+
+.. py:class:: StaffMessageListView(**kwargs)
+
+   Bases: :py:obj:`django.contrib.auth.mixins.LoginRequiredMixin`, :py:obj:`django.contrib.auth.mixins.UserPassesTestMixin`, :py:obj:`django.views.generic.ListView`
+
+   Verify that the current user is authenticated.
+
+   .. py:attribute:: model
+      
+
+      
+
+   .. py:attribute:: paginate_by
+      :annotation: = 3
+
+      
+
+   .. py:method:: test_func(self)
+
 
    .. py:method:: get_queryset(self, *args, **kwargs)
 

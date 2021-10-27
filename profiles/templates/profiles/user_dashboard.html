@@ -130,7 +130,6 @@
                                 const barometric_pressure_chart_data = JSON.parse(document.getElementById('barometric_pressure_chart_data').textContent);
                                 const air_quality_chart_data = JSON.parse(document.getElementById('air_quality_chart_data').textContent);
                                 const timestamps = JSON.parse(document.getElementById('timestamps').textContent);
-                                //console.log(ambient_temperature_chart_data)
                                 $.ajax({
                                     url: '/line_chart/',
                                     success: function () {
