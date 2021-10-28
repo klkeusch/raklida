@@ -21,8 +21,7 @@ class MessageCreateForm(forms.ModelForm):
 
         super(MessageCreateForm, self).__init__(*args, **kwargs)
 
-        self.fields['recipient'].queryset = User.objects.all().exclude(
-            is_staff=False)
+        self.fields['recipient'].queryset = User.objects.filter(groups__name="Verwaltung")
         self.fields['incident_date'].widget = DateTimePickerInput(options={
             "format": "DD.MM.YYYY HH:mm",
             "locale": "de",
