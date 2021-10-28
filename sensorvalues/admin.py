@@ -4,7 +4,7 @@ from django_admin_listfilter_dropdown.filters import DropdownFilter, RelatedDrop
 from .models import Data, Datapoints, Devices, MqttTreeNodes, TreeDatapointTranslations, DailyAverages, \
     DeviceUserAssignment
 
-admin.site.register(DailyAverages)
+# admin.site.register(DailyAverages)
 
 
 class TreeDatapointTranslationsAdmin(admin.ModelAdmin):
