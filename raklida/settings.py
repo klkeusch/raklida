@@ -58,7 +58,6 @@ INSTALLED_APPS = [
     'bootstrap4',
     'chartjs',
     'admincharts',
-    # 'djangobower',
 ]
 
 MIDDLEWARE = [
@@ -156,8 +155,8 @@ DJANGO_TABLES2_TEMPLATE = "django_tables2/bootstrap4.html"
 
 # Email config
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = 'smtp_server_address'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = '***REMOVED***'
-EMAIL_HOST_PASSWORD = '***REMOVED***'
+EMAIL_HOST_USER = 'email_host_address'
+EMAIL_HOST_PASSWORD = 'email_host_password'
