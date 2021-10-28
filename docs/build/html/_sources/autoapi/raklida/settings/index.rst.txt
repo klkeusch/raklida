@@ -166,12 +166,12 @@ Module Contents
    
 
 .. py:data:: EMAIL_HOST_USER
-   :annotation: = ***REMOVED***
+   :annotation: = klkeusch@gmail.com
 
    
 
 .. py:data:: EMAIL_HOST_PASSWORD
-   :annotation: = ***REMOVED***
+   :annotation: = iepvqoqidlsqlbbh
 
    
 

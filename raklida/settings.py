@@ -28,7 +28,7 @@ LOGIN_URL = 'login'
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ***REMOVED***
+SECRET_KEY = 'django-insecure-!nrrre@@@*&tv#w$j%xi4+dz&34mc1tv53euok#%hyyr9@l*96'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -99,7 +99,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'stp_web',
         'USER': 'postgres',
-        'PASSWORD': ***REMOVED***,
+        'PASSWORD': 'dasIstDasPasswOrtFüRPost',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
