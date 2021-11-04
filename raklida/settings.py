@@ -96,10 +96,10 @@ WSGI_APPLICATION = 'raklida.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.***REMOVED***ql_psycopg2',
-        'NAME': '***REMOVED***',
-        'USER': '***REMOVED***',
-        'PASSWORD': '***REMOVED***',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'db_name',
+        'USER': 'db_user',
+        'PASSWORD': 'db_user_password',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
